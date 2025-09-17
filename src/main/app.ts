@@ -1250,7 +1250,7 @@ export class JupyterApplication implements IApplication, IDisposable {
 
   checkForUpdates(showDialog: 'on-new-version' | 'always') {
     fetch(
-      'https://github.com/jupyterlab/jupyterlab-desktop/releases/latest/download/latest.yml'
+      'https://github.com/mito-ds/mito-desktop/releases/latest/download/latest.yml'
     )
       .then(async response => {
         try {
