@@ -659,7 +659,7 @@ export class JupyterApplication implements IApplication, IDisposable {
       EventTypeMain.LaunchInstallerDownloadPage,
       () => {
         shell.openExternal(
-          'https://github.com/jupyterlab/jupyterlab-desktop/releases'
+          'https://trymito.io/downloads'
         );
       }
     );
