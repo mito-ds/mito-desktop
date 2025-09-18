@@ -772,6 +772,7 @@ export class JupyterApplication implements IApplication, IDisposable {
               addUserSetEnvironment(installPath, true);
               const pythonPath = pythonPathForEnvPath(installPath, true);
               this._registry.addEnvironment(pythonPath);
+              this._registry.setDefaultPythonPath(pythonPath);
             }
           },
           get forceOverwrite() {
