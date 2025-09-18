@@ -292,6 +292,13 @@ export class WelcomeView {
               align-items: center;
             }
             
+            .notification-icon {
+              width: 20px;
+              height: 20px;
+              margin-right: 12px;
+              flex-shrink: 0;
+            }
+            
             #notification-panel .close-button {
               width: 16px;
               height: 16px;
@@ -376,6 +383,13 @@ export class WelcomeView {
               </symbol>
               <symbol id="triangle-exclamation" viewBox="0 0 512 512">
                 <path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32z"/>
+              </symbol>
+              <symbol id="checkmark-success" viewBox="0 0 512 512">
+                <path fill="#2BB673" d="M489,255.9c0-0.2,0-0.5,0-0.7c0-1.6,0-3.2-0.1-4.7c0-0.9-0.1-1.8-0.1-2.8c0-0.9-0.1-1.8-0.1-2.7  c-0.1-1.1-0.1-2.2-0.2-3.3c0-0.7-0.1-1.4-0.1-2.1c-0.1-1.2-0.2-2.4-0.3-3.6c0-0.5-0.1-1.1-0.1-1.6c-0.1-1.3-0.3-2.6-0.4-4  c0-0.3-0.1-0.7-0.1-1C474.3,113.2,375.7,22.9,256,22.9S37.7,113.2,24.5,229.5c0,0.3-0.1,0.7-0.1,1c-0.1,1.3-0.3,2.6-0.4,4  c-0.1,0.5-0.1,1.1-0.1,1.6c-0.1,1.2-0.2,2.4-0.3,3.6c0,0.7,0.1,1.4,0.1,2.1c0.1,1.1,0.1,2.2,0.2,3.3c0,0.9,0.1,1.8,0.1,2.7c0.1,1.1,0.1,2.2,0.2,3.3c0,0.7,0.1,1.4,0.1,2.1c0.1,1.2,0.2,2.4,0.3,3.6  c0,0.5,0.1,1.1,0.1,1.6c0.1,1.3,0.3,2.6,0.4,4c0,0.3,0.1,0.7,0.1,1C37.7,398.8,136.3,489.1,256,489.1s218.3-90.3,231.5-206.5  c0-0.3,0.1-0.7,0.1-1c0.1-1.3,0.3-2.6,0.4-4c0.1-0.5,0.1-1.1,0.1-1.6c0.1-1.2,0.2-2.4,0.3-3.6c0-0.7,0.1-1.4,0.1-2.1  c0.1-1.1,0.1-2.2,0.2-3.3c0-0.9,0.1-1.8,0.1-2.7c0-0.9,0.1-1.8,0.1-2.8c0-1.6,0.1-3.2,0.1-4.7c0-0.2,0-0.5,0-0.7  C489,256,489,256,489,255.9C489,256,489,256,489,255.9z"/>
+                <g>
+                  <line fill="none" stroke="#FFFFFF" stroke-width="30" stroke-miterlimit="10" x1="213.6" x2="369.7" y1="344.2" y2="188.2"/>
+                  <line fill="none" stroke="#FFFFFF" stroke-width="30" stroke-miterlimit="10" x1="233.8" x2="154.7" y1="345.2" y2="266.1"/>
+                </g>
               </symbol>
             </defs>
           </svg>
@@ -587,9 +601,12 @@ export class WelcomeView {
             window.electronAPI.sendMessageToMain(message, ...args);
           }
 
-          function showNotificationPanel(message, closable, showSpinner = false) {
+          function showNotificationPanel(message, closable, showSpinner = false, showSuccess = false) {
+            
             if (showSpinner) {
               notificationPanelMessage.innerHTML = message + '<div class="loading-spinner"></div>';
+            } else if (showSuccess) {
+              notificationPanelMessage.innerHTML = '<svg class="notification-icon" version="2.0"><use href="#checkmark-success" /></svg>' + message;
             } else {
               notificationPanelMessage.innerHTML = message;
             }
@@ -644,7 +661,8 @@ export class WelcomeView {
             }
 
             const showSpinner = status === 'STARTED';
-            showNotificationPanel(message, status !== 'STARTED', showSpinner);
+            const showSuccess = status === 'SUCCESS';
+            showNotificationPanel(message, status !== 'STARTED', showSpinner, showSuccess);
           });
           </script>
         </body>
