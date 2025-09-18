@@ -638,19 +638,13 @@ export class WelcomeView {
               'Installation cancelled!' :
               status === 'FAILURE' ?
                 'Failed to install!' :
-              status === 'SUCCESS' ? 'Installation succeeded.' : '';
+              status === 'SUCCESS' ? 'Workspace setup complete. Create a notebook to get started.' : '';
             if (detail) {
               message += \`[\$\{detail\}]\`;
             }
 
             const showSpinner = status === 'STARTED';
-            showNotificationPanel(message, status === 'CANCELLED' || status === 'FAILURE', showSpinner);
-    
-            if (status === 'SUCCESS') {
-              setTimeout(() => {
-                showNotificationPanel('', true);
-              }, 2000);
-            }
+            showNotificationPanel(message, status !== 'STARTED', showSpinner);
           });
           </script>
         </body>
@@ -723,7 +717,6 @@ export class WelcomeView {
           this.showNotification(installMessage, false);
         } else {
           this.enableLocalServerActions(true);
-          this.showNotification('', false);
         }
       })
       .catch(() => {
