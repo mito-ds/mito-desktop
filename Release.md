@@ -1,10 +1,10 @@
 # Release Instructions
 
-## Versioning
+## Step 1: Versioning
 
 To release a new major version of Mito Desktop, increment the major version in `package.json`.
 
-## Updating bundled packages
+## Step 2:Updating bundled packages
 
 If you've updated the bundled packages installed in the enviornment, then we need to update the conda lock file and signing list. 
 
@@ -24,7 +24,7 @@ If you've updated the bundled packages installed in the enviornment, then we nee
    yarn create_env_installer:osx-arm64 && yarn update_binary_sign_list --platform osx-arm64
    ```
 
-## Release Workflow
+## Step 3: Run the GitHub Actions
 
 1. Run prerelease.yml → Create a new release on GitHub as `pre-release`. Set the release `tag` to the value of target application version and prefix it with `v` (for example `v1.0.0-1` for Mito Desktop version `1.0.0-1`). Release needs to stay as `pre-release` for GitHub Actions to be able to attach installers to the release.
 
