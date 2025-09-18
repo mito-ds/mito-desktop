@@ -270,7 +270,7 @@ export class WelcomeView {
             
             #notification-panel {
               position: fixed;
-              bottom: 20px;
+              top: 60px;
               left: 50%;
               transform: translateX(-50%);
               display: none;
@@ -633,7 +633,7 @@ export class WelcomeView {
 
           window.electronAPI.onInstallBundledPythonEnvStatus((status, detail) => {
             let message = status === 'STARTED' ?
-              'Installing Python environment' :
+              'Setting up workspace. This might take several minutes.' :
               status === 'CANCELLED' ?
               'Installation cancelled!' :
               status === 'FAILURE' ?
