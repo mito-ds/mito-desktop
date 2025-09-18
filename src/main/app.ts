@@ -659,7 +659,7 @@ export class JupyterApplication implements IApplication, IDisposable {
       EventTypeMain.LaunchInstallerDownloadPage,
       () => {
         shell.openExternal(
-          'https://github.com/jupyterlab/jupyterlab-desktop/releases'
+          'https://trymito.io/downloads'
         );
       }
     );
@@ -772,6 +772,7 @@ export class JupyterApplication implements IApplication, IDisposable {
               addUserSetEnvironment(installPath, true);
               const pythonPath = pythonPathForEnvPath(installPath, true);
               this._registry.addEnvironment(pythonPath);
+              this._registry.setDefaultPythonPath(pythonPath);
             }
           },
           get forceOverwrite() {
@@ -1250,7 +1251,7 @@ export class JupyterApplication implements IApplication, IDisposable {
 
   checkForUpdates(showDialog: 'on-new-version' | 'always') {
     fetch(
-      'https://github.com/jupyterlab/jupyterlab-desktop/releases/latest/download/latest.yml'
+      'https://github.com/mito-ds/mito-desktop/releases/latest/download/latest.yml'
     )
       .then(async response => {
         try {
