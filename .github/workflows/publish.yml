@@ -150,7 +150,7 @@ jobs:
           SM_CLIENT_CERT_PASSWORD: ${{ secrets.SM_CLIENT_CERT_PASSWORD }}
         run: |
           echo "${{ secrets.SM_CLIENT_CERT_FILE_B64 }}" | base64 --decode > Certificate_pkcs12.p12
-          echo "SM_CLIENT_CERT_FILE=Certificate_pkcs12.p12" >> "$GITHUB_ENV"
+          export SM_CLIENT_CERT_FILE=Certificate_pkcs12.p12
           smctl sign --fingerprint ${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }} --input dist/Mito-Setup.exe --config-file pkcs11properties.cfg
           rm Certificate_pkcs12.p12
         shell: bash
