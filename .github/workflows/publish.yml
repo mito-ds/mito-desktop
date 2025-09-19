@@ -51,6 +51,42 @@ jobs:
           export SM_CLIENT_CERT_FILE="$SM_CLIENT_CERT_FILE_WIN"
           smctl healthcheck
 
+          echo "Creating dummy exe to test signing"
+          mkdir -p dummy && cd dummy
+          dotnet --info >/dev/null 2>&1 || true
+          dotnet new console -n DummyApp -o DummyApp
+          dotnet publish DummyApp -c Release -r win-64 --self-contained false -p:PublishSingleFile=false -o out
+          DUMMY_EXE_POSIX="$PWD/out/DummyApp.exe"
+          if [ ! -f "$DUMMY_EXE_POSIX" ]; then
+            echo "Failed to create dummy exe"
+            exit 1
+          fi
+          DUMMY_EXE_WIN="$(cygpath -w "$DUMMY_EXE_POSIX")"
+          cd ..
+
+          # Locate pkcs11properties.cfg for smctl
+          echo "smctl path:"; command -v smctl || command -v smctl.exe || true
+          SMCTL_DIR_POSIX="$(dirname "$(command -v smctl || command -v smctl.exe)")"
+          CFG_POSIX="${SMCTL_DIR_POSIX}/pkcs11properties.cfg"
+          if [ ! -f "$CFG_POSIX" ]; then
+            echo "pkcs11properties.cfg not next to smctl; searching hostedtoolcache..."
+            CFG_POSIX="$(find /c/hostedtoolcache -type f -name pkcs11properties.cfg -print -quit 2>/dev/null || true)"
+          fi
+          if [ -z "${CFG_POSIX:-}" ] || [ ! -f "$CFG_POSIX" ]; then
+            echo "ERROR: pkcs11properties.cfg not found"
+            exit 1
+          fi
+          CFG_WIN="$(cygpath -w "$CFG_POSIX")"
+
+          echo "Signing dummy exe with smctl"
+          smctl sign \
+            --fingerprint "${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }}" \
+            --input "$DUMMY_EXE_WIN" \
+            --config-file "$CFG_WIN"
+
+          rm -f "$CERT_POSIX"
+
+
       - uses: conda-incubator/setup-miniconda@v3
         with:
           auto-update-conda: true
