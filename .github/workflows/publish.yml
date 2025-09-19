@@ -43,6 +43,17 @@ jobs:
         env:
           FORCE_DOWNLOAD_TOOLS: 'true'
 
+
+      - name: Test DigiCert Client tools (Windows only)
+        if: matrix.cfg.platform == 'win-64'
+        env:
+          SM_HOST: ${{ secrets.SM_HOST }}
+          SM_API_KEY: ${{ secrets.SM_API_KEY }}
+          SM_CLIENT_CERT_PASSWORD: ${{ secrets.SM_CLIENT_CERT_PASSWORD }}
+          SM_CLIENT_CERT_FILE: ${{ secrets.SM_CLIENT_CERT_FILE }}
+        run: |
+          smctl healthcheck
+
       - name: Install node
         uses: actions/setup-node@v4
         with:
