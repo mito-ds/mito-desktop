@@ -219,7 +219,7 @@ jobs:
           smctl sign \
             --fingerprint "${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }}" \
             --input "$EXE_WIN" \
-            --config-file "$CFG_WIN"
+            --config-file "$CFG_WIN" \
             --verbose
 
           rm -f "$CERT_POSIX"
