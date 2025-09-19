@@ -144,23 +144,27 @@ jobs:
 
       - name: Sign Windows Installer with DigiCert
         if: matrix.cfg.platform == 'win-64'
-        shell: pwsh
+        shell: bash
         env:
           SM_HOST: ${{ secrets.SM_HOST }}
           SM_API_KEY: ${{ secrets.SM_API_KEY }}
           SM_CLIENT_CERT_PASSWORD: ${{ secrets.SM_CLIENT_CERT_PASSWORD }}
         run: |
-          [IO.File]::WriteAllBytes("Certificate_pkcs12.p12",[Convert]::FromBase64String("${{ secrets.SM_CLIENT_CERT_FILE_B64 }}"))
-          $env:SM_CLIENT_CERT_FILE = "Certificate_pkcs12.p12"
+          CERT_POSIX="$PWD/Certificate_pkcs12.p12"
+          echo "${{ secrets.SM_CLIENT_CERT_FILE_B64 }}" | base64 -d > "$CERT_POSIX"
+          export SM_CLIENT_CERT_FILE="$(cygpath -w "$CERT_POSIX")"
 
-          $exe = Get-ChildItem dist -Filter "*-Setup*.exe" | Select-Object -First 1
-          if (-not $exe) { Write-Error "No installer found in dist"; Get-ChildItem dist; exit 1 }
+          EXE_POSIX="$(ls -1 dist/*-Setup*.exe dist/*.exe 2>/dev/null | head -n 1 || true)"
+          if [ -z "$EXE_POSIX" ]; then echo "No installer .exe found in dist/"; ls -la dist || true; exit 1; fi
+          EXE_WIN="$(cygpath -w "$EXE_POSIX")"
 
-          $cfg = Join-Path (Split-Path (Get-Command smctl).Path) "pkcs11properties.cfg"
+          SMCTL_DIR_POSIX="$(dirname "$(which smctl.exe || which smctl)")"
+          CFG_POSIX="$SMCTL_DIR_POSIX/pkcs11properties.cfg"
+          CFG_WIN="$(cygpath -w "$CFG_POSIX")"
 
-          smctl sign --fingerprint ${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }} --input "$($exe.FullName)" --config-file "$cfg"
+          smctl sign --fingerprint "${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }}" --input "$EXE_WIN" --config-file "$CFG_WIN"
 
-          Remove-Item "Certificate_pkcs12.p12"
+          rm -f "$CERT_POSIX"
 
       - name: Upload Debian x64 Installer
         if: matrix.cfg.platform == 'linux-64'
