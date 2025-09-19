@@ -28,21 +28,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: conda-incubator/setup-miniconda@v3
-        with:
-          auto-update-conda: true
-          auto-activate-base: true
-          activate-environment: ""
-          channels: conda-forge
 
-      - run: conda install --file ./workflow_env/conda-${{ matrix.cfg.build_platform }}.lock -y
 
       - name: Install DigiCert Client tools (Windows only)
         if: matrix.cfg.platform == 'win-64'
         uses: digicert/ssm-code-signing@v1.1.0
         env:
           FORCE_DOWNLOAD_TOOLS: 'true'
-
 
       - name: Test DigiCert Client tools (Windows only)
         if: matrix.cfg.platform == 'win-64'
@@ -52,7 +44,21 @@ jobs:
           SM_CLIENT_CERT_PASSWORD: ${{ secrets.SM_CLIENT_CERT_PASSWORD }}
           SM_CLIENT_CERT_FILE: ${{ secrets.SM_CLIENT_CERT_FILE }}
         run: |
+          # Write cert and set env var (POSIX and Windows path)
+          CERT_POSIX="$PWD/Certificate_pkcs12.p12"
+          echo "${{ secrets.SM_CLIENT_CERT_FILE_B64 }}" | base64 -d > "$CERT_POSIX"
+          export SM_CLIENT_CERT_FILE_WIN="$(cygpath -w "$CERT_POSIX")"
+          export SM_CLIENT_CERT_FILE="$SM_CLIENT_CERT_FILE_WIN"
           smctl healthcheck
+
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          auto-update-conda: true
+          auto-activate-base: true
+          activate-environment: ""
+          channels: conda-forge
+
+      - run: conda install --file ./workflow_env/conda-${{ matrix.cfg.build_platform }}.lock -y
 
       - name: Install node
         uses: actions/setup-node@v4
