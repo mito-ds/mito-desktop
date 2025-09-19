@@ -43,24 +43,6 @@ jobs:
         env:
           FORCE_DOWNLOAD_TOOLS: 'true'
 
-      - name: Debug DigiCert Installation (Windows only)
-        if: matrix.cfg.platform == 'win-64'
-        run: |
-          echo "Looking for pkcs11properties.cfg files..."
-          find /c -name "pkcs11properties.cfg" 2>/dev/null || echo "No pkcs11properties.cfg found"
-          echo "Looking for smctl..."
-          which smctl || echo "smctl not found in PATH"
-          echo "Current directory contents:"
-          ls -la
-          echo "Looking in common DigiCert locations..."
-          ls -la /tmp/ 2>/dev/null || echo "No /tmp directory"
-          ls -la /c/Users/ 2>/dev/null || echo "No /c/Users directory"
-          echo "Looking for any .cfg files..."
-          find /c -name "*.cfg" 2>/dev/null || echo "No .cfg files found"
-          echo "Checking if smctl is in PATH and what it outputs..."
-          smctl --help 2>/dev/null || echo "smctl --help failed"
-        shell: bash
-
       - name: Install node
         uses: actions/setup-node@v4
         with:
@@ -169,7 +151,7 @@ jobs:
         run: |
           echo "${{ secrets.SM_CLIENT_CERT_FILE_B64 }}" | base64 --decode > Certificate_pkcs12.p12
           export SM_CLIENT_CERT_FILE=Certificate_pkcs12.p12
-          smctl sign --fingerprint ${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }} --input dist/Mito-Setup.exe --config-file pkcs11properties.cfg
+          smctl sign --fingerprint ${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }} --input dist/Mito-Setup.exe --config-file "/c/hostedtoolcache/windows/smctl/latest/x64/pkcs11properties.cfg"
           rm Certificate_pkcs12.p12
         shell: bash
 
