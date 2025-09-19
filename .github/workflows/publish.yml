@@ -215,6 +215,9 @@ jobs:
           # Optional: show smctl version (does not leak secrets)
           smctl --version || smctl -v || true
 
+          # Download the certififcate
+          smctl cert download 
+
           # Call smctl with Windows-formatted paths
           smctl sign \
             --fingerprint "${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }}" \
