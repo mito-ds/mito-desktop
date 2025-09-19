@@ -150,19 +150,15 @@ jobs:
           SM_API_KEY: ${{ secrets.SM_API_KEY }}
           SM_CLIENT_CERT_PASSWORD: ${{ secrets.SM_CLIENT_CERT_PASSWORD }}
         run: |
-          # Write client cert from base64
           [IO.File]::WriteAllBytes("Certificate_pkcs12.p12",[Convert]::FromBase64String("${{ secrets.SM_CLIENT_CERT_FILE_B64 }}"))
           $env:SM_CLIENT_CERT_FILE = "Certificate_pkcs12.p12"
 
-          # Find installer and cfg using Windows paths
           $exe = Get-ChildItem dist -Filter "*-Setup*.exe" | Select-Object -First 1
-          if (-not $exe) { Write-Error "No installer found in dist"; exit 1 }
+          if (-not $exe) { Write-Error "No installer found in dist"; Get-ChildItem dist; exit 1 }
+
           $cfg = Join-Path (Split-Path (Get-Command smctl).Path) "pkcs11properties.cfg"
 
-          smctl sign `
-            --fingerprint ${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }} `
-            --input "$($exe.FullName)" `
-            --config-file "$cfg"
+          smctl sign --fingerprint ${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }} --input "$($exe.FullName)" --config-file "$cfg"
 
           Remove-Item "Certificate_pkcs12.p12"
 
