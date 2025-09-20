@@ -218,6 +218,14 @@ jobs:
           # Download the certififcate
           smctl cert download 
 
+          # Debug: List available certificates
+          echo "Available certificates after download:"
+          smctl cert list || true
+
+          # Debug: Show what we're trying to use
+          echo "Using certificate ID: ${{ secrets.SM_CODE_SIGNING_CERT_ID }}"
+          echo "Using fingerprint: ${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }}"
+
           # Call smctl with Windows-formatted paths
           smctl sign \
             --fingerprint "${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }}" \
