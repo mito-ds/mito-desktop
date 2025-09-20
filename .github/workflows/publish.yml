@@ -175,10 +175,6 @@ jobs:
           export SM_CLIENT_CERT_FILE_WIN="$(cygpath -w "$CERT_POSIX")"
           export SM_CLIENT_CERT_FILE="$SM_CLIENT_CERT_FILE_WIN"
 
-          echo "Runner OS: ${RUNNER_OS}"
-          echo "dist contents:"
-          ls -la dist || true
-
           # Locate installer exe
           EXE_POSIX="$(ls -1 dist/*-Setup*.exe dist/*.exe 2>/dev/null | head -n 1 || true)"
           if [ -z "${EXE_POSIX}" ]; then
@@ -187,53 +183,41 @@ jobs:
           fi
           EXE_WIN="$(cygpath -w "$EXE_POSIX")"
 
-          # Locate smctl and cfg
-          echo "smctl path:"; command -v smctl || command -v smctl.exe || true
-          SMCTL_DIR_POSIX="$(dirname "$(command -v smctl || command -v smctl.exe)")"
-          echo "SMCTL_DIR_POSIX=${SMCTL_DIR_POSIX}"
-
-          CFG_POSIX="${SMCTL_DIR_POSIX}/pkcs11properties.cfg"
-          if [ ! -f "$CFG_POSIX" ]; then
-            echo "pkcs11properties.cfg not next to smctl; searching hostedtoolcache..."
-            CFG_POSIX="$(find /c/hostedtoolcache -type f -name pkcs11properties.cfg -print -quit 2>/dev/null || true)"
-          fi
-          if [ -z "${CFG_POSIX:-}" ] || [ ! -f "$CFG_POSIX" ]; then
-            echo "ERROR: pkcs11properties.cfg not found"
-            find /c/hostedtoolcache -maxdepth 3 -type f -name pkcs11properties.cfg -print || true
-            exit 1
-          fi
-          CFG_WIN="$(cygpath -w "$CFG_POSIX")"
-
-          echo "Paths being passed to smctl:"
-          echo "  EXE_POSIX=$EXE_POSIX"
-          echo "  EXE_WIN=$EXE_WIN"
-          echo "  CFG_POSIX=$CFG_POSIX"
-          echo "  CFG_WIN=$CFG_WIN"
-          echo "  SM_CLIENT_CERT_FILE_WIN=$SM_CLIENT_CERT_FILE_WIN"
-          echo "Certificate size (bytes): $(wc -c < "$CERT_POSIX")"
-
-          # Optional: show smctl version (does not leak secrets)
-          smctl --version || smctl -v || true
-
-          # Download the certififcate
-          smctl cert download 
-
-          # Debug: List available certificates
-          echo "Available certificates after download:"
-          smctl cert list || true
-
-          # Debug: Show what we're trying to use
-          echo "Using certificate ID: ${{ secrets.SM_CODE_SIGNING_CERT_ID }}"
-          echo "Using fingerprint: ${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }}"
-
-          # Call smctl with Windows-formatted paths
-          smctl sign \
-            --fingerprint "${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }}" \
-            --certificate-id "${{ secrets.SM_CODE_SIGNING_CERT_ID }}" \
-            --input "$EXE_WIN" \
-            --config-file "$CFG_WIN" \
-            --verbose
-
+          # Download and install DigiCert KeyLocker tools
+          echo "Installing DigiCert KeyLocker tools..."
+          curl -X GET "https://one.digicert.com/signingmanager/api-ui/v1/releases/Keylockertools-windows-x64.msi/download" \
+            -H "x-api-key:${{ secrets.SM_API_KEY }}" \
+            -o Keylockertools-windows-x64.msi
+          msiexec /i Keylockertools-windows-x64.msi /quiet /qn
+          
+          # Add DigiCert tools to PATH
+          echo "C:\Program Files\DigiCert\DigiCert Keylocker Tools" >> $GITHUB_PATH
+          
+          # Register the KSP (Key Storage Provider)
+          echo "Registering KSP..."
+          smctl windows ksp register --verbose
+          
+          # Verify the KSP
+          echo "Verifying KSP..."
+          certutil.exe -csp "DigiCert Software Trust Manager KSP" -key -user -v
+          
+          # Synchronize certificates
+          echo "Synchronizing certificates..."
+          smctl windows certsync --verbose
+          
+          # Sign using signtool.exe
+          echo "Signing executable with signtool..."
+          signtool.exe sign /sha1 "${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }}" \
+            /tr http://timestamp.digicert.com \
+            /td SHA256 \
+            /fd SHA256 \
+            /v \
+            "$EXE_WIN"
+          
+          # Verify the signature
+          echo "Verifying signature..."
+          signtool.exe verify /v /pa "$EXE_WIN"
+          
           rm -f "$CERT_POSIX"
 
       - name: Upload Debian x64 Installer
