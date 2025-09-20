@@ -183,36 +183,47 @@ jobs:
           fi
           EXE_WIN="$(cygpath -w "$EXE_POSIX")"
 
-          # Download and install DigiCert KeyLocker tools
-          echo "Installing DigiCert KeyLocker tools..."
-          curl -X GET "https://one.digicert.com/signingmanager/api-ui/v1/releases/Keylockertools-windows-x64.msi/download" \
-            -H "x-api-key:${{ secrets.SM_API_KEY }}" \
-            -o Keylockertools-windows-x64.msi
-          msiexec /i Keylockertools-windows-x64.msi /quiet /qn
-          
-          # Add DigiCert tools to PATH
+          # Add DigiCert tools to PATH first
           echo "C:\Program Files\DigiCert\DigiCert Keylocker Tools" >> $GITHUB_PATH
           
+          # Verify DigiCert tools are available
+          echo "Checking available DigiCert tools..."
+          which smctl || echo "smctl not found"
+          which signtool.exe || echo "signtool.exe not found"
+          smctl --version || echo "smctl version check failed"
+          
+          # Check if tools are in expected locations
+          ls -la "C:\Program Files\DigiCert\" || echo "DigiCert directory not found"
+          ls -la "C:\Program Files\DigiCert\DigiCert Keylocker Tools\" || echo "Tools directory not found"
+
           # Register the KSP (Key Storage Provider)
           echo "Registering KSP..."
-          smctl windows ksp register --verbose
-          
-          # Verify the KSP
-          echo "Verifying KSP..."
-          certutil.exe -csp "DigiCert Software Trust Manager KSP" -key -user -v
+          if ! smctl windows ksp register --verbose; then
+            echo "KSP registration failed"
+            exit 1
+          fi
           
           # Synchronize certificates
           echo "Synchronizing certificates..."
-          smctl windows certsync --verbose
+          if ! smctl windows certsync --verbose; then
+            echo "Certificate sync failed"
+            exit 1
+          fi
           
           # Sign using signtool.exe
           echo "Signing executable with signtool..."
-          signtool.exe sign /sha1 "${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }}" \
+          echo "File to sign: $EXE_WIN"
+          echo "Certificate hash: ${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }}"
+          
+          if ! signtool.exe sign /sha1 "${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }}" \
             /tr http://timestamp.digicert.com \
             /td SHA256 \
             /fd SHA256 \
             /v \
-            "$EXE_WIN"
+            "$EXE_WIN"; then
+            echo "Signing failed"
+            exit 1
+          fi
           
           # Verify the signature
           echo "Verifying signature..."
