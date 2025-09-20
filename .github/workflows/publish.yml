@@ -192,20 +192,20 @@ jobs:
           which signtool.exe || echo "signtool.exe not found"
           smctl --version || echo "smctl version check failed"
           
-          # Check if tools are in expected locations
-          ls -la "C:\Program Files\DigiCert\" || echo "DigiCert directory not found"
-          ls -la "C:\Program Files\DigiCert\DigiCert Keylocker Tools\" || echo "Tools directory not found"
+          # Check if tools are in expected locations (fix path escaping)
+          ls -la "C:/Program Files/DigiCert/" || echo "DigiCert directory not found"
+          ls -la "C:/Program Files/DigiCert/DigiCert Keylocker Tools/" || echo "Tools directory not found"
 
-          # Register the KSP (Key Storage Provider)
+          # Register the KSP (Key Storage Provider) - remove --verbose flag
           echo "Registering KSP..."
-          if ! smctl windows ksp register --verbose; then
+          if ! smctl windows ksp register; then
             echo "KSP registration failed"
             exit 1
           fi
           
-          # Synchronize certificates
+          # Synchronize certificates - remove --verbose flag
           echo "Synchronizing certificates..."
-          if ! smctl windows certsync --verbose; then
+          if ! smctl windows certsync; then
             echo "Certificate sync failed"
             exit 1
           fi
