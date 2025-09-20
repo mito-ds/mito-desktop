@@ -215,12 +215,10 @@ jobs:
           echo "File to sign: $EXE_WIN"
           echo "Certificate hash: ${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }}"
           
-          if ! signtool.exe sign /sha1 "${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }}" \
-            /tr http://timestamp.digicert.com \
-            /td SHA256 \
-            /fd SHA256 \
-            /v \
-            "$EXE_WIN"; then
+          # Debug: Show the exact command being run
+          echo "Running command: signtool.exe sign /sha1 \"${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }}\" /tr http://timestamp.digicert.com /td SHA256 /fd SHA256 /v \"$EXE_WIN\""
+          
+          if ! signtool.exe sign /sha1 "${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }}" /tr http://timestamp.digicert.com /td SHA256 /fd SHA256 /v "$EXE_WIN"; then
             echo "Signing failed"
             exit 1
           fi
