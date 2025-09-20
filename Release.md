@@ -36,4 +36,6 @@ If you've updated the bundled packages installed in the enviornment, then we nee
 
 4. Merge the PR into master → This triggers publish.yml automatically. This will build signed installers and upload them as release assets. Assets will be uploaded only if a release of type `pre-release` with tag matching the Mito Desktop's version with a `v` prefix is found. New commits to PR will overwrite the installer assets of the release.
 
+5. Change the release from `pre-release` to `release`
+
 
