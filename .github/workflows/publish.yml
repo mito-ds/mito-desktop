@@ -216,7 +216,7 @@ jobs:
           smctl --version || smctl -v || true
 
           # Download the certififcate
-          smctl cert download 
+          smctl windows certsync
 
           # Debug: List available certificates
           echo "Available certificates after download:"
