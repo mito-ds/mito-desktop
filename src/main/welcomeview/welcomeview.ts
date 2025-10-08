@@ -8,6 +8,7 @@ import * as fs from 'fs';
 import { appData } from '../config/appdata';
 import { IRegistry } from '../registry';
 import { EventTypeMain, EventTypeRenderer } from '../eventtypes';
+import { logEvent } from '../telemetry_utils';
 
 const maxRecentItems = 5;
 
@@ -20,6 +21,15 @@ interface IRecentSessionListItem {
 
 export class WelcomeView {
   constructor(options: WelcomeView.IOptions) {
+    logEvent(
+      'c370afd8-a5f7-11ef-a387-ba78e17d548f',
+      'nawaz_test_event',
+      {
+        name: 'nawaz',
+        hello: 'world'
+      }
+    );
+
     this._registry = options.registry;
     this._isDarkTheme = options.isDarkTheme;
     this._view = new BrowserView({
