@@ -1,3 +1,7 @@
+import fs from 'fs';
+import os from 'os';
+import path from 'path';
+import crypto from 'crypto';
 import { Analytics } from '@segment/analytics-node'
 
 const analytics = new Analytics({
@@ -6,6 +10,61 @@ const analytics = new Analytics({
     flushInterval: 1000 // Flush every second
 });
 
+export const createMitoFolder = () => {
+    // Create a mito folder, if it doesn't exist
+    const mitoFolder = path.join(os.homedir(), '.mito');
+    if (!fs.existsSync(mitoFolder)) {
+        fs.mkdirSync(mitoFolder);
+    }
+}
+
+export const checkIfUserAlreadyMitoUser = () => {
+    // First look for the mito folder
+    const mitoFolder = path.join(os.homedir(), '.mito');
+    if (!fs.existsSync(mitoFolder)) {
+        return { isMitoUser: false, userId: "" };
+    }
+
+    // Then look for the user.json file
+    const userJsonFile = path.join(mitoFolder, 'user.json');
+    if (!fs.existsSync(userJsonFile)) {
+        return { isMitoUser: false, userId: null };
+    }
+
+    // Finally, read the user.json file
+    const userJson = JSON.parse(fs.readFileSync(userJsonFile, 'utf8'));
+    return { isMitoUser: true, userId: userJson.static_user_id };
+}
+
+export const createTempUserId = () => {
+    // Create a temp user id, and save it to a temp file.
+    // This temp file will be picked up by the mito-ai package 
+    // when it creates the user.json file. 
+    createMitoFolder();
+    const tempUserId = crypto.randomUUID();
+    const tempUserIdFile = path.join(os.homedir(), '.mito', 'temp_user_id.txt');
+    fs.writeFileSync(tempUserIdFile, tempUserId);
+    return tempUserId;
+}
+
+export const getUserId = () => {
+    // First check if the user is already a Mito user
+    const { isMitoUser, userId } = checkIfUserAlreadyMitoUser();
+    if (isMitoUser) {
+        return userId;
+    }
+    // If not, create a new temp user id
+    return createTempUserId();
+}
+
+export const identifyUser = (userId: string) => {
+    analytics.identify({
+        userId: userId,
+        traits: {
+            email: 'gafar.nawaz@gmail.com' // TODO: REMOVE ME
+        }
+    });
+}
 
 export const logEvent = (userId: string, event: string, properties: any) => {
     analytics.track({

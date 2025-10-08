@@ -8,7 +8,7 @@ import * as fs from 'fs';
 import { appData } from '../config/appdata';
 import { IRegistry } from '../registry';
 import { EventTypeMain, EventTypeRenderer } from '../eventtypes';
-import { logEvent } from '../telemetry_utils';
+import { getUserId, identifyUser, logEvent } from '../telemetry_utils';
 
 const maxRecentItems = 5;
 
@@ -21,8 +21,10 @@ interface IRecentSessionListItem {
 
 export class WelcomeView {
   constructor(options: WelcomeView.IOptions) {
+    const userId = getUserId();
+    identifyUser(userId);
     logEvent(
-      'c370afd8-a5f7-11ef-a387-ba78e17d548f',
+      userId,
       'nawaz_test_event',
       {
         name: 'nawaz',
