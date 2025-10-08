@@ -68,7 +68,6 @@ export const identifyUser = (userId: string) => {
         traits: {
             operating_system: process.platform,
             version_mito_desktop: process.env.npm_package_version,
-            email: 'gafar.nawaz@gmail.com' // TODO: REMOVE ME
         }
     });
 }
@@ -81,7 +80,6 @@ export const logEvent = (userId: string, event: string, properties: any = {}) =>
             ...properties,
             operating_system: process.platform,
             version_mito_desktop: process.env.npm_package_version,
-            email: 'gafar.nawaz@gmail.com' // TODO: REMOVE ME
         }
     });
 }
