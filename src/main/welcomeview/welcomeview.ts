@@ -23,14 +23,7 @@ export class WelcomeView {
   constructor(options: WelcomeView.IOptions) {
     const userId = getUserId();
     identifyUser(userId);
-    logEvent(
-      userId,
-      'nawaz_test_event',
-      {
-        name: 'nawaz',
-        hello: 'world'
-      }
-    );
+    logEvent(userId, 'desktop_welcome_view_loaded');
 
     this._registry = options.registry;
     this._isDarkTheme = options.isDarkTheme;

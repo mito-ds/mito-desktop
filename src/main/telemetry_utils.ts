@@ -37,6 +37,11 @@ export const checkIfUserAlreadyMitoUser = () => {
 }
 
 export const createTempUserId = () => {
+    // If the temp user id file already exists, return the user id from the file
+    if (fs.existsSync(path.join(os.homedir(), '.mito', 'temp_user_id.txt'))) {
+        return fs.readFileSync(path.join(os.homedir(), '.mito', 'temp_user_id.txt'), 'utf8');
+    }
+
     // Create a temp user id, and save it to a temp file.
     // This temp file will be picked up by the mito-ai package 
     // when it creates the user.json file. 
@@ -61,15 +66,22 @@ export const identifyUser = (userId: string) => {
     analytics.identify({
         userId: userId,
         traits: {
+            operating_system: process.platform,
+            version_mito_desktop: process.env.npm_package_version,
             email: 'gafar.nawaz@gmail.com' // TODO: REMOVE ME
         }
     });
 }
 
-export const logEvent = (userId: string, event: string, properties: any) => {
+export const logEvent = (userId: string, event: string, properties: any = {}) => {
     analytics.track({
         userId: userId,
         event: event,
-        properties: properties
+        properties: {
+            ...properties,
+            operating_system: process.platform,
+            version_mito_desktop: process.env.npm_package_version,
+            email: 'gafar.nawaz@gmail.com' // TODO: REMOVE ME
+        }
     });
 }
