@@ -4,6 +4,10 @@ import path from 'path';
 import crypto from 'crypto';
 import { Analytics } from '@segment/analytics-node'
 
+const MITO_FOLDER = path.join(os.homedir(), '.mito');
+const USER_JSON_FILE = 'user.json';
+const TEMP_USER_ID_FILE = 'temp_user_id.txt';
+
 const analytics = new Analytics({
     writeKey: '6I7ptc5wcIGC4WZ0N1t0NXvvAbjRGUgX',
     flushAt: 1, // Send events immediately
@@ -12,21 +16,19 @@ const analytics = new Analytics({
 
 export const createMitoFolder = () => {
     // Create a mito folder, if it doesn't exist
-    const mitoFolder = path.join(os.homedir(), '.mito');
-    if (!fs.existsSync(mitoFolder)) {
-        fs.mkdirSync(mitoFolder);
+    if (!fs.existsSync(MITO_FOLDER)) {
+        fs.mkdirSync(MITO_FOLDER);
     }
 }
 
 export const checkIfUserAlreadyMitoUser = () => {
     // First look for the mito folder
-    const mitoFolder = path.join(os.homedir(), '.mito');
-    if (!fs.existsSync(mitoFolder)) {
+    if (!fs.existsSync(MITO_FOLDER)) {
         return { isMitoUser: false, userId: "" };
     }
 
     // Then look for the user.json file
-    const userJsonFile = path.join(mitoFolder, 'user.json');
+    const userJsonFile = path.join(MITO_FOLDER, USER_JSON_FILE);
     if (!fs.existsSync(userJsonFile)) {
         return { isMitoUser: false, userId: null };
     }
@@ -38,8 +40,8 @@ export const checkIfUserAlreadyMitoUser = () => {
 
 export const createTempUserId = () => {
     // If the temp user id file already exists, return the user id from the file
-    if (fs.existsSync(path.join(os.homedir(), '.mito', 'temp_user_id.txt'))) {
-        return fs.readFileSync(path.join(os.homedir(), '.mito', 'temp_user_id.txt'), 'utf8');
+    if (fs.existsSync(path.join(MITO_FOLDER, TEMP_USER_ID_FILE))) {
+        return fs.readFileSync(path.join(MITO_FOLDER, TEMP_USER_ID_FILE), 'utf8');
     }
 
     // Create a temp user id, and save it to a temp file.
@@ -47,7 +49,7 @@ export const createTempUserId = () => {
     // when it creates the user.json file. 
     createMitoFolder();
     const tempUserId = crypto.randomUUID();
-    const tempUserIdFile = path.join(os.homedir(), '.mito', 'temp_user_id.txt');
+    const tempUserIdFile = path.join(MITO_FOLDER, TEMP_USER_ID_FILE);
     fs.writeFileSync(tempUserIdFile, tempUserId);
     return tempUserId;
 }
