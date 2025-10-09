@@ -64,9 +64,9 @@ export const getUserId = () => {
     return createTempUserId();
 }
 
-export const identifyUser = (userId: string) => {
+export const identifyUser = (userId?: string | null) => {
     analytics.identify({
-        userId: userId,
+        userId: userId ? userId : getUserId(),
         traits: {
             operating_system: process.platform,
             version_mito_desktop: process.env.npm_package_version,
@@ -74,9 +74,9 @@ export const identifyUser = (userId: string) => {
     });
 }
 
-export const logEvent = (userId: string, event: string, properties: any = {}) => {
+export const logEvent = (event: string, properties: any = {}, userId?: string | null) => {
     analytics.track({
-        userId: userId,
+        userId: userId ? userId : getUserId(),
         event: event,
         properties: {
             ...properties,

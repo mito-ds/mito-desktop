@@ -64,7 +64,7 @@ import {
   validatePythonEnvironmentInstallDirectory,
   validateSystemPythonPath
 } from './env';
-import { getUserId, logEvent } from './telemetry_utils';
+import { logEvent } from './telemetry_utils';
 
 export interface IApplication {
   createNewEmptySession(): void;
@@ -764,8 +764,7 @@ export class JupyterApplication implements IApplication, IDisposable {
         const installPath = envPath || getBundledPythonEnvPath();
         
         // Log installation start
-        const userId = getUserId();
-        logEvent(userId, 'desktop_python_install_started');
+        logEvent('desktop_python_install_started');
         
         await installBundledEnvironment(installPath, {
           onInstallStatus: (status, message) => {
@@ -781,15 +780,13 @@ export class JupyterApplication implements IApplication, IDisposable {
               this._registry.setDefaultPythonPath(pythonPath);
               
               // Log installation completion
-              logEvent(userId, 'desktop_python_install_completed');
+              logEvent('desktop_python_install_completed');
             } else if (status === EnvironmentInstallStatus.Failure) {
               // Log installation failure
-              logEvent(userId, 'desktop_python_install_failed', {
-                error: message
-              });
+              logEvent('desktop_python_install_failed', {error: message});
             } else if (status === EnvironmentInstallStatus.Cancelled) {
               // Log installation cancellation
-              logEvent(userId, 'desktop_python_install_cancelled');
+              logEvent('desktop_python_install_cancelled');
             }
           },
           get forceOverwrite() {
