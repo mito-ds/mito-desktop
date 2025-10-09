@@ -93,7 +93,7 @@ lib/libpython3.12.dylib
 lib/libreadline.8.2.dylib
 lib/libreproc++.14.2.4.dylib
 lib/libreproc.14.2.4.dylib
-lib/libsimdjson.26.0.0.dylib
+lib/libsimdjson.27.0.0.dylib
 lib/libsolv.1.dylib
 lib/libsolvext.1.dylib
 lib/libsqlite3.3.50.4.dylib
