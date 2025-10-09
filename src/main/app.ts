@@ -765,7 +765,8 @@ export class JupyterApplication implements IApplication, IDisposable {
         
         // Log installation start
         logEvent('desktop_python_install_started');
-        
+        const installStartTime = Date.now();
+
         await installBundledEnvironment(installPath, {
           onInstallStatus: (status, message) => {
             event.sender.send(
@@ -780,13 +781,21 @@ export class JupyterApplication implements IApplication, IDisposable {
               this._registry.setDefaultPythonPath(pythonPath);
               
               // Log installation completion
-              logEvent('desktop_python_install_completed');
+              logEvent('desktop_python_install_completed', {
+                install_time_seconds: (Date.now() - installStartTime) / 1000
+              });
             } else if (status === EnvironmentInstallStatus.Failure) {
               // Log installation failure
-              logEvent('desktop_python_install_failed', {error: message});
+              logEvent('desktop_python_install_failed', {
+                install_time_seconds: (Date.now() - installStartTime) / 1000,
+                error: message
+              });
             } else if (status === EnvironmentInstallStatus.Cancelled) {
               // Log installation cancellation
-              logEvent('desktop_python_install_cancelled');
+              logEvent('desktop_python_install_cancelled', {
+                install_time_seconds: (Date.now() - installStartTime) / 1000,
+                error: message
+              });
             }
           },
           get forceOverwrite() {
