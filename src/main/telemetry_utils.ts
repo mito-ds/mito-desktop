@@ -3,6 +3,7 @@ import os from 'os';
 import path from 'path';
 import crypto from 'crypto';
 import { Analytics } from '@segment/analytics-node'
+import { isDevMode } from './utils';
 
 const MITO_FOLDER = path.join(os.homedir(), '.mito');
 const USER_JSON_FILE = 'user.json';
@@ -70,6 +71,8 @@ export const identifyUser = () => {
         traits: {
             operating_system: process.platform,
             version_mito_desktop: process.env.npm_package_version,
+            is_dev_mode: isDevMode(),
+            email: isDevMode() ? 'dev@trymito.io' : undefined
         }
     });
 }
