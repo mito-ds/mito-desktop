@@ -8,6 +8,7 @@ import * as fs from 'fs';
 import { appData } from '../config/appdata';
 import { IRegistry } from '../registry';
 import { EventTypeMain, EventTypeRenderer } from '../eventtypes';
+import { identifyUser, logEvent } from '../telemetry_utils';
 
 const maxRecentItems = 5;
 
@@ -20,6 +21,9 @@ interface IRecentSessionListItem {
 
 export class WelcomeView {
   constructor(options: WelcomeView.IOptions) {
+    identifyUser();
+    logEvent('desktop_welcome_view_loaded');
+
     this._registry = options.registry;
     this._isDarkTheme = options.isDarkTheme;
     this._view = new BrowserView({
