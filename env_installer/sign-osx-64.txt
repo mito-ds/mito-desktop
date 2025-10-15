@@ -186,8 +186,8 @@ lib/python3.12/lib-dynload/xxlimited.cpython-312-darwin.so
 lib/python3.12/lib-dynload/xxlimited_35.cpython-312-darwin.so
 lib/python3.12/lib-dynload/xxsubtype.cpython-312-darwin.so
 lib/python3.12/lib-dynload/zlib.cpython-312-darwin.so
-lib/python3.12/lib2to3/Grammar3.12.11.final.0.pickle
-lib/python3.12/lib2to3/PatternGrammar3.12.11.final.0.pickle
+lib/python3.12/lib2to3/Grammar3.12.12.final.0.pickle
+lib/python3.12/lib2to3/PatternGrammar3.12.12.final.0.pickle
 lib/python3.12/site-packages/.DS_Store
 lib/python3.12/site-packages/PIL/.dylibs/libXau.6.dylib
 lib/python3.12/site-packages/PIL/.dylibs/libavif.16.3.0.dylib

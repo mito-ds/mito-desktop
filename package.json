@@ -1,6 +1,6 @@
 {
   "name": "Mito",
-  "version": "1.0.0-5",
+  "version": "1.0.0-6",
   "description": "Mito Desktop App",
   "main": "./build/out/main/main.js",
   "scripts": {
