@@ -24,7 +24,10 @@ If you've updated the bundled packages installed in the enviornment, then we nee
    yarn create_env_installer:osx-arm64 && yarn update_binary_sign_list --platform osx-arm64
    ```
 
-## Step 3: Run the GitHub Actions
+## Step 3: Commit your changes
+Now, create a new PR branch and commit your changes. This is going to be the branch that we use for the release. 
+
+## Step 4: Run the GitHub Actions
 
 1. Run prerelease.yml → Create a new release on GitHub as `pre-release`. Set the release `tag` to the value of target application version and prefix it with `v` (for example `v1.0.0-1` for Mito Desktop version `1.0.0-1`). Release needs to stay as `pre-release` for GitHub Actions to be able to attach installers to the release.
 
