@@ -135,6 +135,7 @@ export class SessionWindow implements IDisposable {
     });
 
     this._window.setMenuBarVisibility(false);
+    this._window.maximize();
     this._window.show();
 
     this._registerListeners();
