@@ -8,8 +8,7 @@ import {
   dialog,
   Menu,
   MenuItemConstructorOptions,
-  shell,
-  screen
+  shell
 } from 'electron';
 import * as fs from 'fs';
 import { WelcomeView } from '../welcomeview/welcomeview';
@@ -110,21 +109,11 @@ export class SessionWindow implements IDisposable {
     if (options.rect) {
       rect = options.rect;
     } else {
-      // Get full screen dimensions for fallback
-      const cursorPt = screen.getCursorScreenPoint();
-      const display = screen.getDisplayNearestPoint(cursorPt);
-      const {
-        x: screenX,
-        y: screenY,
-        width: screenWidth,
-        height: screenHeight
-      } = display.bounds;
-      
       rect = {
-        x: this._sessionConfig?.x !== undefined ? this._sessionConfig.x : screenX,
-        y: this._sessionConfig?.y !== undefined ? this._sessionConfig.y : screenY,
-        width: this._sessionConfig?.width || screenWidth,
-        height: this._sessionConfig?.height || screenHeight
+        x: this._sessionConfig?.x !== undefined ? this._sessionConfig.x : 100,
+        y: this._sessionConfig?.y !== undefined ? this._sessionConfig.y : 100,
+        width: this._sessionConfig?.width || DEFAULT_WIN_WIDTH,
+        height: this._sessionConfig?.height || DEFAULT_WIN_HEIGHT
       };
     }
 

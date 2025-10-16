@@ -32,6 +32,8 @@ import { connectAndGetServerInfo, IJupyterServerInfo } from './connect';
 import { UpdateDialog } from './updatedialog/updatedialog';
 import {
   CtrlWBehavior,
+  DEFAULT_WIN_HEIGHT,
+  DEFAULT_WIN_WIDTH,
   LogLevel,
   resolveWorkingDirectory,
   SettingType,
@@ -139,12 +141,10 @@ class SessionWindowManager implements IDisposable {
       width: screenWidth,
       height: screenHeight
     } = display.bounds;
-    
-    // Use full screen dimensions instead of default window size
-    const width = screenWidth;
-    const height = screenHeight;
-    const x = screenX;
-    const y = screenY;
+    const width = DEFAULT_WIN_WIDTH;
+    const height = DEFAULT_WIN_HEIGHT;
+    const x = screenX + Math.round((screenWidth - width) / 2);
+    const y = screenY + Math.round((screenHeight - height) / 2);
 
     return { x, y, width, height };
   }
