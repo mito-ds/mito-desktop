@@ -103,6 +103,18 @@ export function getBundledPythonEnvPath(): string {
 }
 
 export function getBundledPythonPath(): string {
+  // Check if sideload flag is present (--sideload in process.argv)
+  const isSideload = process.argv.includes('--sideload');
+  
+  if (isSideload) {
+    // If we are sideloading, we want to use the Python path from the environment variable.
+    // This is set in the start-mito-sideloaded.sh script, and will give us the python path 
+    // from the conda environment where the mito-ai development version is installed.
+    const envPythonPath = process.env.MITO_PYTHON_PATH || process.env.JUPYTERLAB_DESKTOP_PYTHON_PATH;
+    if (envPythonPath) {
+      return envPythonPath;
+    }
+  }
   return pythonPathForEnvPath(getBundledPythonEnvPath(), true);
 }
 
