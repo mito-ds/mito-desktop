@@ -160,6 +160,16 @@ export class WelcomeView {
         --radio-checked-border: ${isDark ? 'rgba(157, 108, 255, 0.6)' : 'rgba(157, 108, 255, 0.5)'};
         --radio-text-color: ${isDark ? '#ffffff' : '#000000'};
         --radio-text-hover-color: ${isDark ? '#ac84fc' : '#7C4DFF'};
+        --creation-button-primary-bg: ${isDark
+          ? 'linear-gradient(135deg, rgba(157, 108, 255, 0.15) 0%, rgba(172, 132, 252, 0.1) 100%)'
+          : 'linear-gradient(135deg, rgba(157, 108, 255, 0.12) 0%, rgba(157, 108, 255, 0.08) 100%)'};
+        --creation-button-primary-border: ${isDark ? 'rgba(157, 108, 255, 0.4)' : 'rgba(157, 108, 255, 0.3)'};
+        --creation-button-primary-hover-bg: ${isDark
+          ? 'linear-gradient(135deg, rgba(157, 108, 255, 0.25) 0%, rgba(172, 132, 252, 0.15) 100%)'
+          : 'linear-gradient(135deg, rgba(157, 108, 255, 0.18) 0%, rgba(157, 108, 255, 0.12) 100%)'};
+        --creation-button-primary-hover-border: ${isDark ? 'rgba(157, 108, 255, 0.5)' : 'rgba(157, 108, 255, 0.4)'};
+        --creation-button-primary-icon-color: ${isDark ? '#9D6CFF' : '#7C4DFF'};
+        --deliverable-label-color: ${isDark ? '#888888' : '#999999'};
       }
     `;
 
@@ -203,72 +213,104 @@ export class WelcomeView {
           </svg>
 
           <div class="container">
-            <div class="ai_input_field_wrapper">
-              <div class="input_container">
-                <div class="input_wrapper" id="ai-input-wrapper">
-                  <div class="input_icon_left" id="ai-input-icon">✦</div>
-                  <textarea
-                    rows="7"
-                    id="ai-prompt-input"
-                    class="prompt_input"
-                    placeholder="What analysis can I help you with?"
-                    autocomplete="off"
-                    spellcheck="false"
-                  ></textarea>
-                  <div class="input_icons_right">
-                    <button class="input_action_button" id="ai-submit-button">
-                      ▶
-                    </button>
+            <!-- Creation Section -->
+            <div class="creation-section">
+              <h1 class="creation-title">What should we build?</h1>
+              <div class="creation-content">
+                <div class="ai_input_field_wrapper">
+                  <div class="input_container">
+                    <div class="input_wrapper" id="ai-input-wrapper">
+                      <div class="input_icon_left" id="ai-input-icon">✦</div>
+                      <textarea
+                        rows="7"
+                        id="ai-prompt-input"
+                        class="prompt_input"
+                        placeholder="Describe the analysis you want to build..."
+                        autocomplete="off"
+                        spellcheck="false"
+                      ></textarea>
+                      <div class="input_icons_right">
+                        <button class="input_action_button" id="ai-submit-button">
+                          ▶
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="deliverable_radio_group_wrapper">
+                    <label class="deliverable_label">Final Deliverable</label>
+                    <div class="deliverable_radio_group" id="deliverable-radio-group">
+                      <label class="deliverable_radio_label">
+                        <input type="radio" name="deliverable" value="app" class="deliverable_radio" checked>
+                        <span class="deliverable_radio_text">App</span>
+                      </label>
+                      <label class="deliverable_radio_label">
+                        <input type="radio" name="deliverable" value="eda" class="deliverable_radio">
+                        <span class="deliverable_radio_text">Exploratory Data Analysis</span>
+                      </label>
+                      <label class="deliverable_radio_label">
+                        <input type="radio" name="deliverable" value="automation" class="deliverable_radio">
+                        <span class="deliverable_radio_text">Automation</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="creation-actions">
+                  <div class="creation-divider">
+                    <span>or</span>
+                  </div>
+                  <div class="creation-buttons">
+                    <a class="creation-button" id="new-notebook-link" href="javascript:void(0)" title="Create new notebook in the default working directory" onclick="handleNewSessionClick('notebook');">
+                      <div class="creation-button-icon">${notebookIcon}</div>
+                      <div class="creation-button-content">
+                        <div class="creation-button-title">New blank notebook</div>
+                        <div class="creation-button-subtitle">Start with an empty notebook</div>
+                      </div>
+                    </a>
+                    ${
+                      process.platform === 'darwin'
+                        ? `<a class="creation-button" id="open-file-or-folder-link" href="javascript:void(0)" title="Open a notebook or folder in JupyterLab" onclick="handleNewSessionClick('open');">
+                            <div class="creation-button-icon">${openIcon}</div>
+                            <div class="creation-button-content">
+                              <div class="creation-button-title">Open</div>
+                              <div class="creation-button-subtitle">Open a notebook or folder</div>
+                            </div>
+                          </a>`
+                        : `<a class="creation-button" id="open-file-link" href="javascript:void(0)" title="Open a notebook or file in JupyterLab" onclick="handleNewSessionClick('open-file');">
+                            <div class="creation-button-icon">${openIcon}</div>
+                            <div class="creation-button-content">
+                              <div class="creation-button-title">Open File</div>
+                              <div class="creation-button-subtitle">Open a notebook or file</div>
+                            </div>
+                          </a>
+                          <a class="creation-button" id="open-folder-link" href="javascript:void(0)" title="Open a folder in JupyterLab" onclick="handleNewSessionClick('open-folder');">
+                            <div class="creation-button-icon">${openIcon}</div>
+                            <div class="creation-button-content">
+                              <div class="creation-button-title">Open Folder</div>
+                              <div class="creation-button-subtitle">Open a folder</div>
+                            </div>
+                          </a>`
+                    }
                   </div>
                 </div>
               </div>
-              <div class="deliverable_radio_group" id="deliverable-radio-group">
-                <label class="deliverable_radio_label">
-                  <input type="radio" name="deliverable" value="app" class="deliverable_radio" checked>
-                  <span class="deliverable_radio_text">App</span>
-                </label>
-                <label class="deliverable_radio_label">
-                  <input type="radio" name="deliverable" value="eda" class="deliverable_radio">
-                  <span class="deliverable_radio_text">Exploratory Data Analysis</span>
-                </label>
-                <label class="deliverable_radio_label">
-                  <input type="radio" name="deliverable" value="automation" class="deliverable_radio">
-                  <span class="deliverable_radio_text">Automation</span>
-                </label>
-              </div>
             </div>
 
-            <div class="actions-container">
-              <a class="action-button" id="new-notebook-link" href="javascript:void(0)" title="Create new notebook in the default working directory" onclick="handleNewSessionClick('notebook');">
-                <div class="action-icon">${notebookIcon}</div>
-                New notebook
-              </a>
-              ${
-                process.platform === 'darwin'
-                  ? `<a class="action-button" id="open-file-or-folder-link" href="javascript:void(0)" title="Open a notebook or folder in JupyterLab" onclick="handleNewSessionClick('open');">
-                      <div class="action-icon">${openIcon}</div>
-                      Open
-                    </a>`
-                  : `<a class="action-button" id="open-file-link" href="javascript:void(0)" title="Open a notebook or file in JupyterLab" onclick="handleNewSessionClick('open-file');">
-                      <div class="action-icon">${openIcon}</div>
-                      Open File
-                    </a>
-                    <a class="action-button" id="open-folder-link" href="javascript:void(0)" title="Open a folder in JupyterLab" onclick="handleNewSessionClick('open-folder');">
-                      <div class="action-icon">${openIcon}</div>
-                      Open Folder
-                    </a>`
-              }
+            <!-- Divider -->
+            <div class="section-divider">
+              <div class="divider-line"></div>
+              <span class="divider-text">RECENT PROJECTS</span>
+              <div class="divider-line"></div>
             </div>
 
+            <!-- Recent Sessions Section -->
             <div class="content-section">
               <div class="recent-section">
-                <h2 class="section-title">Recent sessions</h2>
                 <div id="recent-sessions-list" class="recent-list">
                   <!-- Recent sessions will be populated here -->
                 </div>
                 <div id="recent-expander" class="recent-expander">
                   <a href="javascript:void(0)" onclick="handleExpandCollapseRecents();">
-                    <span id="expand-collapse-text">More...</span>
+                    <span id="expand-collapse-text">View all</span>
                   </a>
                 </div>
               </div>
@@ -285,6 +327,7 @@ export class WelcomeView {
           </div>
 
           <script>
+          const isDarkTheme = ${this._isDarkTheme};
           const notificationPanel = document.getElementById('notification-panel');
           const notificationPanelMessage = document.getElementById('notification-panel-message');
           const notificationPanelCloseButton = document.getElementById('notification-panel-close');
@@ -437,7 +480,16 @@ export class WelcomeView {
                 recentItem.classList.add('recent-item-local');
               }
               recentItem.dataset.sessionIndex = recentSessionCount;
+              const iconColor = isDarkTheme ? '#9D6CFF' : '#7C4DFF';
               recentItem.innerHTML = \`
+                <div class="recent-item-icon">
+                  <svg width="16" height="16" viewBox="0 0 22 22">
+                    <g class="jp-icon-warn0 jp-icon-selectable" fill="\${iconColor}">
+                      <path d="M18.7 3.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z"/>
+                      <path d="M16.5 16.5l-5.4-4.3-5.6 4.3v-11h11z"/>
+                    </g>
+                  </svg>
+                </div>
                 <div class="recent-item-content">
                   <div class="recent-item-name">\${linkLabel}</div>
                   \${linkDetail ? \`<div class="recent-item-path">\${linkDetail}</div>\` : ''}
@@ -462,7 +514,11 @@ export class WelcomeView {
             if (recentSessionCount === 0) {
               const noHistoryMessage = document.createElement('div');
               noHistoryMessage.className = 'no-recent-message';
-              noHistoryMessage.innerText = 'No recent sessions';
+              noHistoryMessage.innerHTML = \`
+                <div class="no-recent-icon">📊</div>
+                <div class="no-recent-text">No recent sessions</div>
+                <div class="no-recent-subtext">Your recent projects will appear here</div>
+              \`;
               recentSessionsList.appendChild(noHistoryMessage);
             }
 
@@ -540,7 +596,7 @@ export class WelcomeView {
             if (isCollapsed) {
               recentSessionsList.classList.remove("recents-collapsed");
               recentSessionsList.classList.add("recents-expanded");
-              expandCollapseText.innerText = "Less...";
+              expandCollapseText.innerText = "Show less";
               
               // Show all items
               items.forEach(item => {
@@ -549,7 +605,7 @@ export class WelcomeView {
             } else {
               recentSessionsList.classList.remove("recents-expanded");
               recentSessionsList.classList.add("recents-collapsed");
-              expandCollapseText.innerText = "More...";
+              expandCollapseText.innerText = "View all";
               
               // Hide items beyond maxRecentItems
               items.forEach((item, index) => {
@@ -591,6 +647,14 @@ export class WelcomeView {
                 } else {
                   link.classList.add("disabled");
                 }
+              }
+            });
+
+            document.querySelectorAll('.creation-button').forEach(button => {
+              if (enable) {
+                button.classList.remove("disabled");
+              } else {
+                button.classList.add("disabled");
               }
             });
 
