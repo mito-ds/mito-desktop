@@ -75,7 +75,7 @@ export class WelcomeView {
               flex-direction: column;
               align-items: center;
               justify-content: flex-start;
-              padding: 25vh 40px 40px 40px;
+              padding: 15vh 40px 40px 40px;
             }
             
             .header {
@@ -369,6 +369,505 @@ export class WelcomeView {
             .install-python-button:active {
               transform: translateY(0);
             }
+
+            /* AI Input Field Styles */
+            .ai_input_field_wrapper {
+              display: flex;
+              flex-direction: column;
+              width: 100%;
+              max-width: 700px;
+              margin: 0 auto 40px auto;
+              padding: 0 20px;
+            }
+
+            @keyframes gradientShift {
+              0% {
+                background-position: 0% 50%;
+              }
+              50% {
+                background-position: 100% 50%;
+              }
+              100% {
+                background-position: 0% 50%;
+              }
+            }
+
+            @keyframes gradientPulse {
+              0%, 100% {
+                opacity: 0.8;
+              }
+              50% {
+                opacity: 1;
+              }
+            }
+
+            @keyframes breathe {
+              0%, 100% {
+                transform: scale(0.99);
+              }
+              50% {
+                transform: scale(1.0);
+              }
+            }
+
+            @keyframes glowPulse {
+              0%, 100% {
+                box-shadow: 
+                  0 4px 20px rgba(0, 0, 0, 0.3),
+                  0 2px 12px rgba(0, 0, 0, 0.2),
+                  0 1px 4px rgba(0, 0, 0, 0.4),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                  inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+                  0 0 20px rgba(157, 108, 255, 0.2),
+                  0 0 40px rgba(157, 108, 255, 0.1);
+              }
+              50% {
+                box-shadow: 
+                  0 4px 20px rgba(0, 0, 0, 0.3),
+                  0 2px 12px rgba(0, 0, 0, 0.2),
+                  0 1px 4px rgba(0, 0, 0, 0.4),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                  inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+                  0 0 25px rgba(157, 108, 255, 0.3),
+                  0 0 50px rgba(157, 108, 255, 0.15);
+              }
+            }
+
+            @keyframes iconTwinkle {
+              0%, 90%, 100% {
+                transform: scale(1) rotate(0deg);
+                filter: drop-shadow(0 2px 4px rgba(157, 108, 255, 0.3));
+              }
+              5% {
+                transform: scale(1.1) rotate(5deg);
+                filter: drop-shadow(0 2px 6px rgba(157, 108, 255, 0.5)) brightness(1.2);
+              }
+              10% {
+                transform: scale(1.05) rotate(-3deg);
+                filter: drop-shadow(0 2px 6px rgba(157, 108, 255, 0.5)) brightness(1.1);
+              }
+              15% {
+                transform: scale(1) rotate(0deg);
+                filter: drop-shadow(0 2px 4px rgba(157, 108, 255, 0.3));
+              }
+            }
+
+            @keyframes iconColorShift {
+              0%, 100% {
+                color: #9D6CFF;
+              }
+              25% {
+                color: #ac84fc;
+              }
+              50% {
+                color: #c084fc;
+              }
+              75% {
+                color: #ac84fc;
+              }
+            }
+
+            @keyframes sparkle {
+              0%, 100% {
+                opacity: 0;
+                transform: scale(0) rotate(0deg);
+              }
+              50% {
+                opacity: 1;
+                transform: scale(1) rotate(180deg);
+              }
+            }
+
+            .input_container {
+              width: 100%;
+              max-width: 900px;
+              margin: 0 auto;
+              margin-bottom: 20px;
+              height: 30px;
+              position: relative;
+              animation: breathe 4s ease-in-out infinite;
+            }
+
+            .input_container:has(.prompt_input:not(:placeholder-shown)) {
+              animation: none;
+            }
+
+            .input_container:focus-within {
+              animation: none;
+            }
+
+            .input_container:focus-within:has(.prompt_input:placeholder-shown) {
+              animation: breathe 4s ease-in-out infinite;
+            }
+
+            .input_wrapper {
+              display: flex;
+              align-items: center;
+              background: linear-gradient(
+                135deg,
+                rgba(34, 27, 46, 0.9) 0%,
+                rgba(28, 24, 36, 0.95) 50%,
+                rgba(19, 15, 26, 0.9) 100%
+              );
+              backdrop-filter: blur(20px) saturate(180%);
+              -webkit-backdrop-filter: blur(20px) saturate(180%);
+              border: 1px solid rgba(157, 108, 255, 0.4);
+              border-radius: 12px;
+              padding: 8px 10px;
+              gap: 12px;
+              transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+              box-shadow: 
+                0 4px 20px rgba(0, 0, 0, 0.3),
+                0 2px 12px rgba(0, 0, 0, 0.2),
+                0 1px 4px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+                0 0 20px rgba(157, 108, 255, 0.2),
+                0 0 40px rgba(157, 108, 255, 0.1);
+              position: relative;
+              overflow: hidden;
+              z-index: 1;
+              animation: glowPulse 3.5s ease-in-out infinite;
+            }
+
+            .input_wrapper:has(.prompt_input:not(:placeholder-shown)) {
+              animation: none;
+            }
+
+            .input_wrapper::before {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.05) 0%,
+                rgba(255, 255, 255, 0.02) 50%,
+                rgba(157, 108, 255, 0.03) 100%
+              );
+              opacity: 0;
+              transition: opacity 0.4s ease;
+              pointer-events: none;
+            }
+
+            .input_wrapper::after {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: -100%;
+              width: 100%;
+              height: 100%;
+              background: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.1) 50%,
+                rgba(255, 255, 255, 0) 100%
+              );
+              transition: left 0.6s ease;
+              pointer-events: none;
+            }
+
+            .input_wrapper:hover {
+              transform: translateY(-2px);
+              box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                0 4px 20px rgba(0, 0, 0, 0.3),
+                0 2px 8px rgba(0, 0, 0, 0.5),
+                0 4px 24px rgba(157, 108, 255, 0.3),
+                0 2px 12px rgba(172, 132, 252, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15),
+                inset 0 -1px 0 rgba(157, 108, 255, 0.2);
+              background: linear-gradient(
+                135deg,
+                rgba(34, 27, 46, 0.95) 0%,
+                rgba(28, 24, 36, 1) 50%,
+                rgba(19, 15, 26, 0.95) 100%
+              );
+              border-color: rgba(157, 108, 255, 0.6);
+              animation: none;
+            }
+
+            .input_wrapper:hover::before {
+              opacity: 1;
+            }
+
+            .input_wrapper:hover::after {
+              left: 100%;
+            }
+
+            .input_wrapper:focus-within {
+              transform: translateY(-3px);
+              box-shadow: 
+                0 12px 40px rgba(0, 0, 0, 0.5),
+                0 6px 24px rgba(0, 0, 0, 0.4),
+                0 3px 12px rgba(0, 0, 0, 0.6),
+                0 8px 32px rgba(157, 108, 255, 0.4),
+                0 4px 16px rgba(172, 132, 252, 0.3),
+                0 2px 8px rgba(192, 132, 252, 0.25),
+                0 0 0 4px rgba(157, 108, 255, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                inset 0 -1px 0 rgba(157, 108, 255, 0.3),
+                inset 0 0 20px rgba(157, 108, 255, 0.1);
+              background: linear-gradient(
+                135deg,
+                rgba(34, 27, 46, 1) 0%,
+                rgba(28, 24, 36, 1) 50%,
+                rgba(25, 20, 35, 1) 100%
+              );
+              border-color: rgba(157, 108, 255, 0.8);
+              animation: none;
+            }
+
+            .input_wrapper:focus-within::before {
+              opacity: 1;
+              animation: gradientPulse 2s ease-in-out infinite;
+            }
+
+            .input_icon_left {
+              font-size: 20px;
+              color: #9D6CFF;
+              display: flex;
+              align-items: center;
+              transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+              filter: drop-shadow(0 2px 4px rgba(157, 108, 255, 0.3));
+              font-weight: 500;
+              position: relative;
+              z-index: 2;
+              animation: 
+                iconTwinkle 5s ease-in-out infinite,
+                iconColorShift 8s ease-in-out infinite;
+            }
+
+            .input_wrapper:has(.prompt_input:not(:placeholder-shown)) .input_icon_left {
+              animation: none;
+              color: #9D6CFF;
+            }
+
+            .input_icon_left::before,
+            .input_icon_left::after {
+              content: '✨';
+              position: absolute;
+              font-size: 8px;
+              pointer-events: none;
+              animation: sparkle 6s ease-in-out infinite;
+              color: #ac84fc;
+            }
+
+            .input_wrapper:has(.prompt_input:not(:placeholder-shown)) .input_icon_left::before,
+            .input_wrapper:has(.prompt_input:not(:placeholder-shown)) .input_icon_left::after {
+              animation: none;
+              opacity: 0;
+            }
+
+            .input_icon_left::before {
+              top: -5px;
+              right: -8px;
+              animation-delay: 0s;
+            }
+
+            .input_icon_left::after {
+              bottom: -3px;
+              left: -6px;
+              animation-delay: 3s;
+            }
+
+            .input_wrapper:focus-within .input_icon_left {
+              color: #ac84fc;
+              transform: scale(1.15);
+              filter: drop-shadow(0 4px 8px rgba(157, 108, 255, 0.5));
+              animation: none;
+            }
+
+            .input_wrapper:hover .input_icon_left,
+            .input_wrapper:hover .input_action_button,
+            .generating .input_icon_left,
+            .generating .input_action_button {
+              color: #9D6CFF;
+              transform: scale(1.08);
+              filter: drop-shadow(0 3px 6px rgba(157, 108, 255, 0.4));
+            }
+
+            .input_wrapper:hover .input_icon_left {
+              animation: none;
+            }
+
+            .prompt_input {
+              flex: 1;
+              border: none;
+              outline: none;
+              background: transparent;
+              font-size: 16px;
+              font-weight: 400;
+              line-height: 1.4;
+              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+              color: ${this._isDarkTheme ? '#ffffff' : '#000000'};
+              padding: 6px 0;
+              transition: all 0.4s ease;
+              position: relative;
+              z-index: 2;
+            }
+
+            .prompt_input::placeholder {
+              color: ${this._isDarkTheme ? '#D0D0D0' : '#666666'};
+              font-weight: 400;
+              transition: all 0.3s ease;
+            }
+
+            .prompt_input:focus {
+              color: ${this._isDarkTheme ? '#ffffff' : '#000000'};
+            }
+
+            .prompt_input:focus::placeholder {
+              opacity: 0.6;
+              transform: translateY(-1px);
+            }
+
+            .input_action_button {
+              width: 32px;
+              height: 32px;
+              border: none;
+              border-radius: 50%;
+              background: linear-gradient(
+                135deg,
+                rgba(157, 108, 255, 0.2) 0%,
+                rgba(172, 132, 252, 0.15) 100%
+              );
+              color: #9D6CFF;
+              cursor: pointer;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 18px;
+              font-weight: 600;
+              transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+              position: relative;
+              z-index: 2;
+              box-shadow: 
+                0 2px 8px rgba(157, 108, 255, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            }
+
+            .input_action_button:hover:not(:disabled) {
+              transform: scale(1.15);
+              background: linear-gradient(
+                135deg,
+                rgba(157, 108, 255, 0.3) 0%,
+                rgba(172, 132, 252, 0.2) 100%
+              );
+              box-shadow: 
+                0 4px 16px rgba(157, 108, 255, 0.3),
+                0 2px 8px rgba(172, 132, 252, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            }
+
+            .input_action_button:disabled {
+              opacity: 0.6;
+              cursor: not-allowed;
+              transform: none;
+              color: ${this._isDarkTheme ? '#D0D0D0' : '#666666'};
+              background: transparent;
+              box-shadow: none;
+            }
+
+            .input_icons_right {
+              display: flex;
+              align-items: center;
+              gap: 4px;
+              z-index: 2;
+              position: relative;
+            }
+
+            .generating {
+              animation: gradientPulse 2s ease-in-out infinite;
+            }
+
+            .generating .input_wrapper {
+              box-shadow: 
+                0 8px 32px rgba(157, 108, 255, 0.4),
+                0 4px 16px rgba(172, 132, 252, 0.3),
+                0 2px 8px rgba(192, 132, 252, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15),
+                inset 0 0 20px rgba(157, 108, 255, 0.15);
+              animation: none;
+            }
+
+            .generating .input_container {
+              animation: none;
+            }
+
+            .examples_container {
+              display: flex;
+              flex-direction: column;
+              gap: 12px;
+              margin-top: 24px;
+              width: 100%;
+              max-width: 600px;
+              margin-left: auto;
+              margin-right: auto;
+            }
+
+            .example_button {
+              background: linear-gradient(
+                135deg,
+                rgba(34, 27, 46, 0.8) 0%,
+                rgba(28, 24, 36, 0.9) 50%,
+                rgba(19, 15, 26, 0.8) 100%
+              );
+              border: 1px solid rgba(157, 108, 255, 0.3);
+              border-radius: 8px;
+              padding: 14px 20px 14px 24px;
+              color: ${this._isDarkTheme ? '#D0D0D0' : '#666666'};
+              font-size: 14px;
+              font-weight: 400;
+              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+              cursor: pointer;
+              transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+              backdrop-filter: blur(10px);
+              -webkit-backdrop-filter: blur(10px);
+              text-align: left;
+              line-height: 1.4;
+              width: 100%;
+              box-shadow: 
+                0 2px 8px rgba(0, 0, 0, 0.2),
+                0 1px 4px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            }
+
+            .example_button:hover {
+              background: linear-gradient(
+                135deg,
+                rgba(34, 27, 46, 0.9) 0%,
+                rgba(28, 24, 36, 1) 50%,
+                rgba(19, 15, 26, 0.9) 100%
+              );
+              border-color: rgba(157, 108, 255, 0.5);
+              color: ${this._isDarkTheme ? '#ffffff' : '#000000'};
+              transform: translateY(-2px);
+              padding-left: 28px;
+              box-shadow: 
+                0 4px 16px rgba(0, 0, 0, 0.3),
+                0 2px 8px rgba(0, 0, 0, 0.2),
+                0 2px 8px rgba(157, 108, 255, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            }
+
+            .example_button:active {
+              transform: translateY(-1px);
+              transition-duration: 0.1s;
+            }
+
+            .generating + .examples_container {
+              opacity: 0.5;
+              pointer-events: none;
+              transform: translateY(4px);
+            }
+
+            .loading-circle {
+              width: 16px;
+              height: 16px;
+            }
           </style>
           <script>
             document.addEventListener("DOMContentLoaded", () => {
@@ -399,6 +898,51 @@ export class WelcomeView {
           </svg>
 
           <div class="container">
+            <div class="ai_input_field_wrapper">
+              <div class="input_container">
+                <div class="input_wrapper" id="ai-input-wrapper">
+                  <div class="input_icon_left" id="ai-input-icon">✦</div>
+                  <input
+                    type="text"
+                    id="ai-prompt-input"
+                    class="prompt_input"
+                    placeholder="What analysis can I help you with?"
+                    autocomplete="off"
+                    spellcheck="false"
+                  />
+                  <div class="input_icons_right">
+                    <button 
+                      class="input_action_button"
+                      id="ai-submit-button"
+                    >
+                      ▶
+                    </button>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="examples_container" id="ai-examples-container">
+                <button
+                  class="example_button"
+                  data-example="Plot Meta's acquisition impact on stock prices"
+                >
+                  Plot Meta's acquisition impact on stock prices
+                </button>
+                <button
+                  class="example_button"
+                  data-example="Analyze car crash fatalities by region"
+                >
+                  Analyze car crash fatalities by region
+                </button>
+                <button
+                  class="example_button"
+                  data-example="Explore US trade surplus and deficits by country"
+                >
+                  Explore US trade surplus and deficits by country
+                </button>
+              </div>
+            </div>
+
             <div class="header">
               <div class="logo-container">
                 <div class="logo">
@@ -461,6 +1005,117 @@ export class WelcomeView {
           const recentSessionsList = document.getElementById('recent-sessions-list');
           const recentExpander = document.getElementById('recent-expander');
           const expandCollapseText = document.getElementById('expand-collapse-text');
+
+          // AI Input Field state
+          let aiInputValue = '';
+          let isGenerating = false;
+          const aiPromptInput = document.getElementById('ai-prompt-input');
+          const aiSubmitButton = document.getElementById('ai-submit-button');
+          const aiInputWrapper = document.getElementById('ai-input-wrapper');
+          const aiInputIcon = document.getElementById('ai-input-icon');
+          const aiExamplesContainer = document.getElementById('ai-examples-container');
+
+          // Loading circle SVG
+          const loadingCircleSVG = \`<svg class="loading-circle" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="2" opacity="0.25"/>
+            <path 
+              d="M8 1C11.866 1 15 4.13401 15 8"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <animateTransform
+                attributeName="transform"
+                attributeType="XML"
+                type="rotate"
+                from="0 8 8"
+                to="360 8 8"
+                dur="1s"
+                repeatCount="indefinite"
+              />
+            </path>
+          </svg>\`;
+
+          function handleAIInputSubmit(customInput) {
+            const submittedInput = (customInput || aiInputValue).trim();
+            if (submittedInput !== '' && !isGenerating) {
+              isGenerating = true;
+              
+              // Set the input value if using a custom input (from example button)
+              if (customInput) {
+                aiInputValue = customInput;
+                aiPromptInput.value = customInput;
+              }
+              
+              // Update UI
+              aiInputWrapper.classList.add('generating');
+              aiInputIcon.innerHTML = loadingCircleSVG;
+              aiPromptInput.placeholder = 'Processing your request...';
+              aiPromptInput.disabled = true;
+              aiSubmitButton.disabled = true;
+              
+              // Create a new notebook session with the AI prompt
+              // The prompt will be stored in SessionConfig and accessible in JupyterLab
+              window.electronAPI.newSession('notebook', submittedInput);
+              
+              // Reset UI after a brief delay
+              setTimeout(() => {
+                isGenerating = false;
+                aiInputValue = '';
+                aiPromptInput.value = '';
+                aiInputWrapper.classList.remove('generating');
+                aiInputIcon.innerHTML = '✦';
+                aiPromptInput.placeholder = 'What analysis can I help you with?';
+                aiPromptInput.disabled = false;
+                aiSubmitButton.disabled = false;
+              }, 1000);
+            }
+          }
+
+          function handleExampleClick(exampleText) {
+            handleAIInputSubmit(exampleText);
+          }
+
+          // Set up input event handlers
+          if (aiPromptInput) {
+            aiPromptInput.addEventListener('input', (e) => {
+              e.stopPropagation();
+              aiInputValue = e.target.value;
+            });
+
+            aiPromptInput.addEventListener('keydown', (e) => {
+              e.stopPropagation();
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleAIInputSubmit();
+              }
+            });
+          }
+
+          if (aiSubmitButton) {
+            aiSubmitButton.addEventListener('click', (e) => {
+              e.stopPropagation();
+              handleAIInputSubmit();
+            });
+
+            aiSubmitButton.addEventListener('mousedown', (e) => {
+              e.stopPropagation();
+            });
+          }
+
+          // Set up example button handlers
+          if (aiExamplesContainer) {
+            const exampleButtons = aiExamplesContainer.querySelectorAll('.example_button');
+            exampleButtons.forEach(button => {
+              button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const exampleText = button.getAttribute('data-example');
+                if (exampleText) {
+                  handleExampleClick(exampleText);
+                }
+              });
+            });
+          }
 
           function updateRecentSessionList(recentSessions, resetCollapseState) {
             const maxRecentItems = ${maxRecentItems};
