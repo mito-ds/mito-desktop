@@ -146,6 +146,20 @@ export class WelcomeView {
         --example-button-hover-shadow: ${isDark
           ? '0 4px 16px rgba(0, 0, 0, 0.3), 0 2px 8px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(157, 108, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
           : '0 4px 12px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(157, 108, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 1)'};
+        --radio-bg: ${isDark
+          ? 'linear-gradient(135deg, rgba(34, 27, 46, 0.6) 0%, rgba(28, 24, 36, 0.7) 50%, rgba(19, 15, 26, 0.6) 100%)'
+          : 'linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(250, 250, 252, 0.85) 50%, rgba(248, 248, 250, 0.8) 100%)'};
+        --radio-border: ${isDark ? 'rgba(157, 108, 255, 0.3)' : 'rgba(157, 108, 255, 0.25)'};
+        --radio-hover-bg: ${isDark
+          ? 'linear-gradient(135deg, rgba(34, 27, 46, 0.8) 0%, rgba(28, 24, 36, 0.9) 50%, rgba(19, 15, 26, 0.8) 100%)'
+          : 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(252, 252, 255, 0.98) 50%, rgba(250, 250, 252, 0.95) 100%)'};
+        --radio-hover-border: ${isDark ? 'rgba(157, 108, 255, 0.5)' : 'rgba(157, 108, 255, 0.4)'};
+        --radio-checked-bg: ${isDark
+          ? 'linear-gradient(135deg, rgba(157, 108, 255, 0.2) 0%, rgba(172, 132, 252, 0.15) 100%)'
+          : 'linear-gradient(135deg, rgba(157, 108, 255, 0.15) 0%, rgba(157, 108, 255, 0.1) 100%)'};
+        --radio-checked-border: ${isDark ? 'rgba(157, 108, 255, 0.6)' : 'rgba(157, 108, 255, 0.5)'};
+        --radio-text-color: ${isDark ? '#ffffff' : '#000000'};
+        --radio-text-hover-color: ${isDark ? '#ac84fc' : '#7C4DFF'};
       }
     `;
 
@@ -208,6 +222,20 @@ export class WelcomeView {
                   </div>
                 </div>
               </div>
+              <div class="deliverable_radio_group" id="deliverable-radio-group">
+                <label class="deliverable_radio_label">
+                  <input type="radio" name="deliverable" value="app" class="deliverable_radio" checked>
+                  <span class="deliverable_radio_text">App</span>
+                </label>
+                <label class="deliverable_radio_label">
+                  <input type="radio" name="deliverable" value="eda" class="deliverable_radio">
+                  <span class="deliverable_radio_text">Exploratory Data Analysis</span>
+                </label>
+                <label class="deliverable_radio_label">
+                  <input type="radio" name="deliverable" value="automation" class="deliverable_radio">
+                  <span class="deliverable_radio_text">Automation</span>
+                </label>
+              </div>
             </div>
 
             <div class="actions-container">
@@ -266,10 +294,13 @@ export class WelcomeView {
 
           // AI Input Field state
           let aiInputValue = '';
+          let selectedDeliverable = 'app';
           const aiPromptInput = document.getElementById('ai-prompt-input');
           const aiSubmitButton = document.getElementById('ai-submit-button');
           const aiInputWrapper = document.getElementById('ai-input-wrapper');
           const aiInputIcon = document.getElementById('ai-input-icon');
+          const deliverableRadios = document.querySelectorAll('.deliverable_radio');
+          const deliverableRadioGroup = document.getElementById('deliverable-radio-group');
 
           // Loading circle SVG
           const loadingCircleSVG = \`<svg class="loading-circle" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -292,6 +323,15 @@ export class WelcomeView {
             </path>
           </svg>\`;
 
+          function getDeliverableText(deliverable) {
+            const deliverableMap = {
+              'app': 'an app',
+              'eda': 'an exploratory data analysis',
+              'automation': 'an automation'
+            };
+            return deliverableMap[deliverable] || 'an app';
+          }
+
           function handleAIInputSubmit(customInput) {
             const submittedInput = (customInput || aiInputValue).trim();
             if (submittedInput !== '') {
@@ -308,10 +348,21 @@ export class WelcomeView {
               aiPromptInput.placeholder = 'Processing your request...';
               aiPromptInput.disabled = true;
               aiSubmitButton.disabled = true;
+              deliverableRadios.forEach(radio => {
+                radio.disabled = true;
+              });
+              if (deliverableRadioGroup) {
+                deliverableRadioGroup.style.opacity = '0.6';
+                deliverableRadioGroup.style.pointerEvents = 'none';
+              }
+              
+              // Append the deliverable message to the user's prompt
+              const deliverableText = getDeliverableText(selectedDeliverable);
+              const finalMessage = \`\${submittedInput}\\n\\nThe final deliverable should be \${deliverableText}\`;
               
               // Create a new notebook session with the AI prompt
               // The prompt will be stored in SessionConfig and accessible in JupyterLab
-              window.electronAPI.newSession('notebook', submittedInput);
+              window.electronAPI.newSession('notebook', finalMessage);
               
               // Reset UI after a brief delay
               setTimeout(() => {
@@ -322,9 +373,25 @@ export class WelcomeView {
                 aiPromptInput.placeholder = 'What analysis can I help you with?';
                 aiPromptInput.disabled = false;
                 aiSubmitButton.disabled = false;
+                deliverableRadios.forEach(radio => {
+                  radio.disabled = false;
+                });
+                if (deliverableRadioGroup) {
+                  deliverableRadioGroup.style.opacity = '1';
+                  deliverableRadioGroup.style.pointerEvents = 'auto';
+                }
               }, 1000);
             }
           }
+
+          // Handle deliverable radio button selection
+          deliverableRadios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+              if (e.target.checked) {
+                selectedDeliverable = e.target.value;
+              }
+            });
+          });
 
           // Set up input event handlers
           if (aiPromptInput) {

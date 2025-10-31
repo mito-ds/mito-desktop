@@ -629,3 +629,87 @@ body {
   height: 16px;
 }
 
+/* Deliverable Radio Buttons Styles */
+.deliverable_radio_group {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.deliverable_radio_label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px 16px;
+  background: var(--radio-bg);
+  backdrop-filter: blur(10px) saturate(150%);
+  -webkit-backdrop-filter: blur(10px) saturate(150%);
+  border: 1px solid var(--radio-border);
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  user-select: none;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.deliverable_radio_label:hover {
+  background: var(--radio-hover-bg);
+  border-color: var(--radio-hover-border);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(157, 108, 255, 0.2);
+}
+
+.deliverable_radio {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.deliverable_radio_text {
+  color: var(--radio-text-color);
+  transition: color 0.3s ease;
+  pointer-events: none;
+  font-weight: 500;
+}
+
+.deliverable_radio_label:hover .deliverable_radio_text {
+  color: var(--radio-text-hover-color);
+}
+
+.deliverable_radio:checked + .deliverable_radio_text {
+  color: var(--radio-text-hover-color);
+}
+
+.deliverable_radio_label:has(.deliverable_radio:checked) {
+  background: var(--radio-checked-bg);
+  border-color: var(--radio-checked-border);
+  box-shadow: 0 2px 12px rgba(157, 108, 255, 0.25), 
+              0 0 0 1px rgba(157, 108, 255, 0.1),
+              inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.deliverable_radio_label:has(.deliverable_radio:checked):hover {
+  background: var(--radio-checked-bg);
+  border-color: var(--radio-checked-border);
+  box-shadow: 0 4px 16px rgba(157, 108, 255, 0.3), 
+              0 0 0 1px rgba(157, 108, 255, 0.15),
+              inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.deliverable_radio_label:has(.deliverable_radio:disabled) {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.deliverable_radio:disabled + .deliverable_radio_text {
+  opacity: 0.6;
+}
+
