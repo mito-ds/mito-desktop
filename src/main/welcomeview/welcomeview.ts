@@ -37,9 +37,6 @@ export class WelcomeView {
       this._isDarkTheme ? DarkThemeBGColor : LightThemeBGColor
     );
 
-    const mitoWordmarkSrc = fs.readFileSync(
-      path.join(__dirname, '../../../app-assets/mito-wordmark.svg')
-    );
     const welcomeViewCSS = fs.readFileSync(
       path.join(__dirname, './welcomeview.css')
     ).toString();
@@ -196,54 +193,21 @@ export class WelcomeView {
               <div class="input_container">
                 <div class="input_wrapper" id="ai-input-wrapper">
                   <div class="input_icon_left" id="ai-input-icon">✦</div>
-                  <input
-                    type="text"
+                  <textarea
+                    rows="7"
                     id="ai-prompt-input"
                     class="prompt_input"
                     placeholder="What analysis can I help you with?"
                     autocomplete="off"
                     spellcheck="false"
-                  />
+                  ></textarea>
                   <div class="input_icons_right">
-                    <button 
-                      class="input_action_button"
-                      id="ai-submit-button"
-                    >
+                    <button class="input_action_button" id="ai-submit-button">
                       ▶
                     </button>
                   </div>
                 </div>
               </div>
-              
-              <div class="examples_container" id="ai-examples-container">
-                <button
-                  class="example_button"
-                  data-example="Plot Meta's acquisition impact on stock prices"
-                >
-                  Plot Meta's acquisition impact on stock prices
-                </button>
-                <button
-                  class="example_button"
-                  data-example="Analyze car crash fatalities by region"
-                >
-                  Analyze car crash fatalities by region
-                </button>
-                <button
-                  class="example_button"
-                  data-example="Explore US trade surplus and deficits by country"
-                >
-                  Explore US trade surplus and deficits by country
-                </button>
-              </div>
-            </div>
-
-            <div class="header">
-              <div class="logo-container">
-                <div class="logo">
-                  ${mitoWordmarkSrc}
-                </div>
-              </div>
-              <p class="subtitle">Data analysis made simple</p>
             </div>
 
             <div class="actions-container">
@@ -302,12 +266,10 @@ export class WelcomeView {
 
           // AI Input Field state
           let aiInputValue = '';
-          let isGenerating = false;
           const aiPromptInput = document.getElementById('ai-prompt-input');
           const aiSubmitButton = document.getElementById('ai-submit-button');
           const aiInputWrapper = document.getElementById('ai-input-wrapper');
           const aiInputIcon = document.getElementById('ai-input-icon');
-          const aiExamplesContainer = document.getElementById('ai-examples-container');
 
           // Loading circle SVG
           const loadingCircleSVG = \`<svg class="loading-circle" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -332,8 +294,7 @@ export class WelcomeView {
 
           function handleAIInputSubmit(customInput) {
             const submittedInput = (customInput || aiInputValue).trim();
-            if (submittedInput !== '' && !isGenerating) {
-              isGenerating = true;
+            if (submittedInput !== '') {
               
               // Set the input value if using a custom input (from example button)
               if (customInput) {
@@ -354,7 +315,6 @@ export class WelcomeView {
               
               // Reset UI after a brief delay
               setTimeout(() => {
-                isGenerating = false;
                 aiInputValue = '';
                 aiPromptInput.value = '';
                 aiInputWrapper.classList.remove('generating');
@@ -364,10 +324,6 @@ export class WelcomeView {
                 aiSubmitButton.disabled = false;
               }, 1000);
             }
-          }
-
-          function handleExampleClick(exampleText) {
-            handleAIInputSubmit(exampleText);
           }
 
           // Set up input event handlers
@@ -397,19 +353,6 @@ export class WelcomeView {
             });
           }
 
-          // Set up example button handlers
-          if (aiExamplesContainer) {
-            const exampleButtons = aiExamplesContainer.querySelectorAll('.example_button');
-            exampleButtons.forEach(button => {
-              button.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const exampleText = button.getAttribute('data-example');
-                if (exampleText) {
-                  handleExampleClick(exampleText);
-                }
-              });
-            });
-          }
 
           function updateRecentSessionList(recentSessions, resetCollapseState) {
             const maxRecentItems = ${maxRecentItems};
