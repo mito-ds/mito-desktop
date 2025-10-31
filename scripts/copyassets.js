@@ -34,11 +34,12 @@ function copyAssests() {
     process.exit();
   }
 
-  // Copy style and img directories into build directory
+  // Copy style, img directories, and CSS files into build directory
   walkSync(srcDir, srcPath => {
     const destPath = srcPath.replace(srcDir, dest);
 
-    if (srcPath.includes('style') || srcPath.includes('img')) {
+    if (srcPath.includes('style') || srcPath.includes('img') || srcPath.endsWith('.css')) {
+      fs.ensureDirSync(path.dirname(destPath));
       fs.copySync(srcPath, destPath);
     }
   });
@@ -115,7 +116,7 @@ copyAssests();
 if (process.argv.length > 2 && process.argv[2] == 'watch') {
   watch(srcDir, { recursive: true }, function (evt, name) {
     if (/(\.css$)|(\.html$)/.test(name)) {
-      console.log('Asset chage detected.');
+      console.log('Asset change detected.');
       copyAssests();
     }
   });
