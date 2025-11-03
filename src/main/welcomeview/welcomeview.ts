@@ -350,6 +350,7 @@ export class WelcomeView {
           // AI Input Field state
           let aiInputValue = '';
           let selectedDeliverable = null;
+          let selectedFiles = [];
           const aiPromptInput = document.getElementById('ai-prompt-input');
           const aiSubmitButton = document.getElementById('ai-submit-button');
           const aiInputWrapper = document.getElementById('ai-input-wrapper');
@@ -388,7 +389,26 @@ export class WelcomeView {
           }
 
           function handleAIInputSubmit(customInput) {
-            const submittedInput = (customInput || aiInputValue).trim();
+            // Get the user's text input (without file paths)
+            let submittedInput;
+            if (customInput) {
+              submittedInput = customInput.trim();
+            } else {
+              // Extract user text by removing file paths from the textarea value
+              let userText = aiPromptInput.value;
+              if (selectedFiles.length > 0) {
+                // Remove each selected file path from the text
+                selectedFiles.forEach(filePath => {
+                  // Remove file path if it appears in the text (could be at end or middle)
+                  // Use string replacement for simplicity
+                  userText = userText.split(filePath).join('');
+                });
+                // Clean up extra newlines and whitespace
+                userText = userText.replace(/\\n{2,}/g, '\\n').trim();
+              }
+              submittedInput = userText.trim() || aiInputValue.trim();
+            }
+            
             if (submittedInput !== '') {
               
               // Set the input value if using a custom input (from example button)
@@ -411,11 +431,19 @@ export class WelcomeView {
                 deliverableRadioGroup.style.pointerEvents = 'none';
               }
               
-              // Append the deliverable message to the user's prompt only if one is selected
+              // Build the final message with user prompt, file paths, and deliverable
               let finalMessage = submittedInput;
+              
+              // Append file paths if any files were selected
+              if (selectedFiles && selectedFiles.length > 0) {
+                const filePathsText = selectedFiles.join('\\n');
+                finalMessage = finalMessage + '\\n\\nUse these files to complete the task:\\n' + filePathsText;
+              }
+              
+              // Append the deliverable message if one is selected
               if (selectedDeliverable) {
                 const deliverableText = getDeliverableText(selectedDeliverable);
-                finalMessage = \`\${submittedInput}\\n\\nThe final deliverable should be \${deliverableText}\`;
+                finalMessage += \`\\n\\nThe final deliverable should be \${deliverableText}\`;
               }
               
               // Create a new notebook session with the AI prompt
@@ -449,7 +477,27 @@ export class WelcomeView {
           if (aiPromptInput) {
             aiPromptInput.addEventListener('input', (e) => {
               e.stopPropagation();
-              aiInputValue = e.target.value;
+              // Only update aiInputValue if the user is typing (not when we programmatically add file paths)
+              // We detect this by checking if the change is from user typing vs our programmatic update
+              // For simplicity, we'll just update it - file paths will be tracked separately in selectedFiles
+              const textareaValue = e.target.value;
+              // Simple heuristic: if textarea doesn't end with a selected file path, it's user typing
+              let isUserTyping = true;
+              if (selectedFiles.length > 0) {
+                // Check if value ends with any selected file path
+                isUserTyping = !selectedFiles.some(filePath => {
+                  return textareaValue === filePath || textareaValue.endsWith('\\n' + filePath);
+                });
+              }
+              
+              if (isUserTyping) {
+                // User is typing, update aiInputValue
+                // But we need to remove any file paths that might be in there
+                let userText = textareaValue;
+                // Simple approach: store the whole value, we'll extract user text on submit
+                aiInputValue = userText;
+              }
+              // If it's a file path display, don't update aiInputValue
             });
 
             aiPromptInput.addEventListener('keydown', (e) => {
@@ -479,15 +527,19 @@ export class WelcomeView {
               try {
                 const filePaths = await window.electronAPI.selectFilesForUpload();
                 if (filePaths && filePaths.length > 0) {
-                  // Append file paths to the textarea
+                  // Store file paths in the selectedFiles array
+                  selectedFiles = [...selectedFiles, ...filePaths];
+                  // Show file paths in the textarea for user visibility
+                  // We'll track the user's actual text separately in aiInputValue
                   const currentValue = aiPromptInput.value;
+                  // Remove any previously displayed file paths to avoid duplicates
+                  // Just show the user's text + new file paths
+                  const userText = aiInputValue || currentValue;
                   const filePathsText = filePaths.join('\\n');
-                  const separator = currentValue ? '\\n' : '';
-                  const newValue = currentValue ? \`\${currentValue}\${separator}\${filePathsText}\` : filePathsText;
+                  const separator = userText ? '\\n' : '';
+                  const newValue = userText ? \`\${userText}\${separator}\${filePathsText}\` : filePathsText;
                   aiPromptInput.value = newValue;
-                  aiInputValue = newValue;
-                  // Trigger input event to update state
-                  aiPromptInput.dispatchEvent(new Event('input', { bubbles: true }));
+                  // Don't update aiInputValue - keep the original user text
                   // Focus the textarea
                   aiPromptInput.focus();
                 }
