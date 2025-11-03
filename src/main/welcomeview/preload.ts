@@ -79,6 +79,14 @@ contextBridge.exposeInMainWorld('electronAPI', {
     callback: InstallBundledPythonEnvStatusListener
   ) => {
     onInstallBundledPythonEnvStatusListener = callback;
+  },
+  selectFilesForUpload: (): Promise<string[]> => {
+    return new Promise((resolve) => {
+      ipcRenderer.once(EventTypeRenderer.FilesForUploadSelected, (event: any, filePaths: string[]) => {
+        resolve(filePaths);
+      });
+      ipcRenderer.send(EventTypeMain.SelectFilesForUpload);
+    });
   }
 });
 

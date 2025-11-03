@@ -652,7 +652,7 @@ body {
 
 .input_wrapper {
   display: flex;
-  align-items: flex-start;
+  flex-direction: column;
   background: var(--input-wrapper-bg);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
@@ -723,6 +723,14 @@ body {
   animation: gradientPulse 2s ease-in-out infinite;
 }
 
+.input_textarea_section {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
 .input_icon_left {
   font-size: 20px;
   color: var(--input-icon-color);
@@ -732,9 +740,10 @@ body {
   filter: var(--input-icon-shadow);
   font-weight: 500;
   position: absolute;
-  top: 12px;
-  left: 12px;
+  top: 6px;
+  left: 0;
   z-index: 2;
+  pointer-events: none;
   animation: 
     iconTwinkle 5s ease-in-out infinite,
     iconColorShift 8s ease-in-out infinite;
@@ -802,12 +811,13 @@ body {
   font-weight: 400;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
   color: var(--prompt-input-color);
-  padding: 6px 40px 40px 40px;
+  padding: 6px 40px 0 40px;
   transition: all 0.4s ease;
   position: relative;
-  z-index: 2;
+  z-index: 1;
   resize: none;
   width: 100%;
+  min-height: 80px;
 }
 
 .prompt_input::placeholder {
@@ -859,14 +869,56 @@ body {
   box-shadow: none;
 }
 
+.input_bottom_section {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 8px;
+  min-height: 24px;
+  flex-wrap: wrap;
+}
+
+.input_upload_button {
+  min-width: 24px;
+  min-height: 24px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  color: var(--input-icon-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.input_upload_button:hover:not(:disabled) {
+  color: var(--input-icon-hover-color);
+  transform: scale(1.1);
+}
+
+.input_upload_button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.input_upload_button svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
 .input_icons_right {
   display: flex;
   align-items: center;
   gap: 4px;
   z-index: 2;
-  position: absolute;
-  bottom: 12px;
-  right: 12px;
+  flex-shrink: 0;
+  margin-left: auto;
 }
 
 .generating {
@@ -987,5 +1039,193 @@ body {
 
 .deliverable_radio:disabled + .deliverable_radio_text {
   opacity: 0.6;
+}
+
+/* Selected Files Container Styles */
+.selected-files-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  max-height: none;
+  overflow: visible;
+}
+
+.selected-files-container:empty {
+  display: none;
+}
+
+.selected-file-chip {
+  display: flex;
+  align-items: center;
+  background: var(--recent-item-bg);
+  border: 1px solid var(--recent-item-border);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 12px;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  max-width: 300px;
+}
+
+.selected-file-chip:hover {
+  background: var(--recent-item-hover-bg);
+  border-color: var(--recent-item-hover-border);
+}
+
+.selected-file-icon {
+  width: 14px;
+  height: 14px;
+  margin-right: 6px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--subtitle-color);
+  transition: all 0.2s ease;
+  line-height: 0;
+}
+
+.selected-file-icon svg {
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+
+.selected-file-chip:hover .selected-file-icon {
+  opacity: 0;
+}
+
+.selected-file-chip:hover .selected-file-remove {
+  opacity: 1;
+}
+
+.selected-file-remove {
+  position: absolute;
+  left: 6px;
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  color: var(--delete-hover-color);
+  font-weight: bold;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.selected-file-remove:hover {
+  background: var(--recent-item-hover-bg);
+}
+
+.selected-file-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;
+  color: var(--text-color);
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+
+.drag-drop-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  pointer-events: none;
+  animation: fadeInOverlay 0.2s ease-out;
+}
+
+@keyframes fadeInOverlay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.drag-drop-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 48px 56px;
+  background: var(--input-wrapper-focus-bg);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 2px dashed var(--input-wrapper-focus-border);
+  border-radius: 20px;
+  box-shadow: var(--input-wrapper-focus-shadow);
+  pointer-events: auto;
+  animation: scaleInContent 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  min-width: 280px;
+}
+
+@keyframes scaleInContent {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.drag-drop-icon-wrapper {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--input-wrapper-overlay-bg);
+  border-radius: 50%;
+  border: 1px solid var(--input-wrapper-border);
+  position: relative;
+}
+
+.drag-drop-icon-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(157, 108, 255, 0.3) 0%, rgba(172, 132, 252, 0.2) 100%);
+  opacity: 0.6;
+  z-index: -1;
+}
+
+.drag-drop-icon {
+  width: 32px;
+  height: 32px;
+  color: var(--input-icon-color);
+  display: block;
+}
+
+.drag-drop-text {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--text-color);
+  text-align: center;
+  letter-spacing: -0.01em;
 }
 

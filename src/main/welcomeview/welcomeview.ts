@@ -213,6 +213,20 @@ export class WelcomeView {
           </svg>
 
           <div class="container">
+            <!-- Drag and Drop Overlay -->
+            <div class="drag-drop-overlay" id="drag-drop-overlay">
+              <div class="drag-drop-content">
+                <div class="drag-drop-icon-wrapper">
+                  <svg class="drag-drop-icon" width="32" height="32" viewBox="0 0 72 86" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g fill="currentColor">
+                      <path d="M70.363 44.59C68.6013 43.258 66.0935 43.6017 64.7575 45.3634L46.4995 69.4724C39.73 78.4099 27.0735 80.6284 17.6905 74.5154C12.71 71.2693 9.39359 66.2537 8.37409 60.3904C7.31939 54.3435 8.8819 48.0154 12.6632 43.0234L35.3312 13.0894C39.5773 7.48783 47.5812 6.37853 53.1902 10.6246C58.7879 14.8668 59.8894 22.8746 55.6472 28.4766L50.8425 34.8204L32.6475 58.8434C31.1709 60.7965 28.4366 61.3629 26.5577 60.109C25.5304 59.4215 24.8546 58.3863 24.6515 57.1832C24.4484 55.984 24.7413 54.7887 25.4757 53.8199L43.8707 29.5389C45.2027 27.7772 44.859 25.2694 43.0973 23.9334C41.3356 22.6014 38.8278 22.9452 37.4918 24.7069L19.0968 48.9879C17.0499 51.691 16.1984 55.1637 16.7648 58.5113C17.296 61.6597 18.964 64.4019 21.4914 66.316C21.6945 66.4722 21.9054 66.6207 22.1203 66.7652C27.3781 70.273 34.5073 69.0933 38.6323 64.1441C38.6948 64.0699 38.769 64.0113 38.8276 63.9332L39.0229 63.6714L62.0229 33.3044C68.9291 24.1833 67.1362 11.1484 58.0112 4.23843C48.8979 -2.66387 35.8632 -0.863167 28.9522 8.25793L6.2842 38.1919L5.88967 38.7115C5.8428 38.774 5.81545 38.8404 5.77248 38.9029C1.03418 45.5435 -0.895518 53.8209 0.491282 61.7619C1.77648 69.1252 5.68268 75.5239 11.5693 79.9849C12.1357 80.4146 12.7216 80.8247 13.3232 81.2154C26.2102 89.606 43.5812 86.567 52.8782 74.2974L71.1362 50.1924C72.4721 48.4307 72.1247 45.9221 70.363 44.59Z" />
+                    </g>
+                  </svg>
+                </div>
+                <p class="drag-drop-text">Drop files here to add to chat</p>
+              </div>
+            </div>
+            
             <!-- Creation Section -->
             <div class="creation-section">
               <h1 class="creation-title">What should we build?</h1>
@@ -220,19 +234,31 @@ export class WelcomeView {
                 <div class="ai_input_field_wrapper">
                   <div class="input_container">
                     <div class="input_wrapper" id="ai-input-wrapper">
-                      <div class="input_icon_left" id="ai-input-icon">✦</div>
-                      <textarea
-                        rows="7"
-                        id="ai-prompt-input"
-                        class="prompt_input"
-                        placeholder="Describe the analysis you want to build..."
-                        autocomplete="off"
-                        spellcheck="false"
-                      ></textarea>
-                      <div class="input_icons_right">
-                        <button class="input_action_button" id="ai-submit-button">
-                          ▶
+                      <div class="input_textarea_section">
+                        <div class="input_icon_left" id="ai-input-icon">✦</div>
+                        <textarea
+                          rows="7"
+                          id="ai-prompt-input"
+                          class="prompt_input"
+                          placeholder="Describe the analysis you want to build..."
+                          autocomplete="off"
+                          spellcheck="false"
+                        ></textarea>
+                      </div>
+                      <div class="input_bottom_section">
+                        <button class="input_upload_button" id="ai-upload-button" title="Upload File">
+                          <svg width="16" height="16" viewBox="0 0 72 86" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g fill="currentColor">
+                              <path d="M70.363 44.59C68.6013 43.258 66.0935 43.6017 64.7575 45.3634L46.4995 69.4724C39.73 78.4099 27.0735 80.6284 17.6905 74.5154C12.71 71.2693 9.39359 66.2537 8.37409 60.3904C7.31939 54.3435 8.8819 48.0154 12.6632 43.0234L35.3312 13.0894C39.5773 7.48783 47.5812 6.37853 53.1902 10.6246C58.7879 14.8668 59.8894 22.8746 55.6472 28.4766L50.8425 34.8204L32.6475 58.8434C31.1709 60.7965 28.4366 61.3629 26.5577 60.109C25.5304 59.4215 24.8546 58.3863 24.6515 57.1832C24.4484 55.984 24.7413 54.7887 25.4757 53.8199L43.8707 29.5389C45.2027 27.7772 44.859 25.2694 43.0973 23.9334C41.3356 22.6014 38.8278 22.9452 37.4918 24.7069L19.0968 48.9879C17.0499 51.691 16.1984 55.1637 16.7648 58.5113C17.296 61.6597 18.964 64.4019 21.4914 66.316C21.6945 66.4722 21.9054 66.6207 22.1203 66.7652C27.3781 70.273 34.5073 69.0933 38.6323 64.1441C38.6948 64.0699 38.769 64.0113 38.8276 63.9332L39.0229 63.6714L62.0229 33.3044C68.9291 24.1833 67.1362 11.1484 58.0112 4.23843C48.8979 -2.66387 35.8632 -0.863167 28.9522 8.25793L6.2842 38.1919L5.88967 38.7115C5.8428 38.774 5.81545 38.8404 5.77248 38.9029C1.03418 45.5435 -0.895518 53.8209 0.491282 61.7619C1.77648 69.1252 5.68268 75.5239 11.5693 79.9849C12.1357 80.4146 12.7216 80.8247 13.3232 81.2154C26.2102 89.606 43.5812 86.567 52.8782 74.2974L71.1362 50.1924C72.4721 48.4307 72.1247 45.9221 70.363 44.59Z" />
+                            </g>
+                          </svg>
                         </button>
+                        <div class="selected-files-container" id="selected-files-container"></div>
+                        <div class="input_icons_right">
+                          <button class="input_action_button" id="ai-submit-button">
+                            ▶
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -347,12 +373,14 @@ export class WelcomeView {
           // AI Input Field state
           let aiInputValue = '';
           let selectedDeliverable = null;
+          let selectedFiles = [];
           const aiPromptInput = document.getElementById('ai-prompt-input');
           const aiSubmitButton = document.getElementById('ai-submit-button');
           const aiInputWrapper = document.getElementById('ai-input-wrapper');
           const aiInputIcon = document.getElementById('ai-input-icon');
           const deliverableRadios = document.querySelectorAll('.deliverable_radio');
           const deliverableRadioGroup = document.getElementById('deliverable-radio-group');
+          const selectedFilesContainer = document.getElementById('selected-files-container');
 
           // Loading circle SVG
           const loadingCircleSVG = \`<svg class="loading-circle" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -384,8 +412,77 @@ export class WelcomeView {
             return deliverableMap[deliverable] || 'an app';
           }
 
+          function getFileIcon(filePath) {
+            // Use the same simple file icon for all file types
+            return \`<svg width="14" height="14" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM13 3.414L18.586 9H14a1 1 0 0 1-1-1V3.414z" fill="currentColor"/>
+            </svg>\`;
+          }
+
+          function getFileName(filePath) {
+            // Extract just the filename from the full path
+            const parts = filePath.split(/[/\\\\]/);
+            return parts[parts.length - 1];
+          }
+
+          function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+          }
+
+          function renderSelectedFiles() {
+            if (!selectedFilesContainer) return;
+            
+            // Clear existing chips
+            selectedFilesContainer.innerHTML = '';
+            
+            // Render each selected file as a chip
+            selectedFiles.forEach((filePath, index) => {
+              const fileName = getFileName(filePath);
+              const icon = getFileIcon(filePath);
+              
+              const chip = document.createElement('div');
+              chip.className = 'selected-file-chip';
+              
+              // Create icon element
+              const iconEl = document.createElement('div');
+              iconEl.className = 'selected-file-icon';
+              iconEl.innerHTML = icon; // Use innerHTML for SVG
+              
+              // Create remove button
+              const removeButton = document.createElement('div');
+              removeButton.className = 'selected-file-remove';
+              removeButton.textContent = '×';
+              
+              // Create name element
+              const nameEl = document.createElement('span');
+              nameEl.className = 'selected-file-name';
+              nameEl.textContent = fileName;
+              
+              // Assemble chip
+              chip.appendChild(iconEl);
+              chip.appendChild(removeButton);
+              chip.appendChild(nameEl);
+              
+              // Add remove handler using closure to capture the file path
+              removeButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // Remove file from array by path (using closure)
+                const pathToRemove = filePath;
+                selectedFiles = selectedFiles.filter(fp => fp !== pathToRemove);
+                // Re-render chips
+                renderSelectedFiles();
+              });
+              
+              selectedFilesContainer.appendChild(chip);
+            });
+          }
+
           function handleAIInputSubmit(customInput) {
-            const submittedInput = (customInput || aiInputValue).trim();
+            // Get the user's text input
+            const submittedInput = (customInput || aiInputValue || aiPromptInput.value).trim();
+            
             if (submittedInput !== '') {
               
               // Set the input value if using a custom input (from example button)
@@ -408,11 +505,19 @@ export class WelcomeView {
                 deliverableRadioGroup.style.pointerEvents = 'none';
               }
               
-              // Append the deliverable message to the user's prompt only if one is selected
+              // Build the final message with user prompt, file paths, and deliverable
               let finalMessage = submittedInput;
+              
+              // Append file paths if any files were selected
+              if (selectedFiles && selectedFiles.length > 0) {
+                const filePathsText = selectedFiles.join('\\n');
+                finalMessage = finalMessage + '\\n\\nUse these files to complete the task:\\n' + filePathsText;
+              }
+              
+              // Append the deliverable message if one is selected
               if (selectedDeliverable) {
                 const deliverableText = getDeliverableText(selectedDeliverable);
-                finalMessage = \`\${submittedInput}\\n\\nThe final deliverable should be \${deliverableText}\`;
+                finalMessage += \`\\n\\nThe final deliverable should be \${deliverableText}\`;
               }
               
               // Create a new notebook session with the AI prompt
@@ -446,7 +551,27 @@ export class WelcomeView {
           if (aiPromptInput) {
             aiPromptInput.addEventListener('input', (e) => {
               e.stopPropagation();
-              aiInputValue = e.target.value;
+              // Only update aiInputValue if the user is typing (not when we programmatically add file paths)
+              // We detect this by checking if the change is from user typing vs our programmatic update
+              // For simplicity, we'll just update it - file paths will be tracked separately in selectedFiles
+              const textareaValue = e.target.value;
+              // Simple heuristic: if textarea doesn't end with a selected file path, it's user typing
+              let isUserTyping = true;
+              if (selectedFiles.length > 0) {
+                // Check if value ends with any selected file path
+                isUserTyping = !selectedFiles.some(filePath => {
+                  return textareaValue === filePath || textareaValue.endsWith('\\n' + filePath);
+                });
+              }
+              
+              if (isUserTyping) {
+                // User is typing, update aiInputValue
+                // But we need to remove any file paths that might be in there
+                let userText = textareaValue;
+                // Simple approach: store the whole value, we'll extract user text on submit
+                aiInputValue = userText;
+              }
+              // If it's a file path display, don't update aiInputValue
             });
 
             aiPromptInput.addEventListener('keydown', (e) => {
@@ -465,6 +590,31 @@ export class WelcomeView {
             });
 
             aiSubmitButton.addEventListener('mousedown', (e) => {
+              e.stopPropagation();
+            });
+          }
+
+          const aiUploadButton = document.getElementById('ai-upload-button');
+          if (aiUploadButton) {
+            aiUploadButton.addEventListener('click', async (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              try {
+                const filePaths = await window.electronAPI.selectFilesForUpload();
+                if (filePaths && filePaths.length > 0) {
+                  // Store file paths in the selectedFiles array
+                  selectedFiles = [...selectedFiles, ...filePaths];
+                  // Render file chips
+                  renderSelectedFiles();
+                  // Focus the textarea
+                  aiPromptInput.focus();
+                }
+              } catch (error) {
+                console.error('Error selecting files:', error);
+              }
+            });
+
+            aiUploadButton.addEventListener('mousedown', (e) => {
               e.stopPropagation();
             });
           }
@@ -558,21 +708,71 @@ export class WelcomeView {
             updateRecentSessionList(recentSessions, resetCollapseState);
           });
 
+          const dragDropOverlay = document.getElementById('drag-drop-overlay');
+          let dragCounter = 0;
+          
+          document.addEventListener('dragenter', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            // Check if files are being dragged
+            if (event.dataTransfer.types.includes('Files')) {
+              dragCounter++;
+              if (dragDropOverlay) {
+                dragDropOverlay.style.display = 'flex';
+              }
+            }
+          });
+          
           document.addEventListener('dragover', (event) => {
             event.preventDefault();
             event.stopPropagation();
+            
+            // Check if files are being dragged
+            if (event.dataTransfer.types.includes('Files')) {
+              if (dragDropOverlay) {
+                dragDropOverlay.style.display = 'flex';
+              }
+            }
+          });
+          
+          document.addEventListener('dragleave', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            dragCounter--;
+            if (dragCounter === 0) {
+              if (dragDropOverlay) {
+                dragDropOverlay.style.display = 'none';
+              }
+            }
           });
           
           document.addEventListener('drop', (event) => {
             event.preventDefault();
             event.stopPropagation();
+            
+            // Reset counter and hide overlay
+            dragCounter = 0;
+            if (dragDropOverlay) {
+              dragDropOverlay.style.display = 'none';
+            }
         
             const files = [];
             for (const file of event.dataTransfer.files) {
-              files.push(file.path);
+              if (file.path) {
+                files.push(file.path);
+              }
             }
 
-            window.electronAPI.openDroppedFiles(files);
+            if (files.length > 0) {
+              // Add files to selectedFiles array (same as upload button)
+              selectedFiles = [...selectedFiles, ...files];
+              // Render file chips
+              renderSelectedFiles();
+              // Focus the textarea
+              aiPromptInput.focus();
+            }
           });
 
           function handleNewSessionClick(type) {

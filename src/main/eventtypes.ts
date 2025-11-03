@@ -82,7 +82,8 @@ export enum EventTypeMain {
   CopySessionInfoToClipboard = 'copy-session-info-to-clipboard',
   RestartSession = 'restart-session',
   SetSettings = 'set-settings',
-  SetupCLICommandWithElevatedRights = 'setup-cli-command'
+  SetupCLICommandWithElevatedRights = 'setup-cli-command',
+  SelectFilesForUpload = 'select-files-for-upload'
 }
 
 // events sent to Renderer process
@@ -106,5 +107,6 @@ export enum EventTypeRenderer {
   ResetPythonEnvSelectPopup = 'reset-python-env-select-popup',
   SetPythonEnvironmentList = 'set-python-environment-list',
   SetEnvironmentListUpdateStatus = 'set-environment-list-update-status',
-  ShowUpdateBundledEnvAction = 'show-bundled-env-action'
+  ShowUpdateBundledEnvAction = 'show-bundled-env-action',
+  FilesForUploadSelected = 'files-for-upload-selected'
 }
