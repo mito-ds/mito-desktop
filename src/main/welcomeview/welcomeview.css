@@ -281,29 +281,45 @@ body {
   color: var(--text-color);
 }
 
-.recent-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+.recent-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+}
+
+.recent-table-header {
+  text-align: left;
+  padding: 10px 16px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--subtitle-color);
+  border-bottom: 1px solid var(--action-button-border);
+}
+
+.recent-table-header:first-child {
+  padding-left: 16px;
+}
+
+.recent-table-header:nth-child(2) {
+  text-align: right;
+  padding-right: 16px;
+}
+
+.recent-table-header:last-child {
+  width: 40px;
+  padding-right: 16px;
 }
 
 .recent-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  background: var(--recent-item-bg);
-  border: 1px solid var(--recent-item-border);
-  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
+  transition: background-color 0.15s ease;
+  border-bottom: 1px solid var(--action-button-border);
 }
 
 .recent-item:hover {
   background: var(--recent-item-hover-bg);
-  border-color: var(--action-button-hover-border);
-  transform: translateX(2px);
 }
 
 .recent-item.disabled {
@@ -311,62 +327,56 @@ body {
   pointer-events: none;
 }
 
-.recent-item-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 20px;
-  height: 20px;
-}
-
-.recent-item-icon svg {
-  width: 16px;
-  height: 16px;
-}
-
-.recent-item-content {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  flex: 1;
-  min-width: 0;
-  margin-right: 24px;
+.recent-item-name-cell {
+  padding: 12px 16px;
+  vertical-align: middle;
+  padding-left: 16px;
 }
 
 .recent-item-name {
   font-weight: 500;
   color: var(--text-color);
   font-size: 14px;
-  line-height: 1.3;
+  line-height: 1.4;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.recent-item-path-cell {
+  padding: 12px 16px;
+  vertical-align: middle;
+  text-align: right;
+  padding-right: 16px;
 }
 
 .recent-item-path {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--subtitle-color);
-  line-height: 1.3;
+  line-height: 1.4;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+.recent-item-action-cell {
+  width: 40px;
+  padding: 12px 16px;
+  vertical-align: middle;
+  text-align: right;
+}
+
 .recent-item-delete {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 24px;
   height: 24px;
   opacity: 0;
   transition: opacity 0.2s ease;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   border-radius: 4px;
+  vertical-align: middle;
 }
 
 .recent-item:hover .recent-item-delete {
@@ -387,13 +397,16 @@ body {
   fill: var(--delete-hover-color);
 }
 
-.no-recent-message {
-  text-align: center;
+.no-recent-row {
+  pointer-events: none;
+}
+
+.no-recent-cell {
   padding: 60px 20px;
-  background: var(--no-recent-bg);
-  border: 1px dashed var(--no-recent-border);
-  border-radius: 12px;
-  margin: 20px 0;
+  text-align: center;
+}
+
+.no-recent-message {
   display: flex;
   flex-direction: column;
   align-items: center;

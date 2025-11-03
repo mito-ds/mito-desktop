@@ -305,9 +305,18 @@ export class WelcomeView {
             <!-- Recent Sessions Section -->
             <div class="content-section">
               <div class="recent-section">
-                <div id="recent-sessions-list" class="recent-list">
-                  <!-- Recent sessions will be populated here -->
-                </div>
+                <table id="recent-sessions-list" class="recent-table">
+                  <thead>
+                    <tr>
+                      <th class="recent-table-header">Name</th>
+                      <th class="recent-table-header">Path</th>
+                      <th class="recent-table-header"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Recent sessions will be populated here -->
+                  </tbody>
+                </table>
                 <div id="recent-expander" class="recent-expander">
                   <a href="javascript:void(0)" onclick="handleExpandCollapseRecents();">
                     <span id="expand-collapse-text">View all</span>
@@ -467,59 +476,62 @@ export class WelcomeView {
           function updateRecentSessionList(recentSessions, resetCollapseState) {
             const maxRecentItems = ${maxRecentItems};
             
-            // Clear list
-            recentSessionsList.innerHTML = '';
+            // Get table body
+            const tbody = recentSessionsList.querySelector('tbody');
+            if (!tbody) return;
+            
+            // Clear table body
+            tbody.innerHTML = '';
 
             let recentSessionCount = 0;
 
             for (const recentSession of recentSessions) {
               const {isRemote, linkLabel, linkTooltip, linkDetail} = recentSession;
-              const recentItem = document.createElement('div');
-              recentItem.classList.add('recent-item');
+              const row = document.createElement('tr');
+              row.classList.add('recent-item');
               if (!isRemote) {
-                recentItem.classList.add('recent-item-local');
+                row.classList.add('recent-item-local');
               }
-              recentItem.dataset.sessionIndex = recentSessionCount;
-              const iconColor = isDarkTheme ? '#9D6CFF' : '#7C4DFF';
-              recentItem.innerHTML = \`
-                <div class="recent-item-icon">
-                  <svg width="16" height="16" viewBox="0 0 22 22">
-                    <g class="jp-icon-warn0 jp-icon-selectable" fill="\${iconColor}">
-                      <path d="M18.7 3.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z"/>
-                      <path d="M16.5 16.5l-5.4-4.3-5.6 4.3v-11h11z"/>
-                    </g>
-                  </svg>
-                </div>
-                <div class="recent-item-content">
+              row.dataset.sessionIndex = recentSessionCount;
+              row.innerHTML = \`
+                <td class="recent-item-name-cell">
                   <div class="recent-item-name">\${linkLabel}</div>
-                  \${linkDetail ? \`<div class="recent-item-path">\${linkDetail}</div>\` : ''}
-                </div>
-                <div class="recent-item-delete" title="Remove" onclick="handleRecentSesssionDeleteClick(event)">
-                  <svg version="2.0">
-                    <use href="#circle-xmark" />
-                  </svg>
-                </div>
+                </td>
+                <td class="recent-item-path-cell">
+                  <div class="recent-item-path">\${linkDetail || ''}</div>
+                </td>
+                <td class="recent-item-action-cell">
+                  <div class="recent-item-delete" title="Remove" onclick="handleRecentSesssionDeleteClick(event)">
+                    <svg version="2.0">
+                      <use href="#circle-xmark" />
+                    </svg>
+                  </div>
+                </td>
               \`;
 
-              recentItem.addEventListener('click', (event) => {
+              row.addEventListener('click', (event) => {
                 if (!event.target.closest('.recent-item-delete')) {
                   handleRecentSessionClick(event);
                 }
               });
 
-              recentSessionsList.appendChild(recentItem);
+              tbody.appendChild(row);
               recentSessionCount++;
             }
 
             if (recentSessionCount === 0) {
-              const noHistoryMessage = document.createElement('div');
-              noHistoryMessage.className = 'no-recent-message';
-              noHistoryMessage.innerHTML = \`
-                <div class="no-recent-icon">📊</div>
-                <div class="no-recent-text">No recent sessions</div>
-                <div class="no-recent-subtext">Your recent projects will appear here</div>
+              const noHistoryRow = document.createElement('tr');
+              noHistoryRow.className = 'no-recent-row';
+              noHistoryRow.innerHTML = \`
+                <td colspan="3" class="no-recent-cell">
+                  <div class="no-recent-message">
+                    <div class="no-recent-icon">📊</div>
+                    <div class="no-recent-text">No recent sessions</div>
+                    <div class="no-recent-subtext">Your recent projects will appear here</div>
+                  </div>
+                </td>
               \`;
-              recentSessionsList.appendChild(noHistoryMessage);
+              tbody.appendChild(noHistoryRow);
             }
 
             // Handle expand/collapse
@@ -531,7 +543,7 @@ export class WelcomeView {
                 recentExpander.style.display = 'block';
                 
                 // Hide items beyond maxRecentItems
-                const items = recentSessionsList.querySelectorAll('.recent-item');
+                const items = tbody.querySelectorAll('.recent-item:not(.no-recent-row)');
                 items.forEach((item, index) => {
                   if (index >= maxRecentItems) {
                     item.style.display = 'none';
@@ -591,7 +603,9 @@ export class WelcomeView {
 
           function handleExpandCollapseRecents() {
             const isCollapsed = recentSessionsList.classList.contains("recents-collapsed");
-            const items = recentSessionsList.querySelectorAll('.recent-item');
+            const tbody = recentSessionsList.querySelector('tbody');
+            if (!tbody) return;
+            const items = tbody.querySelectorAll('.recent-item:not(.no-recent-row)');
             
             if (isCollapsed) {
               recentSessionsList.classList.remove("recents-collapsed");
@@ -600,7 +614,7 @@ export class WelcomeView {
               
               // Show all items
               items.forEach(item => {
-                item.style.display = 'flex';
+                item.style.display = '';
               });
             } else {
               recentSessionsList.classList.remove("recents-expanded");
