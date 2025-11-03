@@ -418,24 +418,6 @@ export class WelcomeView {
               // Create a new notebook session with the AI prompt
               // The prompt will be stored in SessionConfig and accessible in JupyterLab
               window.electronAPI.newSession('notebook', finalMessage);
-              
-              // Reset UI after a brief delay
-              setTimeout(() => {
-                aiInputValue = '';
-                aiPromptInput.value = '';
-                aiInputWrapper.classList.remove('generating');
-                aiInputIcon.innerHTML = '✦';
-                aiPromptInput.placeholder = 'What analysis can I help you with?';
-                aiPromptInput.disabled = false;
-                aiSubmitButton.disabled = false;
-                deliverableRadios.forEach(radio => {
-                  radio.disabled = false;
-                });
-                if (deliverableRadioGroup) {
-                  deliverableRadioGroup.style.opacity = '1';
-                  deliverableRadioGroup.style.pointerEvents = 'auto';
-                }
-              }, 1000);
             }
           }
 
