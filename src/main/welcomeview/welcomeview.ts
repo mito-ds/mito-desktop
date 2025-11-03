@@ -218,6 +218,7 @@ export class WelcomeView {
               <h1 class="creation-title">What should we build?</h1>
               <div class="creation-content">
                 <div class="ai_input_field_wrapper">
+                  <div class="selected-files-container" id="selected-files-container"></div>
                   <div class="input_container">
                     <div class="input_wrapper" id="ai-input-wrapper">
                       <div class="input_icon_left" id="ai-input-icon">✦</div>
@@ -357,6 +358,7 @@ export class WelcomeView {
           const aiInputIcon = document.getElementById('ai-input-icon');
           const deliverableRadios = document.querySelectorAll('.deliverable_radio');
           const deliverableRadioGroup = document.getElementById('deliverable-radio-group');
+          const selectedFilesContainer = document.getElementById('selected-files-container');
 
           // Loading circle SVG
           const loadingCircleSVG = \`<svg class="loading-circle" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -388,26 +390,76 @@ export class WelcomeView {
             return deliverableMap[deliverable] || 'an app';
           }
 
+          function getFileIcon(filePath) {
+            // Use the same simple file icon for all file types
+            return \`<svg width="14" height="14" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM13 3.414L18.586 9H14a1 1 0 0 1-1-1V3.414z" fill="currentColor"/>
+            </svg>\`;
+          }
+
+          function getFileName(filePath) {
+            // Extract just the filename from the full path
+            const parts = filePath.split(/[/\\\\]/);
+            return parts[parts.length - 1];
+          }
+
+          function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+          }
+
+          function renderSelectedFiles() {
+            if (!selectedFilesContainer) return;
+            
+            // Clear existing chips
+            selectedFilesContainer.innerHTML = '';
+            
+            // Render each selected file as a chip
+            selectedFiles.forEach((filePath, index) => {
+              const fileName = getFileName(filePath);
+              const icon = getFileIcon(filePath);
+              
+              const chip = document.createElement('div');
+              chip.className = 'selected-file-chip';
+              
+              // Create icon element
+              const iconEl = document.createElement('div');
+              iconEl.className = 'selected-file-icon';
+              iconEl.innerHTML = icon; // Use innerHTML for SVG
+              
+              // Create remove button
+              const removeButton = document.createElement('div');
+              removeButton.className = 'selected-file-remove';
+              removeButton.textContent = '×';
+              
+              // Create name element
+              const nameEl = document.createElement('span');
+              nameEl.className = 'selected-file-name';
+              nameEl.textContent = fileName;
+              
+              // Assemble chip
+              chip.appendChild(iconEl);
+              chip.appendChild(removeButton);
+              chip.appendChild(nameEl);
+              
+              // Add remove handler using closure to capture the file path
+              removeButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // Remove file from array by path (using closure)
+                const pathToRemove = filePath;
+                selectedFiles = selectedFiles.filter(fp => fp !== pathToRemove);
+                // Re-render chips
+                renderSelectedFiles();
+              });
+              
+              selectedFilesContainer.appendChild(chip);
+            });
+          }
+
           function handleAIInputSubmit(customInput) {
-            // Get the user's text input (without file paths)
-            let submittedInput;
-            if (customInput) {
-              submittedInput = customInput.trim();
-            } else {
-              // Extract user text by removing file paths from the textarea value
-              let userText = aiPromptInput.value;
-              if (selectedFiles.length > 0) {
-                // Remove each selected file path from the text
-                selectedFiles.forEach(filePath => {
-                  // Remove file path if it appears in the text (could be at end or middle)
-                  // Use string replacement for simplicity
-                  userText = userText.split(filePath).join('');
-                });
-                // Clean up extra newlines and whitespace
-                userText = userText.replace(/\\n{2,}/g, '\\n').trim();
-              }
-              submittedInput = userText.trim() || aiInputValue.trim();
-            }
+            // Get the user's text input
+            const submittedInput = (customInput || aiInputValue || aiPromptInput.value).trim();
             
             if (submittedInput !== '') {
               
@@ -529,17 +581,8 @@ export class WelcomeView {
                 if (filePaths && filePaths.length > 0) {
                   // Store file paths in the selectedFiles array
                   selectedFiles = [...selectedFiles, ...filePaths];
-                  // Show file paths in the textarea for user visibility
-                  // We'll track the user's actual text separately in aiInputValue
-                  const currentValue = aiPromptInput.value;
-                  // Remove any previously displayed file paths to avoid duplicates
-                  // Just show the user's text + new file paths
-                  const userText = aiInputValue || currentValue;
-                  const filePathsText = filePaths.join('\\n');
-                  const separator = userText ? '\\n' : '';
-                  const newValue = userText ? \`\${userText}\${separator}\${filePathsText}\` : filePathsText;
-                  aiPromptInput.value = newValue;
-                  // Don't update aiInputValue - keep the original user text
+                  // Render file chips
+                  renderSelectedFiles();
                   // Focus the textarea
                   aiPromptInput.focus();
                 }

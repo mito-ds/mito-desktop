@@ -989,3 +989,97 @@ body {
   opacity: 0.6;
 }
 
+/* Selected Files Container Styles */
+.selected-files-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  min-height: 20px;
+  margin-bottom: 8px;
+}
+
+.selected-files-container:empty {
+  display: none;
+}
+
+.selected-file-chip {
+  display: flex;
+  align-items: center;
+  background: var(--recent-item-bg);
+  border: 1px solid var(--recent-item-border);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 12px;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  max-width: 300px;
+}
+
+.selected-file-chip:hover {
+  background: var(--recent-item-hover-bg);
+  border-color: var(--recent-item-hover-border);
+}
+
+.selected-file-icon {
+  width: 14px;
+  height: 14px;
+  margin-right: 6px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--subtitle-color);
+  transition: all 0.2s ease;
+  line-height: 0;
+}
+
+.selected-file-icon svg {
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+
+.selected-file-chip:hover .selected-file-icon {
+  opacity: 0;
+}
+
+.selected-file-chip:hover .selected-file-remove {
+  opacity: 1;
+}
+
+.selected-file-remove {
+  position: absolute;
+  left: 6px;
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  color: var(--delete-hover-color);
+  font-weight: bold;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.selected-file-remove:hover {
+  background: var(--recent-item-hover-bg);
+}
+
+.selected-file-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;
+  color: var(--text-color);
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+
