@@ -437,7 +437,6 @@ export class LabView implements IDisposable {
     this._view.webContents.on('dom-ready', () => {
       const setToSingleFileUIMode = this.shouldSetToSingleFileUIMode();
       const aiPrompt = this._sessionConfig.aiPrompt;
-      console.log('aiPrompt', aiPrompt);
 
       this._view.webContents.executeJavaScript(`
         // disable splash animation
