@@ -232,7 +232,6 @@ export class WelcomeView {
               <h1 class="creation-title">What should we build?</h1>
               <div class="creation-content">
                 <div class="ai_input_field_wrapper">
-                  <div class="selected-files-container" id="selected-files-container"></div>
                   <div class="input_container">
                     <div class="input_wrapper" id="ai-input-wrapper">
                       <div class="input_icon_left" id="ai-input-icon">✦</div>
@@ -243,6 +242,7 @@ export class WelcomeView {
                           </g>
                         </svg>
                       </button>
+                      <div class="selected-files-container" id="selected-files-container"></div>
                       <textarea
                         rows="7"
                         id="ai-prompt-input"

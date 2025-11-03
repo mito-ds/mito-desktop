@@ -1033,9 +1033,14 @@ body {
   flex-wrap: wrap;
   align-items: center;
   gap: 8px;
-  padding: 12px 20px;
+  position: absolute;
+  bottom: 12px;
+  left: 44px;
+  right: 56px;
+  z-index: 10;
   min-height: 20px;
-  margin-bottom: 8px;
+  max-height: 60px;
+  overflow-y: auto;
 }
 
 .selected-files-container:empty {
