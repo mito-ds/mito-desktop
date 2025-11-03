@@ -31,6 +31,7 @@ export class SessionConfig {
   token: string;
   pageConfig: any;
   cookies?: Electron.Cookie[];
+  aiPrompt?: string;
 
   static createLocal(
     workingDirectory?: string,

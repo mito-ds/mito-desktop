@@ -37,9 +37,9 @@ export class WelcomeView {
       this._isDarkTheme ? DarkThemeBGColor : LightThemeBGColor
     );
 
-    const mitoWordmarkSrc = fs.readFileSync(
-      path.join(__dirname, '../../../app-assets/mito-wordmark.svg')
-    );
+    const welcomeViewCSS = fs.readFileSync(
+      path.join(__dirname, './welcomeview.css')
+    ).toString();
     const notebookIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" viewBox="0 0 22 22">
       <g class="jp-icon-warn0 jp-icon-selectable" fill="#EF6C00">
         <path d="M18.7 3.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z"/>
@@ -47,6 +47,131 @@ export class WelcomeView {
       </g>
       </svg>`;
     const openIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M88.7 223.8L0 375.8V96C0 60.7 28.7 32 64 32H181.5c17 0 33.3 6.7 45.3 18.7l26.5 26.5c12 12 28.3 18.7 45.3 18.7H416c35.3 0 64 28.7 64 64v32H144c-22.8 0-43.8 12.1-55.3 31.8zm27.6 16.1C122.1 230 132.6 224 144 224H544c11.5 0 22 6.1 27.7 16.1s5.7 22.2-.1 32.1l-112 192C453.9 474 443.4 480 432 480H32c-11.5 0-22-6.1-27.7-16.1s-5.7-22.2 .1-32.1l112-192z"/></svg>`;
+    
+    // Theme-specific CSS variables
+    const isDark = this._isDarkTheme;
+    const themeCSS = `
+      :root {
+        --bg-color: ${isDark ? '#1a1a1a' : '#ffffff'};
+        --text-color: ${isDark ? '#ffffff' : '#000000'};
+        --subtitle-color: ${isDark ? '#888888' : '#666666'};
+        --action-button-bg: ${isDark ? '#2a2a2a' : '#f5f5f5'};
+        --action-button-border: ${isDark ? '#404040' : '#e0e0e0'};
+        --action-button-hover-bg: ${isDark ? '#3a3a3a' : '#eeeeee'};
+        --action-button-hover-border: ${isDark ? '#555555' : '#d0d0d0'};
+        --recent-item-bg: ${isDark ? '#2a2a2a' : '#f8f8f8'};
+        --recent-item-border: ${isDark ? '#404040' : '#e0e0e0'};
+        --recent-item-hover-bg: ${isDark ? '#3a3a3a' : '#f0f0f0'};
+        --no-recent-bg: ${isDark ? 'rgba(255, 255, 255, 0.02)' : 'rgba(0, 0, 0, 0.02)'};
+        --no-recent-border: ${isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'};
+        --link-color: ${isDark ? '#4a9eff' : '#0066cc'};
+        --notification-bg: ${isDark ? '#2a2a2a' : '#ffffff'};
+        --notification-border: ${isDark ? '#404040' : '#e0e0e0'};
+        --spinner-border: ${isDark ? '#404040' : '#e0e0e0'};
+        --install-button-bg: ${isDark ? '#4a9eff' : '#0066cc'};
+        --install-button-hover-bg: ${isDark ? '#3a8bdf' : '#0052a3'};
+        --delete-hover-color: ${isDark ? '#ff6b6b' : '#e74c3c'};
+        --prompt-input-color: ${isDark ? '#ffffff' : '#000000'};
+        --prompt-placeholder-color: ${isDark ? '#D0D0D0' : '#666666'};
+        --example-button-color: ${isDark ? '#D0D0D0' : '#666666'};
+        
+        /* AI Input Field Theme Variables */
+        --input-wrapper-bg: ${isDark 
+          ? 'linear-gradient(135deg, rgba(34, 27, 46, 0.9) 0%, rgba(28, 24, 36, 0.95) 50%, rgba(19, 15, 26, 0.9) 100%)'
+          : 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 250, 252, 0.98) 50%, rgba(248, 248, 250, 0.95) 100%)'};
+        --input-wrapper-border: ${isDark ? 'rgba(157, 108, 255, 0.4)' : 'rgba(157, 108, 255, 0.3)'};
+        --input-wrapper-shadow: ${isDark
+          ? '0 4px 20px rgba(0, 0, 0, 0.3), 0 2px 12px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.2), 0 0 20px rgba(157, 108, 255, 0.2), 0 0 40px rgba(157, 108, 255, 0.1)'
+          : '0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 0 15px rgba(157, 108, 255, 0.15), 0 0 30px rgba(157, 108, 255, 0.08)'};
+        --input-wrapper-overlay-bg: ${isDark
+          ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(157, 108, 255, 0.03) 100%)'
+          : 'linear-gradient(135deg, rgba(157, 108, 255, 0.05) 0%, rgba(157, 108, 255, 0.02) 50%, rgba(255, 255, 255, 0.03) 100%)'};
+        --input-wrapper-shimmer-bg: ${isDark
+          ? 'linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 100%)'
+          : 'linear-gradient(90deg, rgba(157, 108, 255, 0) 0%, rgba(157, 108, 255, 0.08) 50%, rgba(157, 108, 255, 0) 100%)'};
+        --input-wrapper-hover-bg: ${isDark
+          ? 'linear-gradient(135deg, rgba(34, 27, 46, 0.95) 0%, rgba(28, 24, 36, 1) 50%, rgba(19, 15, 26, 0.95) 100%)'
+          : 'linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(252, 252, 255, 1) 50%, rgba(250, 250, 252, 1) 100%)'};
+        --input-wrapper-hover-border: ${isDark ? 'rgba(157, 108, 255, 0.6)' : 'rgba(157, 108, 255, 0.5)'};
+        --input-wrapper-hover-shadow: ${isDark
+          ? '0 8px 32px rgba(0, 0, 0, 0.4), 0 4px 20px rgba(0, 0, 0, 0.3), 0 2px 8px rgba(0, 0, 0, 0.5), 0 4px 24px rgba(157, 108, 255, 0.3), 0 2px 12px rgba(172, 132, 252, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.15), inset 0 -1px 0 rgba(157, 108, 255, 0.2)'
+          : '0 4px 16px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 1), 0 4px 20px rgba(157, 108, 255, 0.2), 0 2px 10px rgba(157, 108, 255, 0.15)'};
+        --input-wrapper-focus-bg: ${isDark
+          ? 'linear-gradient(135deg, rgba(34, 27, 46, 1) 0%, rgba(28, 24, 36, 1) 50%, rgba(25, 20, 35, 1) 100%)'
+          : 'linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 1) 100%)'};
+        --input-wrapper-focus-border: ${isDark ? 'rgba(157, 108, 255, 0.8)' : 'rgba(157, 108, 255, 0.6)'};
+        --input-wrapper-focus-shadow: ${isDark
+          ? '0 12px 40px rgba(0, 0, 0, 0.5), 0 6px 24px rgba(0, 0, 0, 0.4), 0 3px 12px rgba(0, 0, 0, 0.6), 0 8px 32px rgba(157, 108, 255, 0.4), 0 4px 16px rgba(172, 132, 252, 0.3), 0 2px 8px rgba(192, 132, 252, 0.25), 0 0 0 4px rgba(157, 108, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 rgba(157, 108, 255, 0.3), inset 0 0 20px rgba(157, 108, 255, 0.1)'
+          : '0 6px 24px rgba(0, 0, 0, 0.12), 0 3px 12px rgba(0, 0, 0, 0.1), 0 8px 28px rgba(157, 108, 255, 0.25), 0 4px 14px rgba(157, 108, 255, 0.2), 0 0 0 4px rgba(157, 108, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 1)'};
+        --input-wrapper-generating-shadow: ${isDark
+          ? '0 8px 32px rgba(157, 108, 255, 0.4), 0 4px 16px rgba(172, 132, 252, 0.3), 0 2px 8px rgba(192, 132, 252, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15), inset 0 0 20px rgba(157, 108, 255, 0.15)'
+          : '0 4px 20px rgba(157, 108, 255, 0.25), 0 2px 10px rgba(157, 108, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 1), inset 0 0 15px rgba(157, 108, 255, 0.1)'};
+        --input-icon-color: ${isDark ? '#9D6CFF' : '#7C4DFF'};
+        --input-icon-shadow: ${isDark 
+          ? 'drop-shadow(0 2px 4px rgba(157, 108, 255, 0.3))'
+          : 'drop-shadow(0 2px 4px rgba(157, 108, 255, 0.4))'};
+        --input-icon-focus-color: ${isDark ? '#ac84fc' : '#6A37E5'};
+        --input-icon-focus-shadow: ${isDark
+          ? 'drop-shadow(0 4px 8px rgba(157, 108, 255, 0.5))'
+          : 'drop-shadow(0 4px 8px rgba(157, 108, 255, 0.6))'};
+        --input-icon-hover-color: ${isDark ? '#9D6CFF' : '#7C4DFF'};
+        --input-icon-hover-shadow: ${isDark
+          ? 'drop-shadow(0 3px 6px rgba(157, 108, 255, 0.4))'
+          : 'drop-shadow(0 3px 6px rgba(157, 108, 255, 0.5))'};
+        --input-sparkle-color: ${isDark ? '#ac84fc' : '#9D6CFF'};
+        --input-button-bg: ${isDark
+          ? 'linear-gradient(135deg, rgba(157, 108, 255, 0.2) 0%, rgba(172, 132, 252, 0.15) 100%)'
+          : 'linear-gradient(135deg, rgba(157, 108, 255, 0.15) 0%, rgba(157, 108, 255, 0.1) 100%)'};
+        --input-button-color: ${isDark ? '#9D6CFF' : '#7C4DFF'};
+        --input-button-shadow: ${isDark
+          ? '0 2px 8px rgba(157, 108, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+          : '0 2px 6px rgba(157, 108, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.9)'};
+        --input-button-hover-bg: ${isDark
+          ? 'linear-gradient(135deg, rgba(157, 108, 255, 0.3) 0%, rgba(172, 132, 252, 0.2) 100%)'
+          : 'linear-gradient(135deg, rgba(157, 108, 255, 0.25) 0%, rgba(157, 108, 255, 0.15) 100%)'};
+        --input-button-hover-shadow: ${isDark
+          ? '0 4px 16px rgba(157, 108, 255, 0.3), 0 2px 8px rgba(172, 132, 252, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
+          : '0 4px 12px rgba(157, 108, 255, 0.35), 0 2px 6px rgba(157, 108, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 1)'};
+        --example-button-bg: ${isDark
+          ? 'linear-gradient(135deg, rgba(34, 27, 46, 0.8) 0%, rgba(28, 24, 36, 0.9) 50%, rgba(19, 15, 26, 0.8) 100%)'
+          : 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(250, 250, 252, 0.95) 50%, rgba(248, 248, 250, 0.9) 100%)'};
+        --example-button-border: ${isDark ? 'rgba(157, 108, 255, 0.3)' : 'rgba(157, 108, 255, 0.25)'};
+        --example-button-shadow: ${isDark
+          ? '0 2px 8px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.05)'
+          : '0 2px 6px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.9)'};
+        --example-button-hover-bg: ${isDark
+          ? 'linear-gradient(135deg, rgba(34, 27, 46, 0.9) 0%, rgba(28, 24, 36, 1) 50%, rgba(19, 15, 26, 0.9) 100%)'
+          : 'linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(252, 252, 255, 1) 50%, rgba(250, 250, 252, 1) 100%)'};
+        --example-button-hover-border: ${isDark ? 'rgba(157, 108, 255, 0.5)' : 'rgba(157, 108, 255, 0.4)'};
+        --example-button-hover-shadow: ${isDark
+          ? '0 4px 16px rgba(0, 0, 0, 0.3), 0 2px 8px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(157, 108, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+          : '0 4px 12px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(157, 108, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 1)'};
+        --radio-bg: ${isDark
+          ? 'linear-gradient(135deg, rgba(34, 27, 46, 0.6) 0%, rgba(28, 24, 36, 0.7) 50%, rgba(19, 15, 26, 0.6) 100%)'
+          : 'linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(250, 250, 252, 0.85) 50%, rgba(248, 248, 250, 0.8) 100%)'};
+        --radio-border: ${isDark ? 'rgba(157, 108, 255, 0.3)' : 'rgba(157, 108, 255, 0.25)'};
+        --radio-hover-bg: ${isDark
+          ? 'linear-gradient(135deg, rgba(34, 27, 46, 0.8) 0%, rgba(28, 24, 36, 0.9) 50%, rgba(19, 15, 26, 0.8) 100%)'
+          : 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(252, 252, 255, 0.98) 50%, rgba(250, 250, 252, 0.95) 100%)'};
+        --radio-hover-border: ${isDark ? 'rgba(157, 108, 255, 0.5)' : 'rgba(157, 108, 255, 0.4)'};
+        --radio-checked-bg: ${isDark
+          ? 'linear-gradient(135deg, rgba(157, 108, 255, 0.2) 0%, rgba(172, 132, 252, 0.15) 100%)'
+          : 'linear-gradient(135deg, rgba(157, 108, 255, 0.15) 0%, rgba(157, 108, 255, 0.1) 100%)'};
+        --radio-checked-border: ${isDark ? 'rgba(157, 108, 255, 0.6)' : 'rgba(157, 108, 255, 0.5)'};
+        --radio-text-color: ${isDark ? '#ffffff' : '#000000'};
+        --radio-text-hover-color: ${isDark ? '#ac84fc' : '#7C4DFF'};
+        --creation-button-primary-bg: ${isDark
+          ? 'linear-gradient(135deg, rgba(157, 108, 255, 0.15) 0%, rgba(172, 132, 252, 0.1) 100%)'
+          : 'linear-gradient(135deg, rgba(157, 108, 255, 0.12) 0%, rgba(157, 108, 255, 0.08) 100%)'};
+        --creation-button-primary-border: ${isDark ? 'rgba(157, 108, 255, 0.4)' : 'rgba(157, 108, 255, 0.3)'};
+        --creation-button-primary-hover-bg: ${isDark
+          ? 'linear-gradient(135deg, rgba(157, 108, 255, 0.25) 0%, rgba(172, 132, 252, 0.15) 100%)'
+          : 'linear-gradient(135deg, rgba(157, 108, 255, 0.18) 0%, rgba(157, 108, 255, 0.12) 100%)'};
+        --creation-button-primary-hover-border: ${isDark ? 'rgba(157, 108, 255, 0.5)' : 'rgba(157, 108, 255, 0.4)'};
+        --creation-button-primary-icon-color: ${isDark ? '#9D6CFF' : '#7C4DFF'};
+        --deliverable-label-color: ${isDark ? '#888888' : '#999999'};
+      }
+    `;
 
     this._pageSource = `
       <!DOCTYPE html>
@@ -56,319 +181,8 @@ export class WelcomeView {
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
           <title>Welcome to Mito</title>
           <style>
-            body {
-              background: ${this._isDarkTheme ? '#1a1a1a' : '#ffffff'};
-              color: ${this._isDarkTheme ? '#ffffff' : '#000000'};
-              margin: 0;
-              overflow: hidden;
-              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica,
-                Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-                'Segoe UI Symbol';
-              font-size: 14px;
-              -webkit-user-select: none;
-              user-select: none;
-            }
-            
-            .container {
-              height: 100vh;
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              justify-content: flex-start;
-              padding: 25vh 40px 40px 40px;
-            }
-            
-            .header {
-              text-align: center;
-              margin-bottom: 40px;
-            }
-            
-            .logo-container {
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              margin-bottom: 20px;
-            }
-            
-            .logo svg {
-              width: 180px;
-            }
-            
-            .subtitle {
-              font-size: 16px;
-              color: ${this._isDarkTheme ? '#888888' : '#666666'};
-              margin-top: 8px;
-            }
-            
-            .actions-container {
-              display: flex;
-              gap: 16px;
-              margin-bottom: 20px;
-              flex-wrap: wrap;
-              justify-content: center;
-            }
-            
-            .action-button {
-              display: flex;
-              align-items: center;
-              padding: 16px 24px;
-              background: ${this._isDarkTheme ? '#2a2a2a' : '#f5f5f5'};
-              border: 1px solid ${this._isDarkTheme ? '#404040' : '#e0e0e0'};
-              border-radius: 8px;
-              text-decoration: none;
-              color: ${this._isDarkTheme ? '#ffffff' : '#000000'};
-              font-size: 14px;
-              font-weight: 500;
-              cursor: pointer;
-              transition: all 0.2s ease;
-              min-width: 160px;
-              justify-content: center;
-            }
-            
-            .action-button:hover {
-              background: ${this._isDarkTheme ? '#3a3a3a' : '#eeeeee'};
-              border-color: ${this._isDarkTheme ? '#555555' : '#d0d0d0'};
-              transform: translateY(-1px);
-            }
-            
-            .action-button:active {
-              transform: translateY(0);
-            }
-            
-            .action-button.disabled {
-              opacity: 0.5;
-              pointer-events: none;
-            }
-            
-            .action-icon {
-              margin-right: 12px;
-              display: flex;
-              align-items: center;
-            }
-            
-            .action-icon svg {
-              width: 20px;
-              height: 20px;
-              fill: ${this._isDarkTheme ? '#ffffff' : '#000000'};
-            }
-            
-            .content-section {
-              display: flex;
-              width: 100%;
-              max-width: 800px;
-              gap: 60px;
-              justify-content: center;
-            }
-            
-            .recent-section {
-              max-width: 400px;
-              width: 100%;
-            }
-            
-            .section-title {
-              font-size: 14px;
-              font-weight: 500;
-              margin-bottom: 16px;
-              color: ${this._isDarkTheme ? '#ffffff' : '#000000'};
-            }
-            
-            .recent-list {
-              display: flex;
-              flex-direction: column;
-              gap: 6px;
-            }
-            
-            .recent-item {
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              padding: 8px 12px;
-              background: ${this._isDarkTheme ? '#2a2a2a' : '#f8f8f8'};
-              border: 1px solid ${this._isDarkTheme ? '#404040' : '#e0e0e0'};
-              border-radius: 6px;
-              cursor: pointer;
-              transition: all 0.2s ease;
-              position: relative;
-            }
-            
-            .recent-item:hover {
-              background: ${this._isDarkTheme ? '#3a3a3a' : '#f0f0f0'};
-            }
-            
-            .recent-item.disabled {
-              opacity: 0.5;
-              pointer-events: none;
-            }
-            
-            .recent-item-content {
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              flex: 1;
-              margin-right: 8px;
-            }
-            
-            .recent-item-name {
-              font-weight: 400;
-              color: ${this._isDarkTheme ? '#ffffff' : '#000000'};
-              font-size: 13px;
-            }
-            
-            .recent-item-path {
-              font-size: 11px;
-              color: ${this._isDarkTheme ? '#888888' : '#666666'};
-              margin-left: 12px;
-            }
-            
-            .recent-item-delete {
-              position: absolute;
-              right: 12px;
-              top: 50%;
-              transform: translateY(-50%);
-              width: 20px;
-              height: 20px;
-              opacity: 0;
-              transition: opacity 0.2s ease;
-              cursor: pointer;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            }
-            
-            .recent-item:hover .recent-item-delete {
-              opacity: 1;
-            }
-            
-            .recent-item-delete svg {
-              width: 14px;
-              height: 14px;
-              fill: ${this._isDarkTheme ? '#888888' : '#666666'};
-            }
-            
-            .recent-item-delete:hover svg {
-              fill: ${this._isDarkTheme ? '#ff6b6b' : '#e74c3c'};
-            }
-            
-            .no-recent-message {
-              color: ${this._isDarkTheme ? '#888888' : '#666666'};
-              font-style: italic;
-              text-align: center;
-              padding: 40px 20px;
-              background: ${this._isDarkTheme ? 'rgba(255, 255, 255, 0.02)' : 'rgba(0, 0, 0, 0.02)'};
-              border: 1px dashed ${this._isDarkTheme ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'};
-              border-radius: 8px;
-              margin: 20px 0;
-            }
-            
-            .view-all-link {
-              color: ${this._isDarkTheme ? '#4a9eff' : '#0066cc'};
-              text-decoration: none;
-              font-size: 12px;
-              margin-top: 8px;
-              display: inline-block;
-            }
-            
-            .view-all-link:hover {
-              text-decoration: underline;
-            }
-            
-            #notification-panel {
-              position: fixed;
-              top: 60px;
-              left: 50%;
-              transform: translateX(-50%);
-              display: none;
-              background: ${this._isDarkTheme ? '#2a2a2a' : '#ffffff'};
-              border: 1px solid ${this._isDarkTheme ? '#404040' : '#e0e0e0'};
-              border-radius: 8px;
-              padding: 16px 20px;
-              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-              align-items: center;
-              gap: 12px;
-              max-width: 500px;
-              z-index: 1000;
-            }
-            
-            #notification-panel-message {
-              flex: 1;
-              color: ${this._isDarkTheme ? '#ffffff' : '#000000'};
-              display: flex;
-              align-items: center;
-            }
-            
-            .notification-icon {
-              width: 20px;
-              height: 20px;
-              margin-right: 12px;
-              flex-shrink: 0;
-            }
-            
-            #notification-panel .close-button {
-              width: 16px;
-              height: 16px;
-              fill: ${this._isDarkTheme ? '#888888' : '#666666'};
-              cursor: pointer;
-            }
-            
-            #notification-panel .close-button:hover {
-              fill: ${this._isDarkTheme ? '#ffffff' : '#000000'};
-            }
-            
-            .loading-spinner {
-              width: 16px;
-              height: 16px;
-              border: 2px solid ${this._isDarkTheme ? '#404040' : '#e0e0e0'};
-              border-top: 2px solid ${this._isDarkTheme ? '#ffffff' : '#000000'};
-              border-radius: 50%;
-              animation: spin 1s linear infinite;
-              margin-left: 8px;
-              flex-shrink: 0;
-            }
-            
-            @keyframes spin {
-              0% { transform: rotate(0deg); }
-              100% { transform: rotate(360deg); }
-            }
-            
-            .recent-expander {
-              display: none;
-              text-align: center;
-              margin-top: 12px;
-            }
-            
-            .recent-expander a {
-              color: ${this._isDarkTheme ? '#4a9eff' : '#0066cc'};
-              text-decoration: none;
-              font-size: 12px;
-            }
-            
-            .recent-expander a:hover {
-              text-decoration: underline;
-            }
-            
-            .install-python-button {
-              display: inline-block;
-              background: ${this._isDarkTheme ? '#4a9eff' : '#0066cc'};
-              color: #fff;
-              padding: 6px 12px;
-              border-radius: 4px;
-              text-decoration: none;
-              font-size: 12px;
-              font-weight: 500;
-              margin-left: 8px;
-              transition: all 0.2s ease;
-              border: none;
-              cursor: pointer;
-            }
-            
-            .install-python-button:hover {
-              background: ${this._isDarkTheme ? '#3a8bdf' : '#0052a3'};
-              transform: translateY(-1px);
-            }
-            
-            .install-python-button:active {
-              transform: translateY(0);
-            }
+            ${themeCSS}
+            ${welcomeViewCSS}
           </style>
           <script>
             document.addEventListener("DOMContentLoaded", () => {
@@ -399,46 +213,113 @@ export class WelcomeView {
           </svg>
 
           <div class="container">
-            <div class="header">
-              <div class="logo-container">
-                <div class="logo">
-                  ${mitoWordmarkSrc}
+            <!-- Creation Section -->
+            <div class="creation-section">
+              <h1 class="creation-title">What should we build?</h1>
+              <div class="creation-content">
+                <div class="ai_input_field_wrapper">
+                  <div class="input_container">
+                    <div class="input_wrapper" id="ai-input-wrapper">
+                      <div class="input_icon_left" id="ai-input-icon">✦</div>
+                      <textarea
+                        rows="7"
+                        id="ai-prompt-input"
+                        class="prompt_input"
+                        placeholder="Describe the analysis you want to build..."
+                        autocomplete="off"
+                        spellcheck="false"
+                      ></textarea>
+                      <div class="input_icons_right">
+                        <button class="input_action_button" id="ai-submit-button">
+                          ▶
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="deliverable_radio_group_wrapper">
+                    <label class="deliverable_label">Final Deliverable</label>
+                    <div class="deliverable_radio_group" id="deliverable-radio-group">
+                      <label class="deliverable_radio_label">
+                        <input type="radio" name="deliverable" value="app" class="deliverable_radio">
+                        <span class="deliverable_radio_text">App</span>
+                      </label>
+                      <label class="deliverable_radio_label">
+                        <input type="radio" name="deliverable" value="eda" class="deliverable_radio">
+                        <span class="deliverable_radio_text">Exploratory Data Analysis</span>
+                      </label>
+                      <label class="deliverable_radio_label">
+                        <input type="radio" name="deliverable" value="automation" class="deliverable_radio">
+                        <span class="deliverable_radio_text">Automation</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="creation-actions">
+                  <div class="creation-divider">
+                    <span>or</span>
+                  </div>
+                  <div class="creation-buttons">
+                    <a class="creation-button" id="new-notebook-link" href="javascript:void(0)" title="Create new notebook in the default working directory" onclick="handleNewSessionClick('notebook');">
+                      <div class="creation-button-icon">${notebookIcon}</div>
+                      <div class="creation-button-content">
+                        <div class="creation-button-title">New blank notebook</div>
+                        <div class="creation-button-subtitle">Start with an empty notebook</div>
+                      </div>
+                    </a>
+                    ${
+                      process.platform === 'darwin'
+                        ? `<a class="creation-button" id="open-file-or-folder-link" href="javascript:void(0)" title="Open a notebook or folder in JupyterLab" onclick="handleNewSessionClick('open');">
+                            <div class="creation-button-icon">${openIcon}</div>
+                            <div class="creation-button-content">
+                              <div class="creation-button-title">Open</div>
+                              <div class="creation-button-subtitle">Open a notebook or folder</div>
+                            </div>
+                          </a>`
+                        : `<a class="creation-button" id="open-file-link" href="javascript:void(0)" title="Open a notebook or file in JupyterLab" onclick="handleNewSessionClick('open-file');">
+                            <div class="creation-button-icon">${openIcon}</div>
+                            <div class="creation-button-content">
+                              <div class="creation-button-title">Open File</div>
+                              <div class="creation-button-subtitle">Open a notebook or file</div>
+                            </div>
+                          </a>
+                          <a class="creation-button" id="open-folder-link" href="javascript:void(0)" title="Open a folder in JupyterLab" onclick="handleNewSessionClick('open-folder');">
+                            <div class="creation-button-icon">${openIcon}</div>
+                            <div class="creation-button-content">
+                              <div class="creation-button-title">Open Folder</div>
+                              <div class="creation-button-subtitle">Open a folder</div>
+                            </div>
+                          </a>`
+                    }
+                  </div>
                 </div>
               </div>
-              <p class="subtitle">Data analysis made simple</p>
             </div>
 
-            <div class="actions-container">
-              <a class="action-button" id="new-notebook-link" href="javascript:void(0)" title="Create new notebook in the default working directory" onclick="handleNewSessionClick('notebook');">
-                <div class="action-icon">${notebookIcon}</div>
-                New notebook
-              </a>
-              ${
-                process.platform === 'darwin'
-                  ? `<a class="action-button" id="open-file-or-folder-link" href="javascript:void(0)" title="Open a notebook or folder in JupyterLab" onclick="handleNewSessionClick('open');">
-                      <div class="action-icon">${openIcon}</div>
-                      Open
-                    </a>`
-                  : `<a class="action-button" id="open-file-link" href="javascript:void(0)" title="Open a notebook or file in JupyterLab" onclick="handleNewSessionClick('open-file');">
-                      <div class="action-icon">${openIcon}</div>
-                      Open File
-                    </a>
-                    <a class="action-button" id="open-folder-link" href="javascript:void(0)" title="Open a folder in JupyterLab" onclick="handleNewSessionClick('open-folder');">
-                      <div class="action-icon">${openIcon}</div>
-                      Open Folder
-                    </a>`
-              }
+            <!-- Divider -->
+            <div class="section-divider">
+              <div class="divider-line"></div>
+              <span class="divider-text">RECENT PROJECTS</span>
+              <div class="divider-line"></div>
             </div>
 
+            <!-- Recent Sessions Section -->
             <div class="content-section">
               <div class="recent-section">
-                <h2 class="section-title">Recent sessions</h2>
-                <div id="recent-sessions-list" class="recent-list">
-                  <!-- Recent sessions will be populated here -->
-                </div>
+                <table id="recent-sessions-list" class="recent-table">
+                  <thead>
+                    <tr>
+                      <th class="recent-table-header">Name</th>
+                      <th class="recent-table-header">Path</th>
+                      <th class="recent-table-header"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Recent sessions will be populated here -->
+                  </tbody>
+                </table>
                 <div id="recent-expander" class="recent-expander">
                   <a href="javascript:void(0)" onclick="handleExpandCollapseRecents();">
-                    <span id="expand-collapse-text">More...</span>
+                    <span id="expand-collapse-text">View all</span>
                   </a>
                 </div>
               </div>
@@ -455,6 +336,7 @@ export class WelcomeView {
           </div>
 
           <script>
+          const isDarkTheme = ${this._isDarkTheme};
           const notificationPanel = document.getElementById('notification-panel');
           const notificationPanelMessage = document.getElementById('notification-panel-message');
           const notificationPanelCloseButton = document.getElementById('notification-panel-close');
@@ -462,49 +344,191 @@ export class WelcomeView {
           const recentExpander = document.getElementById('recent-expander');
           const expandCollapseText = document.getElementById('expand-collapse-text');
 
+          // AI Input Field state
+          let aiInputValue = '';
+          let selectedDeliverable = null;
+          const aiPromptInput = document.getElementById('ai-prompt-input');
+          const aiSubmitButton = document.getElementById('ai-submit-button');
+          const aiInputWrapper = document.getElementById('ai-input-wrapper');
+          const aiInputIcon = document.getElementById('ai-input-icon');
+          const deliverableRadios = document.querySelectorAll('.deliverable_radio');
+          const deliverableRadioGroup = document.getElementById('deliverable-radio-group');
+
+          // Loading circle SVG
+          const loadingCircleSVG = \`<svg class="loading-circle" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="2" opacity="0.25"/>
+            <path 
+              d="M8 1C11.866 1 15 4.13401 15 8"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <animateTransform
+                attributeName="transform"
+                attributeType="XML"
+                type="rotate"
+                from="0 8 8"
+                to="360 8 8"
+                dur="1s"
+                repeatCount="indefinite"
+              />
+            </path>
+          </svg>\`;
+
+          function getDeliverableText(deliverable) {
+            const deliverableMap = {
+              'app': 'an app',
+              'eda': 'an exploratory data analysis',
+              'automation': 'an automation'
+            };
+            return deliverableMap[deliverable] || 'an app';
+          }
+
+          function handleAIInputSubmit(customInput) {
+            const submittedInput = (customInput || aiInputValue).trim();
+            if (submittedInput !== '') {
+              
+              // Set the input value if using a custom input (from example button)
+              if (customInput) {
+                aiInputValue = customInput;
+                aiPromptInput.value = customInput;
+              }
+              
+              // Update UI
+              aiInputWrapper.classList.add('generating');
+              aiInputIcon.innerHTML = loadingCircleSVG;
+              aiPromptInput.placeholder = 'Processing your request...';
+              aiPromptInput.disabled = true;
+              aiSubmitButton.disabled = true;
+              deliverableRadios.forEach(radio => {
+                radio.disabled = true;
+              });
+              if (deliverableRadioGroup) {
+                deliverableRadioGroup.style.opacity = '0.6';
+                deliverableRadioGroup.style.pointerEvents = 'none';
+              }
+              
+              // Append the deliverable message to the user's prompt only if one is selected
+              let finalMessage = submittedInput;
+              if (selectedDeliverable) {
+                const deliverableText = getDeliverableText(selectedDeliverable);
+                finalMessage = \`\${submittedInput}\\n\\nThe final deliverable should be \${deliverableText}\`;
+              }
+              
+              // Create a new notebook session with the AI prompt
+              // The prompt will be stored in SessionConfig and accessible in JupyterLab
+              window.electronAPI.newSession('notebook', finalMessage);
+            }
+          }
+
+          // Handle deliverable radio button selection (with toggle-off capability)
+          deliverableRadios.forEach(radio => {
+            radio.addEventListener('click', (e) => {
+              // If clicking on an already selected radio, deselect it
+              if (radio.checked && selectedDeliverable === radio.value) {
+                // Uncheck the radio and clear selection
+                // Use setTimeout to ensure this happens after the click event completes
+                setTimeout(() => {
+                  radio.checked = false;
+                  selectedDeliverable = null;
+                }, 0);
+              }
+            });
+            
+            radio.addEventListener('change', (e) => {
+              if (e.target.checked) {
+                selectedDeliverable = e.target.value;
+              }
+            });
+          });
+
+          // Set up input event handlers
+          if (aiPromptInput) {
+            aiPromptInput.addEventListener('input', (e) => {
+              e.stopPropagation();
+              aiInputValue = e.target.value;
+            });
+
+            aiPromptInput.addEventListener('keydown', (e) => {
+              e.stopPropagation();
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleAIInputSubmit();
+              }
+            });
+          }
+
+          if (aiSubmitButton) {
+            aiSubmitButton.addEventListener('click', (e) => {
+              e.stopPropagation();
+              handleAIInputSubmit();
+            });
+
+            aiSubmitButton.addEventListener('mousedown', (e) => {
+              e.stopPropagation();
+            });
+          }
+
+
           function updateRecentSessionList(recentSessions, resetCollapseState) {
             const maxRecentItems = ${maxRecentItems};
             
-            // Clear list
-            recentSessionsList.innerHTML = '';
+            // Get table body
+            const tbody = recentSessionsList.querySelector('tbody');
+            if (!tbody) return;
+            
+            // Clear table body
+            tbody.innerHTML = '';
 
             let recentSessionCount = 0;
 
             for (const recentSession of recentSessions) {
               const {isRemote, linkLabel, linkTooltip, linkDetail} = recentSession;
-              const recentItem = document.createElement('div');
-              recentItem.classList.add('recent-item');
+              const row = document.createElement('tr');
+              row.classList.add('recent-item');
               if (!isRemote) {
-                recentItem.classList.add('recent-item-local');
+                row.classList.add('recent-item-local');
               }
-              recentItem.dataset.sessionIndex = recentSessionCount;
-              recentItem.innerHTML = \`
-                <div class="recent-item-content">
+              row.dataset.sessionIndex = recentSessionCount;
+              row.innerHTML = \`
+                <td class="recent-item-name-cell">
                   <div class="recent-item-name">\${linkLabel}</div>
-                  \${linkDetail ? \`<div class="recent-item-path">\${linkDetail}</div>\` : ''}
-                </div>
-                <div class="recent-item-delete" title="Remove" onclick="handleRecentSesssionDeleteClick(event)">
-                  <svg version="2.0">
-                    <use href="#circle-xmark" />
-                  </svg>
-                </div>
+                </td>
+                <td class="recent-item-path-cell">
+                  <div class="recent-item-path">\${linkDetail || ''}</div>
+                </td>
+                <td class="recent-item-action-cell">
+                  <div class="recent-item-delete" title="Remove" onclick="handleRecentSesssionDeleteClick(event)">
+                    <svg version="2.0">
+                      <use href="#circle-xmark" />
+                    </svg>
+                  </div>
+                </td>
               \`;
 
-              recentItem.addEventListener('click', (event) => {
+              row.addEventListener('click', (event) => {
                 if (!event.target.closest('.recent-item-delete')) {
                   handleRecentSessionClick(event);
                 }
               });
 
-              recentSessionsList.appendChild(recentItem);
+              tbody.appendChild(row);
               recentSessionCount++;
             }
 
             if (recentSessionCount === 0) {
-              const noHistoryMessage = document.createElement('div');
-              noHistoryMessage.className = 'no-recent-message';
-              noHistoryMessage.innerText = 'No recent sessions';
-              recentSessionsList.appendChild(noHistoryMessage);
+              const noHistoryRow = document.createElement('tr');
+              noHistoryRow.className = 'no-recent-row';
+              noHistoryRow.innerHTML = \`
+                <td colspan="3" class="no-recent-cell">
+                  <div class="no-recent-message">
+                    <div class="no-recent-icon">📊</div>
+                    <div class="no-recent-text">No recent sessions</div>
+                    <div class="no-recent-subtext">Your recent projects will appear here</div>
+                  </div>
+                </td>
+              \`;
+              tbody.appendChild(noHistoryRow);
             }
 
             // Handle expand/collapse
@@ -516,7 +540,7 @@ export class WelcomeView {
                 recentExpander.style.display = 'block';
                 
                 // Hide items beyond maxRecentItems
-                const items = recentSessionsList.querySelectorAll('.recent-item');
+                const items = tbody.querySelectorAll('.recent-item:not(.no-recent-row)');
                 items.forEach((item, index) => {
                   if (index >= maxRecentItems) {
                     item.style.display = 'none';
@@ -576,21 +600,23 @@ export class WelcomeView {
 
           function handleExpandCollapseRecents() {
             const isCollapsed = recentSessionsList.classList.contains("recents-collapsed");
-            const items = recentSessionsList.querySelectorAll('.recent-item');
+            const tbody = recentSessionsList.querySelector('tbody');
+            if (!tbody) return;
+            const items = tbody.querySelectorAll('.recent-item:not(.no-recent-row)');
             
             if (isCollapsed) {
               recentSessionsList.classList.remove("recents-collapsed");
               recentSessionsList.classList.add("recents-expanded");
-              expandCollapseText.innerText = "Less...";
+              expandCollapseText.innerText = "Show less";
               
               // Show all items
               items.forEach(item => {
-                item.style.display = 'flex';
+                item.style.display = '';
               });
             } else {
               recentSessionsList.classList.remove("recents-expanded");
               recentSessionsList.classList.add("recents-collapsed");
-              expandCollapseText.innerText = "More...";
+              expandCollapseText.innerText = "View all";
               
               // Hide items beyond maxRecentItems
               items.forEach((item, index) => {
@@ -632,6 +658,14 @@ export class WelcomeView {
                 } else {
                   link.classList.add("disabled");
                 }
+              }
+            });
+
+            document.querySelectorAll('.creation-button').forEach(button => {
+              if (enable) {
+                button.classList.remove("disabled");
+              } else {
+                button.classList.add("disabled");
               }
             });
 

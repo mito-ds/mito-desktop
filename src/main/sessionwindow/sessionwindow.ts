@@ -543,7 +543,7 @@ export class SessionWindow implements IDisposable {
 
     this._evm.registerEventHandler(
       EventTypeMain.CreateNewSession,
-      async (event, type: 'notebook' | 'blank') => {
+      async (event, type: 'notebook' | 'blank', aiPrompt?: string) => {
         if (event.sender !== this.contentView?.webContents) {
           return;
         }
@@ -551,6 +551,9 @@ export class SessionWindow implements IDisposable {
         this._showProgressView('Creating new session');
 
         const sessionConfig = SessionConfig.createLocal();
+        if (aiPrompt) {
+          sessionConfig.aiPrompt = aiPrompt;
+        }
         this._sessionConfig = sessionConfig;
         this._wsSettings = new WorkspaceSettings(
           sessionConfig.workingDirectory
