@@ -230,6 +230,9 @@ export class WelcomeView {
                         spellcheck="false"
                       ></textarea>
                       <div class="input_icons_right">
+                        <button class="input_action_button" id="ai-upload-button" title="Upload File">
+                          📎
+                        </button>
                         <button class="input_action_button" id="ai-submit-button">
                           ▶
                         </button>
@@ -465,6 +468,35 @@ export class WelcomeView {
             });
 
             aiSubmitButton.addEventListener('mousedown', (e) => {
+              e.stopPropagation();
+            });
+          }
+
+          const aiUploadButton = document.getElementById('ai-upload-button');
+          if (aiUploadButton) {
+            aiUploadButton.addEventListener('click', async (e) => {
+              e.stopPropagation();
+              try {
+                const filePaths = await window.electronAPI.selectFilesForUpload();
+                if (filePaths && filePaths.length > 0) {
+                  // Append file paths to the textarea
+                  const currentValue = aiPromptInput.value;
+                  const filePathsText = filePaths.join('\\n');
+                  const separator = currentValue ? '\\n' : '';
+                  const newValue = currentValue ? \`\${currentValue}\${separator}\${filePathsText}\` : filePathsText;
+                  aiPromptInput.value = newValue;
+                  aiInputValue = newValue;
+                  // Trigger input event to update state
+                  aiPromptInput.dispatchEvent(new Event('input', { bubbles: true }));
+                  // Focus the textarea
+                  aiPromptInput.focus();
+                }
+              } catch (error) {
+                console.error('Error selecting files:', error);
+              }
+            });
+
+            aiUploadButton.addEventListener('mousedown', (e) => {
               e.stopPropagation();
             });
           }
