@@ -240,7 +240,7 @@ export class WelcomeView {
                     <label class="deliverable_label">Final Deliverable</label>
                     <div class="deliverable_radio_group" id="deliverable-radio-group">
                       <label class="deliverable_radio_label">
-                        <input type="radio" name="deliverable" value="app" class="deliverable_radio" checked>
+                        <input type="radio" name="deliverable" value="app" class="deliverable_radio">
                         <span class="deliverable_radio_text">App</span>
                       </label>
                       <label class="deliverable_radio_label">
@@ -346,7 +346,7 @@ export class WelcomeView {
 
           // AI Input Field state
           let aiInputValue = '';
-          let selectedDeliverable = 'app';
+          let selectedDeliverable = null;
           const aiPromptInput = document.getElementById('ai-prompt-input');
           const aiSubmitButton = document.getElementById('ai-submit-button');
           const aiInputWrapper = document.getElementById('ai-input-wrapper');
@@ -408,9 +408,12 @@ export class WelcomeView {
                 deliverableRadioGroup.style.pointerEvents = 'none';
               }
               
-              // Append the deliverable message to the user's prompt
-              const deliverableText = getDeliverableText(selectedDeliverable);
-              const finalMessage = \`\${submittedInput}\\n\\nThe final deliverable should be \${deliverableText}\`;
+              // Append the deliverable message to the user's prompt only if one is selected
+              let finalMessage = submittedInput;
+              if (selectedDeliverable) {
+                const deliverableText = getDeliverableText(selectedDeliverable);
+                finalMessage = \`\${submittedInput}\\n\\nThe final deliverable should be \${deliverableText}\`;
+              }
               
               // Create a new notebook session with the AI prompt
               // The prompt will be stored in SessionConfig and accessible in JupyterLab
@@ -436,8 +439,20 @@ export class WelcomeView {
             }
           }
 
-          // Handle deliverable radio button selection
+          // Handle deliverable radio button selection (with toggle-off capability)
           deliverableRadios.forEach(radio => {
+            radio.addEventListener('click', (e) => {
+              // If clicking on an already selected radio, deselect it
+              if (radio.checked && selectedDeliverable === radio.value) {
+                // Uncheck the radio and clear selection
+                // Use setTimeout to ensure this happens after the click event completes
+                setTimeout(() => {
+                  radio.checked = false;
+                  selectedDeliverable = null;
+                }, 0);
+              }
+            });
+            
             radio.addEventListener('change', (e) => {
               if (e.target.checked) {
                 selectedDeliverable = e.target.value;
