@@ -4,21 +4,25 @@ import sys
 
 need_installation = False
 try:
-    # FIXME find simpler way to check the installation as importing mitosheet is long
-    import mitosheet
-except ImportError:
+    # This will raise CalledProcessError if mitosheet is not installed
+    subprocess.check_output(["uv", "pip", "show", "mitosheet"], stderr=subprocess.DEVNULL)
+    # We could also check the output to verify version if needed
+except subprocess.CalledProcessError:
     need_installation = True
 
-if os.environ.get("MITO_INSTALLATION", "0") != "1" and need_installation:
+if os.environ.get("INSTALLING_MITO_STACK", "0") != "1" and need_installation:
     env = os.environ.copy()
-    env["MITO_INSTALLATION"] = "1"
+    env["INSTALLING_MITO_STACK"] = "1"
     try:
+        # Send output to stderr to avoid interfering with tool reading stdout
         print("Installing missing mito packages...", file=sys.stderr)
         subprocess.run(
             [
                 "uv",
                 "pip",
                 "install",
+                "--no-config",
+                # "--quiet",  # Uncomment to silence uv logs
                 "mito-ai",
                 "mitosheet",
                 "ipympl>=0.8.2",
