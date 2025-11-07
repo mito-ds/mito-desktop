@@ -696,6 +696,27 @@ export class JupyterApplication implements IApplication, IDisposable {
     );
 
     this._evm.registerEventHandler(
+      EventTypeMain.SelectFilesForUpload,
+      event => {
+        dialog
+          .showOpenDialog({
+            properties: [
+              'openFile',
+              'multiSelections'
+            ],
+            buttonLabel: 'Select'
+          })
+          .then(({ filePaths }) => {
+            // Always send response, even if empty (user cancelled)
+            event.sender.send(
+              EventTypeRenderer.FilesForUploadSelected,
+              filePaths || []
+            );
+          });
+      }
+    );
+
+    this._evm.registerEventHandler(
       EventTypeMain.SetDefaultWorkingDirectory,
       (event, path: string) => {
         try {

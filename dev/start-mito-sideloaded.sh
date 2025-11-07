@@ -182,8 +182,8 @@ launch_mito_desktop() {
 export MITO_PYTHON_PATH="$python_path"
 export JUPYTERLAB_DESKTOP_PYTHON_PATH="$python_path"
 
-# Launch mito-desktop
-exec yarn start "\$@"
+# Launch mito-desktop with sideload flag
+exec yarn start --sideload "\$@"
 EOF
     
     chmod +x "$temp_launch_script"

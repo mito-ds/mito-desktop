@@ -436,6 +436,7 @@ export class LabView implements IDisposable {
   private _registerWebAppFrontEndHandlers() {
     this._view.webContents.on('dom-ready', () => {
       const setToSingleFileUIMode = this.shouldSetToSingleFileUIMode();
+      const aiPrompt = this._sessionConfig.aiPrompt;
 
       this._view.webContents.executeJavaScript(`
         // disable splash animation
@@ -444,6 +445,9 @@ export class LabView implements IDisposable {
           style.textContent = '#jupyterlab-splash * { display: none; }';
           document.head.append(style);
         }
+
+        // Expose AI prompt if available
+        ${aiPrompt ? `window.mitoDesktopAIPrompt = ${JSON.stringify(aiPrompt)};` : ''}
 
         async function jlabDesktop_getLab() {
           return new Promise((resolve) => {

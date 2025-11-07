@@ -33,10 +33,11 @@ contextBridge.exposeInMainWorld('electronAPI', {
     return ipcRenderer.invoke(EventTypeMain.IsDarkTheme);
   },
   newSession: (
-    type: 'notebook' | 'blank' | 'open' | 'open-file' | 'open-folder' | 'remote'
+    type: 'notebook' | 'blank' | 'open' | 'open-file' | 'open-folder' | 'remote',
+    aiPrompt?: string
   ) => {
     if (type === 'notebook' || type === 'blank') {
-      ipcRenderer.send(EventTypeMain.CreateNewSession, type);
+      ipcRenderer.send(EventTypeMain.CreateNewSession, type, aiPrompt);
     } else if (type === 'open') {
       ipcRenderer.send(EventTypeMain.OpenFileOrFolder);
     } else if (type === 'open-file') {
@@ -78,6 +79,14 @@ contextBridge.exposeInMainWorld('electronAPI', {
     callback: InstallBundledPythonEnvStatusListener
   ) => {
     onInstallBundledPythonEnvStatusListener = callback;
+  },
+  selectFilesForUpload: (): Promise<string[]> => {
+    return new Promise((resolve) => {
+      ipcRenderer.once(EventTypeRenderer.FilesForUploadSelected, (event: any, filePaths: string[]) => {
+        resolve(filePaths);
+      });
+      ipcRenderer.send(EventTypeMain.SelectFilesForUpload);
+    });
   }
 });
 
