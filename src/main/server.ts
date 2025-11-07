@@ -130,10 +130,9 @@ function createLaunchScript(
     if (isConda) {
       script = `
         source "${condaActivatePath}"
-        ${
-          isBaseCondaActivate
-            ? `source ${condaShellScriptPath} && conda activate "${envPath}"`
-            : ''
+        ${isBaseCondaActivate
+          ? `source ${condaShellScriptPath} && conda activate "${envPath}"`
+          : ''
         }
         ${launchCmd}`;
     } else {
@@ -308,7 +307,9 @@ export class JupyterServer {
 
         Promise.race([
           waitUntilServerIsUp(this._info.url),
-          waitForDuration(SERVER_LAUNCH_TIMEOUT)
+          // On Windows, server first startup can take longer
+          // due to antivirus and the building of bytecode caches.
+          waitForDuration(SERVER_LAUNCH_TIMEOUT * (isWin ? 4 : 1))
         ]).then((up: boolean) => {
           if (up) {
             started = true;
@@ -472,9 +473,10 @@ export class JupyterServer {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           if (error.code === 'ECONNREFUSED') {
+            const isWin = process.platform === 'win32';
             Promise.race([
               waitUntilServerIsUp(this._info.url),
-              waitForDuration(SERVER_LAUNCH_TIMEOUT)
+              waitForDuration(SERVER_LAUNCH_TIMEOUT * (isWin ? 4 : 1))
             ]).then((up: boolean) => {
               if (up) {
                 this._callShutdownAPI()
