@@ -6,7 +6,23 @@ date: {2025-11-12}
 
 ## Context and Problem Statement
 
-On Windows, installing Mito desktop is very slow due to the creation of the initial workspace. It can take easily 15 minutes to open a notebook.
+The installation of the initial session on Windows is really long (about 15minutes).
+
+> All time reported are for information and specific to the test machine used.
+
+The session is a conda environment distributed through an archive file packaged using `conda-pack`. The installation process
+has two folds:
+- Uncompressing the file: the tar.gz archive uncompression takes about 5 minutes
+- Executing conda unpack: it takes about 8 minutes
+
+The second step is needed in particular to fix the executable files generated from script entry points that may stored
+inappropriate absolute path.
+
+Then different tests to create an environment were performed:
+- New conda environment from the lock file used by conda-pack: 8 minutes
+- New conda environment from environment specs (require resolution): 9-10 minutes
+- New uv environment from environment specs (require resolution): < 1 minute
+- New uv environment from lock file: < 1 minute
 
 <!-- This is an optional element. Feel free to remove. -->
 ## Decision Drivers

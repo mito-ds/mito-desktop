@@ -1,4 +1,6 @@
 ---
+# Template adr-template.md v4.0.0 provided by https://github.com/adr/madr/ and licensed CC0 1.0 Universal
+# 
 # These are optional metadata elements. Feel free to remove any of them.
 status: "{proposed | rejected | accepted | deprecated | … | superseded by ADR-0123"
 date: {YYYY-MM-DD when the decision was last updated}
