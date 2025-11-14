@@ -548,7 +548,7 @@ export class SessionWindow implements IDisposable {
           return;
         }
 
-        this._showProgressView('Creating new session');
+        this._showProgressView('Creating new session. This might take a couple of minutes.');
 
         const sessionConfig = SessionConfig.createLocal();
         if (aiPrompt) {
