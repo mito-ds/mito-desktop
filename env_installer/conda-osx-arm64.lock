@@ -9,10 +9,10 @@ https://conda.anaconda.org/conda-forge/noarch/python_abi-3.12-8_cp312.conda#c3ef
 https://conda.anaconda.org/conda-forge/noarch/tzdata-2025b-h78e105d_0.conda#4222072737ccff51314b5ece9c7d6f5a
 https://conda.anaconda.org/conda-forge/osx-arm64/bzip2-1.0.8-hd037594_8.conda#58fd217444c2a5701a44244faf518206
 https://conda.anaconda.org/conda-forge/osx-arm64/c-ares-1.34.5-h5505292_0.conda#f8cd1beb98240c7edb1a95883360ccfa
-https://conda.anaconda.org/conda-forge/noarch/ca-certificates-2025.10.5-hbd8a1cb_0.conda#f9e5fbc24009179e8b0409624691758a
+https://conda.anaconda.org/conda-forge/noarch/ca-certificates-2025.11.12-hbd8a1cb_0.conda#f0991f0f84902f6b6009b4d2350a83aa
 https://conda.anaconda.org/conda-forge/osx-arm64/icu-75.1-hfee45f7_0.conda#5eb22c1d7b3fc4abb50d92d621583137
-https://conda.anaconda.org/conda-forge/osx-arm64/libcxx-21.1.5-hf598326_0.conda#fbfdbf6e554275d2661c4541f45fed53
-https://conda.anaconda.org/conda-forge/osx-arm64/libexpat-2.7.1-hec049ff_0.conda#b1ca5f21335782f71a8bd69bdc093f67
+https://conda.anaconda.org/conda-forge/osx-arm64/libcxx-21.1.6-hf598326_0.conda#3ea79e55a64bff6c3cbd4588c89a527a
+https://conda.anaconda.org/conda-forge/osx-arm64/libexpat-2.7.3-haf25636_0.conda#b79875dbb5b1db9a4a22a4520f918e1a
 https://conda.anaconda.org/conda-forge/osx-arm64/libffi-3.5.2-he5f378a_0.conda#411ff7cd5d1472bba0f55c0faf04453b
 https://conda.anaconda.org/conda-forge/osx-arm64/libiconv-1.18-h23cfdf5_2.conda#4d5a7445f0b25b6a3ddbb56e790f5251
 https://conda.anaconda.org/conda-forge/osx-arm64/liblzma-5.8.1-h39f12f2_2.conda#d6df911d4564d77c4374b02552cb17d1
@@ -27,11 +27,11 @@ https://conda.anaconda.org/conda-forge/osx-arm64/libsolv-0.7.35-h5f525b2_0.conda
 https://conda.anaconda.org/conda-forge/osx-arm64/libsqlite-3.51.0-h8adb53f_0.conda#5fb1945dbc6380e6fe7e939a62267772
 https://conda.anaconda.org/conda-forge/osx-arm64/libxml2-16-2.15.1-h0ff4647_0.conda#438c97d1e9648dd7342f86049dd44638
 https://conda.anaconda.org/conda-forge/osx-arm64/lz4-c-1.10.0-h286801f_1.conda#01511afc6cc1909c5303cf31be17b44f
-https://conda.anaconda.org/conda-forge/osx-arm64/openssl-3.5.4-h5503f6c_0.conda#71118318f37f717eefe55841adb172fd
+https://conda.anaconda.org/conda-forge/osx-arm64/openssl-3.6.0-h5503f6c_0.conda#b34dc4172653c13dcf453862f251af2b
 https://conda.anaconda.org/conda-forge/osx-arm64/readline-8.2-h1d1bf99_2.conda#63ef3f6e6d6d5c589e64f11263dc5676
 https://conda.anaconda.org/conda-forge/osx-arm64/reproc-cpp-14.2.5.post0-h286801f_0.conda#11a3d09937d250fc4423bf28837d9363
 https://conda.anaconda.org/conda-forge/osx-arm64/simdjson-4.0.7-ha7d2532_0.conda#66990c8e1331805f3a553e76b9d1a62a
-https://conda.anaconda.org/conda-forge/osx-arm64/tk-8.6.13-h892fb3f_2.conda#7362396c170252e7b7b0c8fb37fe9c78
+https://conda.anaconda.org/conda-forge/osx-arm64/tk-8.6.13-h892fb3f_3.conda#a73d54a5abba6543cb2f0af1bfbd6851
 https://conda.anaconda.org/conda-forge/osx-arm64/yaml-cpp-0.8.0-ha1acc90_0.conda#30475b3d0406587cf90386a283bb3cd0
 https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-h6491c7d_2.conda#e6f69c7bcccdefa417f056fa593b40f0
 https://conda.anaconda.org/conda-forge/osx-arm64/krb5-1.21.3-h237132a_0.conda#c6dc8a0fdec13a0565936655c33069a1
@@ -42,11 +42,11 @@ https://conda.anaconda.org/conda-forge/osx-arm64/python-3.12.12-h18782d2_1_cpyth
 https://conda.anaconda.org/conda-forge/noarch/archspec-0.2.5-pyhd8ed1ab_0.conda#845b38297fca2f2d18a29748e2ece7fa
 https://conda.anaconda.org/conda-forge/noarch/boltons-25.0.0-pyhd8ed1ab_0.conda#c7eb87af73750d6fd97eff8bbee8cb9c
 https://conda.anaconda.org/conda-forge/osx-arm64/brotli-python-1.2.0-py312hcae0c51_0.conda#17e32d91d89e91631f97c217f192483b
-https://conda.anaconda.org/conda-forge/noarch/certifi-2025.10.5-pyhd8ed1ab_0.conda#257ae203f1d204107ba389607d375ded
+https://conda.anaconda.org/conda-forge/noarch/certifi-2025.11.12-pyhd8ed1ab_0.conda#96a02a5c1a65470a7e4eedb644c872fd
 https://conda.anaconda.org/conda-forge/noarch/charset-normalizer-3.4.4-pyhd8ed1ab_0.conda#a22d1fd9bf98827e280a02875d9a007a
 https://conda.anaconda.org/conda-forge/noarch/colorama-0.4.6-pyhd8ed1ab_1.conda#962b9857ee8e7018c22f2776ffa0b2d7
 https://conda.anaconda.org/conda-forge/noarch/distro-1.9.0-pyhd8ed1ab_1.conda#0a2014fd9860f8b1eaa0b1f3d3771a08
-https://conda.anaconda.org/conda-forge/osx-arm64/frozendict-2.4.6-py312h163523d_1.conda#1f34e544c799d9eaf0c5e6d2258faba3
+https://conda.anaconda.org/conda-forge/osx-arm64/frozendict-2.4.7-py312h4409184_0.conda#6a6f7794843c151f539dbbac9f8193d0
 https://conda.anaconda.org/conda-forge/noarch/hpack-4.1.0-pyhd8ed1ab_0.conda#0a802cb9888dd14eeefc611f05c40b6e
 https://conda.anaconda.org/conda-forge/noarch/hyperframe-6.1.0-pyhd8ed1ab_0.conda#8e6923fc12f1fe8f8c4e5c9f343256ac
 https://conda.anaconda.org/conda-forge/noarch/idna-3.11-pyhd8ed1ab_0.conda#53abe63df7e10a6ba605dc5f9f961d36
@@ -68,7 +68,7 @@ https://conda.anaconda.org/conda-forge/osx-arm64/cffi-2.0.0-py312h1b4d9a2_1.cond
 https://conda.anaconda.org/conda-forge/noarch/h2-4.3.0-pyhcf101f3_0.conda#164fc43f0b53b6e3a7bc7dce5e4f1dc9
 https://conda.anaconda.org/conda-forge/noarch/jsonpatch-1.33-pyhd8ed1ab_1.conda#cb60ae9cf02b9fcb8004dec4089e5691
 https://conda.anaconda.org/conda-forge/osx-arm64/libmamba-2.3.3-h1370271_2.conda#4a62b38ff1856f01d17f4d6f0810618e
-https://conda.anaconda.org/conda-forge/noarch/pip-25.2-pyh8b19718_0.conda#dfce4b2af4bfe90cdcaf56ca0b28ddf5
+https://conda.anaconda.org/conda-forge/noarch/pip-25.3-pyh8b19718_0.conda#c55515ca43c6444d2572e0f0d93cb6b9
 https://conda.anaconda.org/conda-forge/osx-arm64/ruamel.yaml-0.18.16-py312h4409184_0.conda#1672b251b3ef1ea8d1c36450d5a5cd54
 https://conda.anaconda.org/conda-forge/noarch/tqdm-4.67.1-pyhd8ed1ab_1.conda#9efbfdc37242619130ea42b1cc4ed861
 https://conda.anaconda.org/conda-forge/osx-arm64/libmambapy-2.3.3-py312haad32af_2.conda#a3ad1cefc1436548c49b603b894a68a8
@@ -81,15 +81,15 @@ https://conda.anaconda.org/conda-forge/osx-arm64/conda-25.9.1-py312h81bd7bf_0.co
 https://conda.anaconda.org/conda-forge/noarch/conda-libmamba-solver-25.4.0-pyhd8ed1ab_0.conda#d62b8f745ff471d5594ad73605cb9b59
 # pip annotated-types @ https://files.pythonhosted.org/packages/78/b6/6307fbef88d9b5ee7421e68d78a9f162e0da4900bc5f5793f6d3d0e34fb8/annotated_types-0.7.0-py3-none-any.whl#sha256=1f02e8b43a8fbbc3f3e0d4f0f4bfc8131bcb4eebe8849b8e5c773f3a1c582a53
 # pip appnope @ https://files.pythonhosted.org/packages/81/29/5ecc3a15d5a33e31b26c11426c45c501e439cb865d0bff96315d86443b78/appnope-0.1.4-py2.py3-none-any.whl#sha256=502575ee11cd7a28c0205f379b525beefebab9d161b7c964670864014ed7213c
-# pip asttokens @ https://files.pythonhosted.org/packages/25/8a/c46dcc25341b5bce5472c718902eb3d38600a903b14fa6aeecef3f21a46f/asttokens-3.0.0-py3-none-any.whl#sha256=e3078351a059199dd5138cb1c706e6430c05eff2ff136af5eb4790f9d28932e2
+# pip asttokens @ https://files.pythonhosted.org/packages/d2/39/e7eaf1799466a4aef85b6a4fe7bd175ad2b1c6345066aa33f1f58d4b18d0/asttokens-3.0.1-py3-none-any.whl#sha256=15a3ebc0f43c2d0a50eeafea25e19046c68398e487b9f1f5b517f7c0f40f976a
 # pip async-lru @ https://files.pythonhosted.org/packages/03/49/d10027df9fce941cb8184e78a02857af36360d33e1721df81c5ed2179a1a/async_lru-2.0.5-py3-none-any.whl#sha256=ab95404d8d2605310d345932697371a5f40def0487c03d6d0ad9138de52c9943
 # pip attrs @ https://files.pythonhosted.org/packages/3a/2a/7cc015f5b9f5db42b7d48157e23356022889fc354a2813c15934b7cb5c0e/attrs-25.4.0-py3-none-any.whl#sha256=adcf7e2a1fb3b36ac48d97835bb6d8ade15b8dcce26aba8bf1d14847b57a3373
 # pip babel @ https://files.pythonhosted.org/packages/b7/b8/3fe70c75fe32afc4bb507f75563d39bc5642255d1d94f1f23604725780bf/babel-2.17.0-py3-none-any.whl#sha256=4d0b53093fdfb4b21c92b5213dba5a1b23885afa8383709427046b21c366e5f2
 # pip backoff @ https://files.pythonhosted.org/packages/f0/32/c5dd4f4b0746e9ec05ace2a5045c1fc375ae67ee94355344ad6c7005fd87/backoff-1.10.0-py2.py3-none-any.whl#sha256=5e73e2cbe780e1915a204799dba0a01896f45f4385e636bcca7a0614d879d0cd
 # pip blinker @ https://files.pythonhosted.org/packages/10/cb/f2ad4230dc2eb1a74edf38f1a38b9b52277f75bef262d8908e60d957e13c/blinker-1.9.0-py3-none-any.whl#sha256=ba0efaa9080b619ff2f3459d1d500c57bddea4a6b424b60a91141db6fd2f08bc
-# pip cachetools @ https://files.pythonhosted.org/packages/96/c5/1e741d26306c42e2bf6ab740b2202872727e0f606033c9dd713f8b93f5a8/cachetools-6.2.1-py3-none-any.whl#sha256=09868944b6dde876dfd44e1d47e18484541eaf12f26f29b7af91b26cc892d701
+# pip cachetools @ https://files.pythonhosted.org/packages/e6/46/eb6eca305c77a4489affe1c5d8f4cae82f285d9addd8de4ec084a7184221/cachetools-6.2.2-py3-none-any.whl#sha256=6c09c98183bf58560c97b2abfcedcbaf6a896a490f534b031b661d3723b45ace
 # pip chardet @ https://files.pythonhosted.org/packages/38/6f/f5fbc992a329ee4e0f288c1fe0e2ad9485ed064cac731ed2fe47dcc38cbf/chardet-5.2.0-py3-none-any.whl#sha256=e1cf59446890a00105fe7b7912492ea04b6e6f06d4b742b2c788469e34c82970
-# pip click @ https://files.pythonhosted.org/packages/db/d3/9dcc0f5797f070ec8edf30fbadfb200e71d9db6b84d211e3b2085a7589a0/click-8.3.0-py3-none-any.whl#sha256=9b9f285302c6e3064f4330c05f05b81945b2a39544279343e6e7c5f27a9baddc
+# pip click @ https://files.pythonhosted.org/packages/98/78/01c019cdb5d6498122777c1a43056ebb3ebfeef2076d9d026bfe15583b2b/click-8.3.1-py3-none-any.whl#sha256=981153a64e25f12d547d3426c367a4857371575ee7ad18df2a6183ab0545b2a6
 # pip comm @ https://files.pythonhosted.org/packages/60/97/891a0971e1e4a8c5d2b20bbe0e524dc04548d2307fee33cdeba148fd4fc7/comm-0.2.3-py3-none-any.whl#sha256=c615d91d75f7f04f095b30d1c1711babd43bdc6419c1be9886a85f2f4e489417
 # pip cycler @ https://files.pythonhosted.org/packages/e7/05/c19819d5e3d95294a6f5947fb9b9629efb316b96de511b418c53d245aae6/cycler-0.12.1-py3-none-any.whl#sha256=85cef7cff222d8644161529808465972e51340599459b8ac3ccbac5a854e0d30
 # pip debugpy @ https://files.pythonhosted.org/packages/b0/d0/89247ec250369fc76db477720a26b2fce7ba079ff1380e4ab4529d2fe233/debugpy-1.8.17-py2.py3-none-any.whl#sha256=60c7dca6571efe660ccb7a9508d73ca14b8796c4ed484c2002abba714226cfef
@@ -104,7 +104,7 @@ https://conda.anaconda.org/conda-forge/noarch/conda-libmamba-solver-25.4.0-pyhd8
 # pip fqdn @ https://files.pythonhosted.org/packages/cf/58/8acf1b3e91c58313ce5cb67df61001fc9dcd21be4fadb76c1a2d540e09ed/fqdn-1.5.1-py3-none-any.whl#sha256=3a179af3761e4df6eb2e026ff9e1a3033d3587bf980a0b1b2e1e5d08d7358014
 # pip greenlet @ https://files.pythonhosted.org/packages/44/69/9b804adb5fd0671f367781560eb5eb586c4d495277c93bde4307b9e28068/greenlet-3.2.4-cp312-cp312-macosx_11_0_universal2.whl#sha256=3b67ca49f54cede0186854a008109d6ee71f66bd57bb36abd6d0a0267b540cdd
 # pip h11 @ https://files.pythonhosted.org/packages/04/4b/29cac41a4d98d144bf5f6d33995617b185d14b22401f75ca86f384e87ff1/h11-0.16.0-py3-none-any.whl#sha256=63cf8bbe7522de3bf65932fda1d9c2772064ffb3dae62d55932da54b31cb6c86
-# pip jiter @ https://files.pythonhosted.org/packages/f7/29/6c7de6b5d6e511d9e736312c0c9bfcee8f9b6bef68182a08b1d78767e627/jiter-0.11.1-cp312-cp312-macosx_11_0_arm64.whl#sha256=ecd4da91b5415f183a6be8f7158d127bdd9e6a3174138293c0d48d6ea2f2009d
+# pip jiter @ https://files.pythonhosted.org/packages/98/6e/e8efa0e78de00db0aee82c0cf9e8b3f2027efd7f8a71f859d8f4be8e98ef/jiter-0.12.0-cp312-cp312-macosx_11_0_arm64.whl#sha256=5c1860627048e302a528333c9307c818c547f214d8659b0705d2195e1a94b274
 # pip json5 @ https://files.pythonhosted.org/packages/85/e2/05328bd2621be49a6fed9e3030b1e51a2d04537d3f816d211b9cc53c5262/json5-0.12.1-py3-none-any.whl#sha256=d9c9b3bc34a5f54d43c35e11ef7cb87d8bdd098c6ace87117a7b7e83e705c1d5
 # pip jupyterlab-pygments @ https://files.pythonhosted.org/packages/b1/dd/ead9d8ea85bf202d90cc513b533f9c363121c7792674f78e0d8a854b63b4/jupyterlab_pygments-0.3.0-py3-none-any.whl#sha256=841a89020971da1d8693f1a99997aefc5dc424bb1b251fd6322462a1b8842780
 # pip jupyterlab-widgets @ https://files.pythonhosted.org/packages/ab/b5/36c712098e6191d1b4e349304ef73a8d06aed77e56ceaac8c0a306c7bda1/jupyterlab_widgets-3.0.16-py3-none-any.whl#sha256=45fa36d9c6422cf2559198e4db481aa243c7a32d9926b500781c830c80f7ecf8
@@ -113,14 +113,14 @@ https://conda.anaconda.org/conda-forge/noarch/conda-libmamba-solver-25.4.0-pyhd8
 # pip markupsafe @ https://files.pythonhosted.org/packages/9a/81/7e4e08678a1f98521201c3079f77db69fb552acd56067661f8c2f534a718/markupsafe-3.0.3-cp312-cp312-macosx_11_0_arm64.whl#sha256=1872df69a4de6aead3491198eaf13810b565bdbeec3ae2dc8780f14458ec73ce
 # pip mistune @ https://files.pythonhosted.org/packages/7a/f0/8282d9641415e9e33df173516226b404d367a0fc55e1a60424a152913abc/mistune-3.1.4-py3-none-any.whl#sha256=93691da911e5d9d2e23bc54472892aff676df27a75274962ff9edc210364266d
 # pip monotonic @ https://files.pythonhosted.org/packages/9a/67/7e8406a29b6c45be7af7740456f7f37025f0506ae2e05fb9009a53946860/monotonic-1.6-py2.py3-none-any.whl#sha256=68687e19a14f11f26d140dd5c86f3dba4bf5df58003000ed467e0e2a69bca96c
-# pip narwhals @ https://files.pythonhosted.org/packages/47/a9/9e02fa97e421a355fc5e818e9c488080fce04a8e0eebb3ed75a84f041c4a/narwhals-2.10.2-py3-none-any.whl#sha256=059cd5c6751161b97baedcaf17a514c972af6a70f36a89af17de1a0caf519c43
+# pip narwhals @ https://files.pythonhosted.org/packages/0b/9a/c6f79de7ba3a0a8473129936b7b90aa461d3d46fec6f1627672b1dccf4e9/narwhals-2.12.0-py3-none-any.whl#sha256=baeba5d448a30b04c299a696bd9ee5ff73e4742143e06c49ca316b46539a7cbb
 # pip nest-asyncio @ https://files.pythonhosted.org/packages/a0/c4/c2971a3ba4c6103a3d10c4b0f24f461ddc027f0f09763220cf35ca1401b3/nest_asyncio-1.6.0-py3-none-any.whl#sha256=87af6efd6b5e897c81050477ef65c62e2b2f35d51703cae01aff2905b1852e1c
 # pip numpy @ https://files.pythonhosted.org/packages/54/4a/765b4607f0fecbb239638d610d04ec0a0ded9b4951c56dc68cef79026abf/numpy-2.1.3-cp312-cp312-macosx_11_0_arm64.whl#sha256=13138eadd4f4da03074851a698ffa7e405f41a0845a6b1ad135b81596e4e9958
 # pip pandocfilters @ https://files.pythonhosted.org/packages/ef/af/4fbc8cab944db5d21b7e2a5b8e9211a03a79852b1157e2c102fcc61ac440/pandocfilters-1.5.1-py2.py3-none-any.whl#sha256=93be382804a9cdb0a7267585f157e5d1731bbe5545a85b268d6f5fe6232de2bc
 # pip parso @ https://files.pythonhosted.org/packages/16/32/f8e3c85d1d5250232a5d3477a2a28cc291968ff175caeadaf3cc19ce0e4a/parso-0.8.5-py2.py3-none-any.whl#sha256=646204b5ee239c396d040b90f9e272e9a8017c630092bf59980beb62fd033887
 # pip pillow @ https://files.pythonhosted.org/packages/fd/e0/ed960067543d080691d47d6938ebccbf3976a931c9567ab2fbfab983a5dd/pillow-12.0.0-cp312-cp312-macosx_11_0_arm64.whl#sha256=71db6b4c1653045dacc1585c1b0d184004f0d7e694c7b34ac165ca70c0838082
 # pip prometheus-client @ https://files.pythonhosted.org/packages/b8/db/14bafcb4af2139e046d03fd00dea7873e48eafe18b7d2797e73d6681f210/prometheus_client-0.23.1-py3-none-any.whl#sha256=dd1913e6e76b59cfe44e7a4b83e01afc9873c1bdfd2ed8739f1e76aeca115f99
-# pip protobuf @ https://files.pythonhosted.org/packages/e1/a9/b6eee662a6951b9c3640e8e452ab3e09f117d99fc10baa32d1581a0d4099/protobuf-6.33.0-cp39-abi3-macosx_10_9_universal2.whl#sha256=905b07a65f1a4b72412314082c7dbfae91a9e8b68a0cc1577515f8df58ecf455
+# pip protobuf @ https://files.pythonhosted.org/packages/cd/93/26213ff72b103ae55bb0d73e7fb91ea570ef407c3ab4fd2f1f27cac16044/protobuf-6.33.1-cp39-abi3-macosx_10_9_universal2.whl#sha256=fe34575f2bdde76ac429ec7b570235bf0c788883e70aee90068e9981806f2490
 # pip psutil @ https://files.pythonhosted.org/packages/68/3a/9f93cff5c025029a36d9a92fef47220ab4692ee7f2be0fba9f92813d0cb8/psutil-7.1.3-cp36-abi3-macosx_11_0_arm64.whl#sha256=bc31fa00f1fbc3c3802141eede66f3a2d51d89716a194bf2cd6fc68310a19880
 # pip ptyprocess @ https://files.pythonhosted.org/packages/22/a6/858897256d0deac81a172289110f31629fc4cee19b6f01283303e18c8db3/ptyprocess-0.7.0-py2.py3-none-any.whl#sha256=4b41f3967fce3af57cc7e94b888626c18bf37a083e3651ca8feeb66d492fef35
 # pip pure-eval @ https://files.pythonhosted.org/packages/8e/37/efad0257dc6e593a18957422533ff0f87ede7c9c6ea010a2177d738fb82f/pure_eval-0.2.3-py3-none-any.whl#sha256=1db8e35b67b3d218d818ae653e27f06c3aa420901fa7b081ca98cbedc874e0d0
@@ -132,7 +132,7 @@ https://conda.anaconda.org/conda-forge/noarch/conda-libmamba-solver-25.4.0-pyhd8
 # pip pytz @ https://files.pythonhosted.org/packages/81/c4/34e93fe5f5429d7570ec1fa436f1986fb1f00c3e0f43a589fe2bbcd22c3f/pytz-2025.2-py2.py3-none-any.whl#sha256=5ddf76296dd8c44c26eb8f4b6f35488f3ccbf6fbbd7adee0b7262d43f0ec2f00
 # pip pyyaml @ https://files.pythonhosted.org/packages/89/a0/6cf41a19a1f2f3feab0e9c0b74134aa2ce6849093d5517a0c550fe37a648/pyyaml-6.0.3-cp312-cp312-macosx_11_0_arm64.whl#sha256=fc09d0aa354569bc501d4e787133afc08552722d3ab34836a80547331bb5d4a0
 # pip rfc3986-validator @ https://files.pythonhosted.org/packages/9e/51/17023c0f8f1869d8806b979a2bffa3f861f26a3f1a66b094288323fba52f/rfc3986_validator-0.1.1-py2.py3-none-any.whl#sha256=2f235c432ef459970b4306369336b9d5dbdda31b510ca1e327636e01f528bfa9
-# pip rpds-py @ https://files.pythonhosted.org/packages/56/f9/a0f1ca194c50aa29895b442771f036a25b6c41a35e4f35b1a0ea713bedae/rpds_py-0.28.0-cp312-cp312-macosx_11_0_arm64.whl#sha256=d678e91b610c29c4b3d52a2c148b641df2b4676ffe47c59f6388d58b99cdc424
+# pip rpds-py @ https://files.pythonhosted.org/packages/3e/3a/46676277160f014ae95f24de53bed0e3b7ea66c235e7de0b9df7bd5d68ba/rpds_py-0.29.0-cp312-cp312-macosx_11_0_arm64.whl#sha256=3897924d3f9a0361472d884051f9a2460358f9a45b1d85a39a158d2f8f1ad71c
 # pip send2trash @ https://files.pythonhosted.org/packages/40/b0/4562db6223154aa4e22f939003cb92514c79f3d4dccca3444253fd17f902/Send2Trash-1.8.3-py3-none-any.whl#sha256=0c31227e0bd08961c7665474a3d1ef7193929fedda4233843689baa056be46c9
 # pip six @ https://files.pythonhosted.org/packages/b7/ce/149a00dd41f10bc29e5921b496af8b574d8413afcd5e30dfa0ed46c2cc5e/six-1.17.0-py2.py3-none-any.whl#sha256=4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274
 # pip smmap @ https://files.pythonhosted.org/packages/04/be/d09147ad1ec7934636ad912901c5fd7667e1c858e19d355237db0d0cd5e4/smmap-5.0.2-py3-none-any.whl#sha256=b30115f0def7d7531d22a0fb6502488d879e75b260a9db4d0819cfb25403af5e
@@ -197,12 +197,12 @@ https://conda.anaconda.org/conda-forge/noarch/conda-libmamba-solver-25.4.0-pyhd8
 # pip pipreqs @ https://files.pythonhosted.org/packages/d9/ea/74c89d786cf3403bfbf8fb70142fdf501af9517d0bb8c1acce3ee5ab613e/pipreqs-0.4.13-py2.py3-none-any.whl#sha256=e522b9ed54aa3e8b7978ff251ab7a9af2f75d2cd8de4c102e881b666a79a308e
 # pip pydantic @ https://files.pythonhosted.org/packages/82/2f/e68750da9b04856e2a7ec56fc6f034a5a79775e9b9a81882252789873798/pydantic-2.12.4-py3-none-any.whl#sha256=92d3d202a745d46f9be6df459ac5a064fdaa3c1c4cd8adcfa332ccf3c05f871e
 # pip pydeck @ https://files.pythonhosted.org/packages/ab/4c/b888e6cf58bd9db9c93f40d1c6be8283ff49d88919231afe93a6bcf61626/pydeck-0.9.1-py2.py3-none-any.whl#sha256=b3f75ba0d273fc917094fa61224f3f6076ca8752b93d46faf3bcfd9f9d59b038
-# pip anthropic @ https://files.pythonhosted.org/packages/7b/b7/160d4fb30080395b4143f1d1a4f6c646ba9105561108d2a434b606c03579/anthropic-0.72.0-py3-none-any.whl#sha256=0e9f5a7582f038cab8efbb4c959e49ef654a56bfc7ba2da51b5a7b8a84de2e4d
-# pip google-genai @ https://files.pythonhosted.org/packages/d5/d3/84a152746dc7bdebb8ba0fd7d6157263044acd1d14b2a53e8df4a307b6b7/google_genai-1.49.0-py3-none-any.whl#sha256=ad49cd5be5b63397069e7aef9a4fe0a84cbdf25fcd93408e795292308db4ef32
+# pip anthropic @ https://files.pythonhosted.org/packages/61/27/8c404b290ec650e634eacc674df943913722ec21097b0476d68458250c2f/anthropic-0.74.0-py3-none-any.whl#sha256=df29b8dfcdbd2751fa31177f643d8d8f66c5315fe06bdc42f9139e9f00d181d5
+# pip google-genai @ https://files.pythonhosted.org/packages/c6/28/0185dcda66f1994171067cfdb0e44a166450239d5b11b3a8a281dd2da459/google_genai-1.51.0-py3-none-any.whl#sha256=bfb7d0c6ba48ba9bda539f0d5e69dad827d8735a8b1e4703bafa0a2945d293e1
 # pip ipykernel @ https://files.pythonhosted.org/packages/a3/17/20c2552266728ceba271967b87919664ecc0e33efca29c3efc6baf88c5f9/ipykernel-7.1.0-py3-none-any.whl#sha256=763b5ec6c5b7776f6a8d7ce09b267693b4e5ce75cb50ae696aaefb3c85e1ea4c
 # pip ipywidgets @ https://files.pythonhosted.org/packages/56/6d/0d9848617b9f753b87f214f1c682592f7ca42de085f564352f10f0843026/ipywidgets-8.1.8-py3-none-any.whl#sha256=ecaca67aed704a338f88f67b1181b58f821ab5dc89c1f0f5ef99db43c1c2921e
 # pip isoduration @ https://files.pythonhosted.org/packages/7b/55/e5326141505c5d5e34c5e0935d2908a74e4561eca44108fbfb9c13d2911a/isoduration-20.11.0-py3-none-any.whl#sha256=b2904c2a4228c3d44f409c8ae8e2370eb21a26f7ac2ec5446df141dde3452042
-# pip openai @ https://files.pythonhosted.org/packages/8c/74/6bfc3adc81f6c2cea4439f2a734c40e3a420703bbcdc539890096a732bbd/openai-2.7.1-py3-none-any.whl#sha256=2f2530354d94c59c614645a4662b9dab0a5b881c5cd767a8587398feac0c9021
+# pip openai @ https://files.pythonhosted.org/packages/55/4f/dbc0c124c40cb390508a82770fb9f6e3ed162560181a85089191a851c59a/openai-2.8.1-py3-none-any.whl#sha256=c6c3b5a04994734386e8dad3c00a393f56d3b68a27cd2e8acae91a59e4122463
 # pip ipympl @ https://files.pythonhosted.org/packages/b2/6e/9148bfed8ca535e4c61ce7843327c76ec7c63c40e33848ec03aa844a26af/ipympl-0.9.8-py3-none-any.whl#sha256=4a03612f77d92c9e2160c9e0d2a80b277e30387126399088f780dba9622247be
 # pip jsonschema @ https://files.pythonhosted.org/packages/bf/9c/8c95d856233c1f82500c2450b8c68576b4cf1c871db3afac5c34ff84e6fd/jsonschema-4.25.1-py3-none-any.whl#sha256=3fba0169e345c7175110351d456342c364814cfcf3b964ba4587f22915230a63
 # pip altair @ https://files.pythonhosted.org/packages/aa/f3/0b6ced594e51cc95d8c1fc1640d3623770d01e4969d29c0bd09945fafefa/altair-5.5.0-py3-none-any.whl#sha256=91a310b926508d560fe0148d02a194f38b824122641ef528113d029fcd129f8c
@@ -216,5 +216,5 @@ https://conda.anaconda.org/conda-forge/noarch/conda-libmamba-solver-25.4.0-pyhd8
 # pip jupyterlab-server @ https://files.pythonhosted.org/packages/e0/07/a000fe835f76b7e1143242ab1122e6362ef1c03f23f83a045c38859c2ae0/jupyterlab_server-2.28.0-py3-none-any.whl#sha256=e4355b148fdcf34d312bbbc80f22467d6d20460e8b8736bf235577dd18506968
 # pip notebook-shim @ https://files.pythonhosted.org/packages/f9/33/bd5b9137445ea4b680023eb0469b2bb969d61303dedb2aac6560ff3d14a1/notebook_shim-0.2.4-py3-none-any.whl#sha256=411a5be4e9dc882a074ccbcae671eda64cceb068767e9a3419096986560e1cef
 # pip jupyterlab @ https://files.pythonhosted.org/packages/53/38/6182d63f39428821e705e86fba61704fc69769a24ca5a9578c2c04986c9a/jupyterlab-4.4.6-py3-none-any.whl#sha256=e877e930f46dde2e3ee9da36a935c6cd4fdb15aa7440519d0fde696f9fadb833
-# pip mito-ai @ https://files.pythonhosted.org/packages/ab/f2/6a177308b72ed176cab5255fe2d626c0fac0489208f4eafe00880dcc59b1/mito_ai-0.1.49-py3-none-any.whl#sha256=498ee6dc55c3fcef7ae828a08a71d04f8073f2b52fd1b7103f252b3b27940fd5
-# pip mitosheet @ https://files.pythonhosted.org/packages/ac/7b/d7b8353f2c1369fcbc35ce75f45e2293fcfb38626e30cb741dc24741d403/mitosheet-0.2.49-py2.py3-none-any.whl#sha256=db1614b0ae8a31fae38f22bd6f9f3258584dbd0dce2596f1006c6eb2ba3783bc
+# pip mito-ai @ https://files.pythonhosted.org/packages/94/68/f172cbe5d05583108cb5fc4bc6ce6ccc93efeb934ebfa74e5f2297db8b55/mito_ai-0.1.52-py3-none-any.whl#sha256=753463c16ecf7835da4c92c2e01f26b107bb25486526bdaae7aae0dcd94ccd8f
+# pip mitosheet @ https://files.pythonhosted.org/packages/e9/c8/a8681ed1e280d797627b2e983427f2c17230afa2bfb4451c62ccbcf0deac/mitosheet-0.2.52-py2.py3-none-any.whl#sha256=07afd53061e01a6b3b5b44d99cb09c822f9ca7fb4a42e787e6e2f921b7593445
