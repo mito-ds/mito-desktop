@@ -72,9 +72,9 @@ lib/libcrypto.3.dylib
 lib/libcurl.4.dylib
 lib/libedit.0.dylib
 lib/libev.4.dylib
-lib/libexpat.1.10.2.dylib
+lib/libexpat.1.11.1.dylib
 lib/libffi.8.dylib
-lib/libfmt.11.2.0.dylib
+lib/libfmt.12.0.0.dylib
 lib/libform.6.dylib
 lib/libformw.6.dylib
 lib/libgssapi_krb5.2.2.dylib
@@ -97,7 +97,7 @@ lib/libkrb5support.1.1.dylib
 lib/liblz4.1.10.0.dylib
 lib/liblzma.5.dylib
 lib/liblzo2.2.0.0.dylib
-lib/libmamba.4.0.1.dylib
+lib/libmamba.4.1.1.dylib
 lib/libmenu.6.dylib
 lib/libmenuw.6.dylib
 lib/libncurses.6.dylib
@@ -112,7 +112,7 @@ lib/libreproc.14.2.4.dylib
 lib/libsimdjson.27.0.0.dylib
 lib/libsolv.1.dylib
 lib/libsolvext.1.dylib
-lib/libsqlite3.3.50.4.dylib
+lib/libsqlite3.3.51.0.dylib
 lib/libssh2.1.0.1.dylib
 lib/libssl.3.dylib
 lib/libtcl8.6.dylib
@@ -212,7 +212,7 @@ lib/python3.12/site-packages/PIL/.dylibs/libharfbuzz.0.dylib
 lib/python3.12/site-packages/PIL/.dylibs/libjpeg.62.4.0.dylib
 lib/python3.12/site-packages/PIL/.dylibs/liblcms2.2.dylib
 lib/python3.12/site-packages/PIL/.dylibs/liblzma.5.dylib
-lib/python3.12/site-packages/PIL/.dylibs/libopenjp2.2.5.3.dylib
+lib/python3.12/site-packages/PIL/.dylibs/libopenjp2.2.5.4.dylib
 lib/python3.12/site-packages/PIL/.dylibs/libpng16.16.dylib
 lib/python3.12/site-packages/PIL/.dylibs/libsharpyuv.0.dylib
 lib/python3.12/site-packages/PIL/.dylibs/libtiff.6.dylib
@@ -349,7 +349,6 @@ lib/python3.12/site-packages/pandas/_libs/window/indexers.cpython-312-darwin.so
 lib/python3.12/site-packages/pandas/_libs/writers.cpython-312-darwin.so
 lib/python3.12/site-packages/pkg_resources/tests/data/my-test-package_zipped-egg/my_test_package-1.0-py3.7.egg
 lib/python3.12/site-packages/psutil/_psutil_osx.abi3.so
-lib/python3.12/site-packages/psutil/_psutil_posix.abi3.so
 lib/python3.12/site-packages/pyarrow/_acero.cpython-312-darwin.so
 lib/python3.12/site-packages/pyarrow/_azurefs.cpython-312-darwin.so
 lib/python3.12/site-packages/pyarrow/_compute.cpython-312-darwin.so
