@@ -7,7 +7,7 @@ if env.get("CHECKING_MITO_STACK", "0") != "1":
     env["CHECKING_MITO_STACK"] = "1"
     try:
         # This will raise CalledProcessError if mitosheet is not installed
-        subprocess.check_output(["uv", "pip", "show", "mitosheet"], env=env, stderr=subprocess.DEVNULL)
+        subprocess.check_output(["uv", "pip", "show", "--system", "mitosheet"], env=env, stderr=subprocess.DEVNULL)
         # We could also check the output to verify version if needed
     except subprocess.CalledProcessError:
         try:
@@ -19,6 +19,7 @@ if env.get("CHECKING_MITO_STACK", "0") != "1":
                     "pip",
                     "install",
                     "--no-config",
+                    "--system",  # Required for conda environments which uv doesn't recognize as venvs
                     # "--quiet",  # Uncomment to silence uv logs
                     "mito-ai",
                     "mitosheet",
