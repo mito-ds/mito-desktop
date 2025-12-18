@@ -187,8 +187,23 @@ if (cli.flags.updateBinarySignList) {
 if (cli.flags.copyExtrasToBundledEnv) {
   const envExtrasDir = path.resolve('env_installer', 'extras');
   const envInstallerDir = path.resolve('env_installer', 'jlab_server');
-
   fs.copySync(envExtrasDir, envInstallerDir, { recursive: true });
+
+  // sitecustomize.py must be copied in site-packages folder that is os-dependent
+  const siteCustomize = path.resolve('env_installer', 'sitecustomize.py');
+  if (fs.existsSync(siteCustomize)) {
+    const target = fs.globSync(envInstallerDir + '/**/site-packages')[0];
+    if (target) {
+      fs.copySync(
+        siteCustomize,
+        path.join(target, 'sitecustomize.py')
+      );
+    } else {
+      console.warn(
+        `Warning: could not find site-packages folder to copy sitecustomize.py`
+      );
+    }
+  }
 
   console.log(
     `Finished copying env extras from \n\t"${envExtrasDir}" to \n\t"${envInstallerDir}"`
