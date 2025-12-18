@@ -2,6 +2,11 @@ import os
 import subprocess
 import sys
 
+
+# This scripts is used to install the missing mito packages into the system environment.
+# It is called by the JupyterLab Desktop Server installer. The build step copies this 
+# script into the env_installer/jlab_server/.../site-packages/ so it only runs 
+# when this bundled environment is used, not the users's system python or other environments.
 env = os.environ.copy()
 if env.get("CHECKING_MITO_STACK", "0") != "1":
     env["CHECKING_MITO_STACK"] = "1"
