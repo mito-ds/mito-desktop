@@ -33,5 +33,12 @@ if env.get("CHECKING_MITO_STACK", "0") != "1":
                 check=True,
                 env=env
             )
+        except (FileNotFoundError, OSError) as e:
+            # sitecustomize.py runs on every Python startup; if `uv` is not available,
+            # we must not crash the interpreter.
+            print(f"Skipping mito package install because `uv` is not available: {e}", file=sys.stderr)
         except subprocess.CalledProcessError as e:
             print(f"An error occurred while installing packages: {e}", file=sys.stderr)
+    except (FileNotFoundError, OSError) as e:
+        # `uv` missing or not executable (e.g. not on PATH). Fail gracefully.
+        print(f"Skipping mito package check because `uv` is not available: {e}", file=sys.stderr)
